@@ -132,16 +132,22 @@
 
     <!-- PAINT BUCKETS -->
     <div class="color-legend">
-      <div class="leg-title" data-i18n="colorToolTitle">颜色</div>
-      <button class="bucket active" id="bucketAccept" onclick="setPaint(1)">
-        <span class="leg-swatch l2p"></span> <span data-i18n="acceptable">愿意被触碰</span>
+      <button class="toolbar-action back-intents" onclick="backToIntentSelection()">
+        <span data-i18n="backToIntentPrefix">返回</span><strong data-i18n="intentSelectionNoun">意图选择</strong>
       </button>
-      <button class="bucket" id="bucketReject" onclick="setPaint(-1)">
-        <span class="leg-swatch l2n"></span> <span data-i18n="unacceptable">不愿意被触碰</span>
-      </button>
-      <div class="leg-item"><span class="leg-swatch l0"></span> <span data-i18n="neutral">未标记</span></div>
-      <div class="current-tool" id="currentTool"></div>
-      <div class="tool-hint" data-i18n="colorHint">同色再次点击可取消；切换另一种颜色可覆盖。</div>
+      <div class="color-controls">
+        <div class="leg-title" data-i18n="colorToolTitle">颜色</div>
+        <button class="bucket active" id="bucketAccept" onclick="setPaint(1)">
+          <span class="leg-swatch l2p"></span> <span data-i18n="acceptable">愿意被触碰</span>
+        </button>
+        <button class="bucket" id="bucketReject" onclick="setPaint(-1)">
+          <span class="leg-swatch l2n"></span> <span data-i18n="unacceptable">不愿意被触碰</span>
+        </button>
+        <div class="leg-item"><span class="leg-swatch l0"></span> <span data-i18n="neutral">未标记</span></div>
+        <div class="current-tool" id="currentTool"></div>
+        <div class="tool-hint" data-i18n="colorHint">同色再次点击可取消；切换另一种颜色可覆盖。</div>
+      </div>
+      <button class="toolbar-action reset-map" onclick="resetCur()" data-i18n="resetCurrent">↺ 重置当前地图</button>
     </div>
 
     <div class="maps-row">
@@ -163,10 +169,6 @@
       <span class="counter" id="counter"></span>
       <button class="btn btn-p" id="btnNext" onclick="next()"></button>
       <button class="btn btn-e" id="btnDone" style="display:none" onclick="done()"></button>
-    </div>
-    <div class="nav nav-secondary">
-      <button class="btn btn-s" onclick="backToIntentSelection()" data-i18n="backToIntentSelection">返回意图选择</button>
-      <button class="btn btn-warn" onclick="resetCur()" data-i18n="resetCurrent">↺ 重置当前地图</button>
     </div>
   </div>
 
@@ -201,6 +203,7 @@
   <div class="region-tooltip" id="tooltip"></div>
 
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="app.js"></script>
 </body>
