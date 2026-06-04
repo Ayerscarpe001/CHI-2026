@@ -5,6 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Social Touch Acceptability Survey — RQ1</title>
 <link rel="stylesheet" href="styles.css">
+
+<style id="compact-v6-overrides">
+  .map-heading { display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center; margin-bottom:10px; }
+  .map-heading .step-title { margin-bottom:0; white-space:nowrap; }
+  .map-heading .intent-context { background:transparent; border:none; border-radius:0; padding:0; margin:0; min-width:0; }
+  .map-heading .intent-name { display:inline; font-size:0.92rem; font-weight:700; margin-right:10px; }
+  .map-heading .intent-desc { display:inline; color:#999; font-size:0.78rem; line-height:1.35; }
+  .color-legend { display:grid; grid-template-columns:minmax(130px, auto) 1fr minmax(130px, auto); align-items:center; gap:12px; padding:0; margin:4px auto 10px; max-width:860px; background:transparent; border:none; border-radius:0; }
+  .color-controls { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; }
+  .color-controls .leg-item { display:flex; align-items:center; gap:8px; font-size:0.7rem; color:var(--dim); }
+  .color-controls .leg-swatch { width:16px; height:16px; border-radius:3px; flex-shrink:0; }
+  .color-controls .bucket { display:flex; align-items:center; gap:9px; background:#101010; border:2px solid var(--border); color:var(--text); border-radius:8px; padding:9px 10px; cursor:pointer; font-size:0.74rem; }
+  .color-controls .bucket.active { border-color:#fff; box-shadow:0 0 0 2px rgba(255,255,255,0.08); }
+  .color-controls .leg-swatch.l2p { background:rgba(22,163,74,0.76); }
+  .color-controls .leg-swatch.l0 { background:#181818; border:1px solid #444; }
+  .color-controls .leg-swatch.l2n { background:rgba(220,38,38,0.72); }
+  .color-controls .leg-title { font-size:0.75rem; font-weight:600; color:var(--text); margin-right:4px; }
+  .tool-status { flex-basis:100%; display:flex; justify-content:center; gap:6px; flex-wrap:wrap; text-align:center; font-size:0.68rem; color:var(--dim); line-height:1.25; }
+  .tool-status .current-tool { flex-basis:auto; text-align:inherit; font-size:inherit; color:#bbb; }
+  .status-dot { color:#555; }
+  @media (max-width:760px) { .map-heading { grid-template-columns:1fr; gap:6px; } .map-heading .step-title { white-space:normal; } .color-legend { grid-template-columns:1fr; padding:8px 10px; max-width:520px; } }
+</style>
 </head>
 <body>
 <div class="container">
@@ -105,11 +127,12 @@
   <!-- STEP 3                                                            -->
   <!-- ================================================================ -->
   <div class="step" id="s2">
-    <div class="step-title" data-i18n="mapTitle">身体地图标注</div>
-    <div class="step-desc" data-i18n="mapDesc">请为当前社交意图标注你是否愿意被机器人触碰各身体区域。</div>
-    <div class="intent-context">
-      <div class="intent-name" id="mapIntentName"></div>
-      <div class="intent-desc" id="mapIntentDesc"></div>
+    <div class="map-heading">
+      <div class="step-title" data-i18n="mapTitle">身体地图标注</div>
+      <div class="intent-context">
+        <span class="intent-name" id="mapIntentName"></span>
+        <span class="intent-desc" id="mapIntentDesc"></span>
+      </div>
     </div>
 
     <!-- PAINT BUCKETS -->
@@ -125,9 +148,12 @@
         <button class="bucket" id="bucketReject" onclick="setPaint(-1)">
           <span class="leg-swatch l2n"></span> <span data-i18n="unacceptable">不愿意被触碰</span>
         </button>
-        <div class="leg-item"><span class="leg-swatch l0"></span> <span data-i18n="neutral">未标记</span></div>
-        <div class="current-tool" id="currentTool"></div>
-        <div class="tool-hint" data-i18n="colorHint">同色再次点击可取消；切换另一种颜色可覆盖。</div>
+        <div class="leg-item"><span class="leg-swatch l0"></span> <span data-i18n="neutral">无意向</span></div>
+        <div class="tool-status">
+          <span class="current-tool" id="currentTool"></span>
+          <span class="status-dot">·</span>
+          <span data-i18n="colorHint">同色再次点击可取消；切换另一种颜色可覆盖。</span>
+        </div>
       </div>
       <button class="toolbar-action reset-map" onclick="resetCur()" data-i18n="resetCurrent">↺ 重置当前地图</button>
     </div>
@@ -188,5 +214,29 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="app.js"></script>
+<script id="compact-v6-patch">
+(function () {
+  function patchLabels() {
+    if (typeof I18N !== "undefined") {
+      I18N.zh.neutral = "无意向";
+      I18N.zh.neutralCount = "无意向";
+      I18N.en.neutral = "Neutral";
+      I18N.en.neutralCount = "Neutral";
+    }
+    if (typeof buildSurveyPayload === "function" && !window.__v6PayloadPatched) {
+      const originalBuildSurveyPayload = buildSurveyPayload;
+      buildSurveyPayload = function () {
+        const payload = originalBuildSurveyPayload();
+        payload.metadata = payload.metadata || {};
+        payload.metadata.source = "bodymap_questionnaire_v6_static_html";
+        return payload;
+      };
+      window.__v6PayloadPatched = true;
+    }
+    if (typeof setLang === "function" && typeof lang !== "undefined") setLang(lang);
+  }
+  patchLabels();
+})();
+</script>
 </body>
 </html>
