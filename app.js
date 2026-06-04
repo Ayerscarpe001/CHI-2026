@@ -479,7 +479,7 @@ function drawSVG(svgId, regions, outlinePath) {
 
       // Events
       shape.addEventListener("mouseenter", (e) => {
-        showTT(r.label, e);
+        showTT(r.label, e, isTouchLikeInput(e));
         if (r.polyR) highlightPair(svgId, r.id, true);
       });
       shape.addEventListener("mouseleave", () => {
@@ -496,6 +496,7 @@ function drawSVG(svgId, regions, outlinePath) {
         e.preventDefault();
         cur[r.id] = (cur[r.id] === paint) ? 0 : paint;
         updCol();
+        if (isTouchLikeInput(e)) showTT(r.label, e, true);
       });
 
       svg.appendChild(shape);
@@ -552,14 +553,30 @@ function updCol() {
 // ============================================================
 // TOOLTIP  (minimal: just the label as-is from region definition)
 // ============================================================
-function showTT(text, e) {
+let tooltipTimer = null;
+function isTouchLikeInput(e) {
+  return e?.pointerType === "touch" ||
+    e?.type?.startsWith("touch") ||
+    window.matchMedia?.("(hover: none), (pointer: coarse)").matches;
+}
+function scheduleTooltipHide(delay = 900) {
+  clearTimeout(tooltipTimer);
+  tooltipTimer = setTimeout(hideTT, delay);
+}
+function showTT(text, e, autoHide = false) {
+  clearTimeout(tooltipTimer);
   const tt = document.getElementById("tooltip");
   tt.textContent = text;
   tt.style.display = "block";
   tt.style.left = (e.clientX + 14) + "px";
   tt.style.top = (e.clientY - 30) + "px";
+  if (autoHide) scheduleTooltipHide();
 }
-function hideTT() { document.getElementById("tooltip").style.display = "none"; }
+function hideTT() {
+  clearTimeout(tooltipTimer);
+  document.getElementById("tooltip").style.display = "none";
+}
+window.addEventListener("scroll", hideTT, { passive: true });
 
 // ============================================================
 // NAVIGATION
