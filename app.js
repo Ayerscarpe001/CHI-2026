@@ -52,15 +52,14 @@ const I18N = {
     countryOther:"其他",
     infoError:"请完整填写有效年龄、性别和国籍后继续。",
     intentTitle:"社交意图选择",
-    intentDesc:"以下列出 10 类社交意图。请选择你认为机器人可以通过身体接触向人传达的意图。",
+    intentDesc:"以下列出 16 类社交意图。请选择你认为机器人可以通过身体接触向人传达的意图。",
     selectAll:"全选",
     clearAll:"清空",
     mapTitle:"身体地图标注",
-    mapDesc:"请为当前社交意图标注你是否愿意被机器人触碰各身体区域。",
     colorToolTitle:"颜色",
     acceptable:"愿意被触碰",
     unacceptable:"不愿意被触碰",
-    neutral:"未标记",
+    neutral:"无意向",
     colorHint:"同色再次点击可取消；切换另一种颜色可覆盖。",
     currentAcceptable:"当前：愿意被触碰",
     currentUnacceptable:"当前：不愿意被触碰",
@@ -83,7 +82,7 @@ const I18N = {
     progressStatus:"提交状态",
     acceptCount:"愿意",
     rejectCount:"不愿意",
-    neutralCount:"中立",
+    neutralCount:"无意向",
     resultSubmitted:"已提交",
     resultError:"提交错误",
     submitLoading:"提交中...",
@@ -136,15 +135,14 @@ const I18N = {
     countryOther:"Other",
     infoError:"Please complete a valid age, gender, and nationality before continuing.",
     intentTitle:"Social Intents",
-    intentDesc:"Select all social intents that you believe a robot should be allowed to convey through physical touch.",
+    intentDesc:"The following list contains 16 social intents. Select all intents that you believe a robot should be allowed to convey through physical touch.",
     selectAll:"Select all",
     clearAll:"Clear all",
     mapTitle:"Body Map",
-    mapDesc:"For the current social intent, mark whether you are willing to be touched by the robot on each body region.",
     colorToolTitle:"Color",
     acceptable:"Acceptable",
     unacceptable:"Unacceptable",
-    neutral:"Unmarked",
+    neutral:"Neutral",
     colorHint:"Click the same color again to clear a region; switching color overwrites the previous mark.",
     currentAcceptable:"Current: Acceptable",
     currentUnacceptable:"Current: Unacceptable",
@@ -242,16 +240,22 @@ function setLang(nextLang) {
 // INTENTS
 // ============================================================
 const INTENTS = [
-  { id:"affection", zh:"亲昵/喜爱", en:"Affection", desc:{ zh:"表达温暖、喜爱或亲近感。", en:"Expressing warmth, fondness, or closeness." } },
-  { id:"comfort", zh:"安慰/安抚", en:"Comfort", desc:{ zh:"在压力、悲伤或不安时提供情感支持与安抚。", en:"Providing emotional support and reassurance during distress." } },
-  { id:"salutation", zh:"问候/致意", en:"Salutation", desc:{ zh:"在相遇、离开或建立互动时表达礼貌性社交连接。", en:"Marking greeting, departure, or polite social connection." } },
-  { id:"appreciation", zh:"欣赏/赞扬", en:"Appreciation", desc:{ zh:"表达认可、赞赏或对他人表现的积极评价。", en:"Expressing recognition, praise, or positive evaluation." } },
-  { id:"encouragement", zh:"鼓励/激励", en:"Encouragement", desc:{ zh:"帮助对方建立信心、继续行动或面对挑战。", en:"Supporting confidence, persistence, or coping with challenges." } },
-  { id:"inclusion", zh:"归属/团结", en:"Inclusion", desc:{ zh:"表达共同体感、团结感或“你属于这里”的信号。", en:"Signaling togetherness, belonging, or group inclusion." } },
-  { id:"emphasis", zh:"强调/获取注意", en:"Emphasis", desc:{ zh:"突出正在发生的交流内容，或引导对方注意。", en:"Highlighting communication or directing attention." } },
-  { id:"gratitude", zh:"感谢/感激", en:"Gratitude", desc:{ zh:"表达感谢、感激或对他人帮助的正向回应。", en:"Expressing thanks, gratitude, or positive response to help." } },
-  { id:"playful", zh:"嬉戏/玩闹", en:"Playful", desc:{ zh:"表达轻松、幽默、亲切的玩笑式互动氛围。", en:"Expressing lighthearted, humorous, or playful interaction." } },
-  { id:"dominance", zh:"支配/权力展示", en:"Dominance", desc:{ zh:"表达权威、控制、地位差异或使对方服从的意图。", en:"Expressing authority, control, status difference, or compliance pressure." } },
+  { id:"comfort", zh:"安慰", en:"Comfort", desc:{ zh:"在接收者悲伤、压力、焦虑或脆弱时，通过触碰传达关心、安抚和情感支持，使其感到被理解和被支持。", en:"Touch intended to convey care, soothing, and emotional support when the recipient is sad, stressed, anxious, or vulnerable, helping them feel understood and supported." } },
+  { id:"calming", zh:"冷静", en:"Calming", desc:{ zh:"在接收者紧张、激动、害怕或高唤醒时，通过触碰帮助其平复情绪、降低紧张并恢复稳定。", en:"Touch intended to help the recipient settle down, reduce tension, and regain emotional stability when they are tense, agitated, afraid, or highly aroused." } },
+  { id:"affection", zh:"亲近", en:"Affection", desc:{ zh:"通过触碰表达喜爱、亲近、温柔、依赖、信任或情感上的亲密感。", en:"Touch intended to express fondness, closeness, tenderness, attachment, trust, or emotional affection." } },
+  { id:"salutation", zh:"问候", en:"Salutation", desc:{ zh:"在互动开始或结束时，通过触碰表达欢迎、问候、告别或礼貌性确认。", en:"Touch intended to mark the beginning or ending of an interaction by conveying greeting, farewell, welcome, or polite acknowledgment." } },
+  { id:"appreciation", zh:"赞赏", en:"Appreciation", desc:{ zh:"在接收者表现出值得肯定的行为、能力或成果后，通过触碰表达认可、肯定和赞许。", en:"Touch intended to express recognition, approval, or praise after the recipient has shown a valued action, ability, or achievement." } },
+  { id:"gratitude", zh:"感谢", en:"Gratitude", desc:{ zh:"在接收者帮助了发起者或做出有益行为后，通过触碰表达谢意。", en:"Touch intended to express thanks after the recipient has helped the initiator or done something beneficial." } },
+  { id:"encouragement", zh:"鼓励", en:"Encouragement", desc:{ zh:"在接收者面临压力、挑战、不确定或缺乏信心时，通过触碰传达支持和信心，鼓励其继续行动。", en:"Touch intended to convey support and confidence when the recipient faces pressure, challenge, uncertainty, or self-doubt, encouraging them to continue." } },
+  { id:"inclusion", zh:"同在", en:"Inclusion", desc:{ zh:"在接收者感到孤单、疏离或需要陪伴时，通过触碰表达“我在这里”，传达共同存在感或被纳入同一群体中的归属感。", en:"Touch intended to convey “We are together,” shared presence, belonging, or being included in the same group or relationship, especially when the recipient feels alone, distant, or in need of acceptance." } },
+  { id:"playful", zh:"嬉戏", en:"Playful", desc:{ zh:"在接收者处于轻松或可玩笑的状态时，通过触碰表达玩笑、调皮、逗趣或轻松互动。", en:"Touch intended to express joking, teasing, playfulness, or lighthearted interaction when the recipient is in a relaxed or playful state." } },
+  { id:"attention_getting", zh:"引起注意", en:"Attention-getting", desc:{ zh:"在接收者分心、忽略、忙于他事而未注意，或需要更加关注某事时，通过触碰改变其注意焦点或强调信息的重要性。", en:"Touch intended to redirect or heighten the recipient’s attention when they are distracted, have overlooked something, are occupied with something else, or need to pay closer attention." } },
+  { id:"guidance", zh:"引导", en:"Guidance", desc:{ zh:"在接收者需要协助或调整动作、方向和行为时，通过触碰提供帮助与指引。", en:"Touch intended to guide the recipient’s action, direction, or movement when help or adjustment is needed." } },
+  { id:"request", zh:"请求", en:"Request", desc:{ zh:"在发起者需要接收者回应、确认、允许、帮助或采取某种行动时，通过触碰表达询问、请示或祈求。", en:"Touch intended to express inquiry, ask for permission, seek help, or request the recipient’s response, confirmation, or action when the initiator needs it." } },
+  { id:"apology", zh:"致歉", en:"Apology", desc:{ zh:"在发起者造成误解、冒犯、失误或让接收者不适后，通过触碰表达歉意、修复关系并请求谅解。", en:"Touch intended to express apology, repair the interaction, and seek forgiveness after the initiator has caused misunderstanding, offense, error, or discomfort." } },
+  { id:"refusal", zh:"拒绝", en:"Refusal", desc:{ zh:"在接收者靠近、请求或试图继续互动时，通过触碰表达不同意、保持距离或不愿继续当前互动。", en:"Touch intended to express disagreement, distance, or unwillingness to continue the current interaction when the recipient approaches, requests, or attempts to continue." } },
+  { id:"dominance", zh:"支配", en:"Dominance", desc:{ zh:"在接收者处于被动、抗拒或被控制的位置时，通过触碰展示权力、控制或要求服从。", en:"Touch intended to assert power, control, or demand compliance when the recipient is passive, resistant, or positioned as being controlled." } },
+  { id:"sexual_intent", zh:"性意图", en:"Sexual Intent", desc:{ zh:"通过触碰表达浪漫吸引、性兴趣或性意图。", en:"Touch intended to express romantic attraction, sexual interest, or sexual intent." } },
 ];
 
 // ============================================================
@@ -665,7 +669,13 @@ function normalizedBodyData() {
 function selectedIntentPayload() {
   return order.map(id => {
     const it = INTENTS.find(i => i.id === id);
-    return { id, zh:it.zh, en:it.en };
+    return {
+      id,
+      zh: it.zh,
+      en: it.en,
+      definition_zh: it.desc.zh,
+      definition_en: it.desc.en
+    };
   });
 }
 
@@ -679,7 +689,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "2.0",
+    study_version: "2.1",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -692,11 +702,13 @@ function buildSurveyPayload() {
     regions: regionsPayload(),
     metadata: {
       demographics,
+      intentPoolVersion: "意图池.xlsx / 2026-06-04 / 16 intents",
+      intentCount: INTENTS.length,
       nationalityName: nationalityCode ? countryName(nationalityCode) : null,
       bodyMapProfile: currentBodyProfile(),
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
-      source: "bodymap_questionnaire_v5_static_html"
+      source: "bodymap_questionnaire_v8_static_html"
     }
   };
 }
