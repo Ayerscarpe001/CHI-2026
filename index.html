@@ -173,7 +173,6 @@
 
   <!-- ================================================================ -->
   <!-- RESULT                                                            -->
-  <!-- ================================================================ -->
   <div class="step" id="s4">
     <div class="result-panel" id="resultPanel">
       <div class="result-kicker" id="resultKicker"></div>
@@ -192,5 +191,46 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="app.js"></script>
+<script id="v10-interaction-patch">
+(function () {
+  if (typeof I18N !== "undefined") {
+    I18N.zh.nationalityLabel = "国家或地区";
+    I18N.en.nationalityLabel = "Country or Region";
+  }
+
+  let tooltipTimer = null;
+  isTouchLikeInput = function (e) {
+    return e?.pointerType === "touch" ||
+      e?.type?.startsWith("touch") ||
+      window.matchMedia?.("(hover: none), (pointer: coarse)").matches;
+  };
+  scheduleTooltipHide = function (delay = 900) {
+    clearTimeout(tooltipTimer);
+    tooltipTimer = setTimeout(() => hideTT(false), delay);
+  };
+  showTT = function (text, e, autoHide = false) {
+    clearTimeout(tooltipTimer);
+    const tt = document.getElementById("tooltip");
+    tt.textContent = text;
+    tt.style.left = (e.clientX + 14) + "px";
+    tt.style.top = (e.clientY - 30) + "px";
+    tt.classList.add("show");
+    if (autoHide) scheduleTooltipHide();
+  };
+  hideTT = function (immediate = true) {
+    clearTimeout(tooltipTimer);
+    const tt = document.getElementById("tooltip");
+    tt.classList.remove("show");
+    if (immediate) {
+      tt.style.transition = "none";
+      requestAnimationFrame(() => {
+        tt.style.transition = "";
+      });
+    }
+  };
+  window.addEventListener("scroll", hideTT, { passive: true });
+  if (typeof setLang === "function" && typeof lang !== "undefined") setLang(lang);
+})();
+</script>
 </body>
 </html>
