@@ -29,6 +29,17 @@
   .step.active { display: block; }
   .step-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
   .step-desc { color: var(--dim); font-size: 0.8rem; margin-bottom: 20px; }
+  .map-heading {
+    display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center;
+    margin-bottom:10px;
+  }
+  .map-heading .step-title { margin-bottom:0; white-space:nowrap; }
+  .map-heading .intent-context {
+    background:transparent; border:none; border-radius:0; padding:0; margin:0;
+    min-width:0;
+  }
+  .map-heading .intent-name { display:inline; font-size:0.92rem; font-weight:700; margin-right:10px; }
+  .map-heading .intent-desc { display:inline; color:#999; font-size:0.78rem; line-height:1.35; }
 
   .progress-wrap { margin-bottom: 24px; }
   .progress-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
@@ -53,18 +64,25 @@
   .field.invalid input, .field.invalid select { border-color:#ef4444; }
   .error-text { display:none; color:#fca5a5; font-size:0.74rem; margin-top:10px; }
   .error-text.show { display:block; }
-  .intent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 10px; }
+  .intent-grid {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 1fr; gap: 10px; align-items: stretch;
+  }
   .select-row { display:flex; gap:8px; justify-content:flex-end; margin-bottom:8px; }
   .select-row button { background:none; border:none; color:var(--accent); font-size:0.76rem; cursor:pointer; }
   .intent-card {
     background: var(--card); border: 2px solid var(--border); border-radius: var(--radius);
     padding: 14px 16px; cursor: pointer; transition: all 0.18s; user-select: none; position: relative;
+    display:flex; flex-direction:column; height:100%;
   }
   .intent-card:hover { border-color: #444; }
   .intent-card.sel { border-color: var(--accent); background: #111b2a; }
   .intent-card .name { font-size: 0.9rem; font-weight: 600; }
   .intent-card .en { display:block; font-size: 0.7rem; color: var(--dim); margin-top:2px; }
-  .intent-card .desc { font-size: 0.74rem; color:#999; margin-top:8px; line-height:1.35; padding-right:22px; }
+  .intent-card .desc {
+    font-size: 0.74rem; color:#999; margin-top:8px; line-height:1.35; padding-right:22px;
+    flex:1; display:flex; align-items:center;
+  }
   .intent-card .dot {
     position: absolute; top: 12px; right: 14px;
     width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border);
@@ -75,12 +93,6 @@
 
   /* ── STEP 2 ── */
   .badge { display:inline-block;background:var(--accent);color:var(--bg);font-size:0.78rem;font-weight:600;padding:4px 14px;border-radius:20px;margin-bottom:8px; }
-  .intent-context {
-    background:var(--card); border:1px solid var(--border); border-radius:8px;
-    padding:12px 14px; margin-bottom:14px;
-  }
-  .intent-context .intent-name { font-size:0.95rem; font-weight:700; margin-bottom:4px; }
-  .intent-context .intent-desc { color:#aaa; font-size:0.78rem; line-height:1.4; }
   .maps-row { display: flex; gap: 26px; justify-content: center; flex-wrap: wrap; align-items: flex-start; }
   .maps-row, .map-panel, .color-legend, .nav { user-select:none; -webkit-user-select:none; }
   .map-panel { text-align: center; }
@@ -89,9 +101,8 @@
   /* Paint tools */
   .color-legend {
     display:grid; grid-template-columns:minmax(130px, auto) 1fr minmax(130px, auto);
-    align-items:start; gap:12px;
-    background:rgba(20,20,20,0.82); border:1px solid var(--border); border-radius:10px;
-    padding:10px 12px; margin:8px auto 18px; max-width:860px;
+    align-items:center; gap:12px;
+    padding:0; margin:4px auto 10px; max-width:860px;
   }
   .color-controls { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; }
   .toolbar-action {
@@ -118,8 +129,12 @@
   .color-controls .leg-swatch.l0  { background:#181818; border:1px solid #444; }
   .color-controls .leg-swatch.l2n { background:rgba(220,38,38,0.72); }
   .color-controls .leg-title { font-size:0.75rem; font-weight:600; color:var(--text); margin-right:4px; }
-  .tool-hint { flex-basis:100%; text-align:center; font-size:0.66rem; color:var(--dim); line-height:1.25; }
-  .current-tool { flex-basis:100%; text-align:center; font-size:0.72rem; color:#bbb; }
+  .tool-status {
+    flex-basis:100%; display:flex; justify-content:center; gap:6px; flex-wrap:wrap;
+    text-align:center; font-size:0.68rem; color:var(--dim); line-height:1.25;
+  }
+  .current-tool { color:#bbb; }
+  .status-dot { color:#555; }
 
   /* SVG */
   .map-panel svg { cursor: pointer; }
@@ -168,8 +183,14 @@
   .result-panel.err .result-kicker { color:#ef4444; }
 
   @media (max-width: 760px) {
+    .map-heading { grid-template-columns:1fr; gap:6px; }
+    .map-heading .step-title { white-space:normal; }
     .maps-row { flex-direction:column; align-items:center; }
     .color-legend { grid-template-columns:1fr; padding:8px 10px; max-width:520px; }
     .toolbar-action { align-self:auto; }
     .intent-grid { grid-template-columns:1fr; }
+  }
+
+  @media (min-width: 761px) and (max-width: 980px) {
+    .intent-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
   }
