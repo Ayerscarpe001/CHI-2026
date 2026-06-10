@@ -28,7 +28,7 @@ const I18N = {
     ageLabel:"年龄",
     agePlaceholder:"请填写阿拉伯数字",
     genderLabel:"性别",
-    nationalityLabel:"国籍",
+    nationalityLabel:"国家或地区",
     selectOne:"请选择",
     genderFemale:"女性",
     genderMale:"男性",
@@ -63,6 +63,8 @@ const I18N = {
     colorHint:"同色再次点击可取消；切换另一种颜色可覆盖。",
     currentAcceptable:"当前：愿意被触碰",
     currentUnacceptable:"当前：不愿意被触碰",
+    bodyMapLoading:"正在加载身体地图...",
+    bodyMapLoadError:"身体地图加载失败，请刷新页面后重试。",
     backToIntentPrefix:"返回",
     intentSelectionNoun:"意图选择",
     resetCurrent:"↺ 重置当前地图",
@@ -111,7 +113,7 @@ const I18N = {
     ageLabel:"Age",
     agePlaceholder:"Enter numerals only",
     genderLabel:"Gender",
-    nationalityLabel:"Nationality",
+    nationalityLabel:"Country or Region",
     selectOne:"Select one",
     genderFemale:"Female",
     genderMale:"Male",
@@ -146,6 +148,8 @@ const I18N = {
     colorHint:"Click the same color again to clear a region; switching color overwrites the previous mark.",
     currentAcceptable:"Current: Acceptable",
     currentUnacceptable:"Current: Unacceptable",
+    bodyMapLoading:"Loading body map...",
+    bodyMapLoadError:"Body map failed to load. Please refresh and try again.",
     backToIntentPrefix:"Back to",
     intentSelectionNoun:"intent selection",
     resetCurrent:"↺ Reset current map",
@@ -259,103 +263,44 @@ const INTENTS = [
 ];
 
 // ============================================================
-// SVG BODY MAP — COORDINATE SYSTEM 220 × 540
+// 3D BODY MAP REGIONS
 // ============================================================
-// CRITICAL: large regions come first, smaller overlays come after
-// so they render on top when a replacement SVG uses layered regions.
-// Bilateral regions: clicking either side rates both sides.
-
-// --- FRONT regions (order matters: base → overlays) ---
-
-// Layer 1: Base regions
-const F_BASE = [
-  { id:"f_scalp",       label:"头顶 / Scalp",             poly:[[85,10],[137,10],[146,34],[80,34]] },
-  { id:"f_face",        label:"面部 / Face",               poly:[[76,36],[148,36],[150,72],[140,88],[82,88],[72,72]] },
-  { id:"f_neck",        label:"颈部 / Neck",              poly:[[84,88],[138,88],[138,104],[84,104]] },
-  { id:"f_shoulders",   label:"肩部 / Shoulders",         poly:[[46,108],[88,108],[88,124],[58,134],[44,130]],
-                                                          polyR:[[134,108],[176,108],[178,130],[164,134],[134,124]] },
-  { id:"f_upper_arms",  label:"上臂 / Upper Arms",        poly:[[22,130],[60,130],[58,186],[40,200],[18,189]],
-                                                          polyR:[[162,130],[200,130],[204,189],[182,200],[162,186]] },
-  { id:"f_forearms",    label:"前臂 / Forearms",          poly:[[20,192],[58,192],[56,244],[38,256],[14,246]],
-                                                          polyR:[[164,192],[202,192],[208,246],[184,256],[164,244]] },
-  { id:"f_palms",       label:"手掌 / Palms",             poly:[[18,248],[56,248],[54,272],[40,280],[12,272]],
-                                                          polyR:[[166,248],[204,248],[210,272],[182,280],[166,272]] },
-  { id:"f_fingers",     label:"手指 / Fingers",           poly:[[22,278],[48,278],[46,294],[34,300],[18,294]],
-                                                          polyR:[[174,278],[200,278],[204,294],[188,300],[174,294]] },
-  { id:"f_chest",       label:"胸部 / Chest",              poly:[[60,132],[162,132],[162,204],[132,218],[90,218],[60,204]] },
-  { id:"f_stomach",     label:"腹部 / Abdomen",            poly:[[64,208],[158,208],[158,286],[120,302],[102,302],[64,286]] },
-  { id:"f_private",     label:"私密区域 / Private Area",   poly:[[72,292],[150,292],[150,322],[112,330],[72,322]] },
-  { id:"f_thighs",      label:"大腿 / Thighs",             poly:[[54,326],[102,326],[102,420],[72,430],[46,424],[46,332]],
-                                                          polyR:[[120,326],[168,326],[176,424],[150,430],[120,420]] },
-  { id:"f_knees",       label:"膝盖 / Knees",             poly:[[50,426],[78,426],[76,446],[58,450],[44,446]],
-                                                          polyR:[[144,426],[172,426],[178,446],[164,450],[148,446]] },
-  { id:"f_calves",      label:"小腿 / Calves",             poly:[[44,450],[84,450],[84,490],[66,498],[38,492],[38,456]],
-                                                          polyR:[[148,450],[178,450],[184,490],[156,498],[138,492],[138,456]] },
-  { id:"f_feet",        label:"足部 / Feet",               poly:[[40,494],[74,494],[76,530],[58,538],[34,532],[36,500]],
-                                                          polyR:[[148,494],[182,494],[188,532],[164,538],[148,530]] },
-];
-
-function withRegionOverrides(base, overrides) {
-  return base.map(region => ({ ...region, ...(overrides[region.id] || {}) }));
-}
-
-const F_REGIONS_MALE = F_BASE;
-const F_REGIONS_FEMALE = withRegionOverrides(F_BASE, {
-  f_shoulders: {
-    poly:[[50,110],[88,110],[88,126],[60,134],[48,130]],
-    polyR:[[134,110],[172,110],[174,130],[162,134],[134,126]]
-  },
-  f_chest: { poly:[[62,132],[160,132],[156,204],[132,218],[90,218],[66,204]] },
-  f_stomach: { poly:[[70,208],[152,208],[148,286],[122,302],[100,302],[74,286]] },
-  f_private: { poly:[[70,292],[152,292],[154,322],[112,330],[68,322]] },
-  f_thighs: {
-    poly:[[50,326],[102,326],[102,420],[72,430],[44,424],[42,332]],
-    polyR:[[120,326],[172,326],[180,424],[150,430],[120,420]]
-  }
-});
-
-// --- BACK regions ---
-const B_BASE = [
-  { id:"b_head",           label:"后脑 / Back of Head",          poly:[[78,8],[144,8],[144,68],[78,68]] },
-  { id:"b_neck",           label:"后颈 / Back of Neck",          poly:[[90,72],[132,72],[132,106],[90,106]] },
-  { id:"b_rear_shoulders", label:"后肩部 / Rear Shoulders",      poly:[[50,112],[172,112],[172,180],[50,180]] },
-  { id:"b_back",           label:"背部 / Back",                  poly:[[54,186],[168,186],[168,290],[54,290]] },
-  { id:"b_buttocks",       label:"臀部 / Buttocks",              poly:[[56,296],[166,296],[166,346],[132,358],[90,358],[56,346]] },
-  { id:"b_thighs",         label:"大腿后侧 / Back of Thighs",    poly:[[48,352],[102,352],[102,450],[74,456],[44,450]],
-                                                                 polyR:[[120,352],[174,352],[178,450],[148,456],[120,450]] },
-  { id:"b_lower_legs",     label:"小腿+足部 / Calves & Feet",    poly:[[44,454],[86,454],[84,540],[62,542],[38,540],[40,460]],
-                                                                 polyR:[[138,454],[178,454],[184,540],[160,542],[138,540]] },
-];
-
-const B_REGIONS_MALE = B_BASE;
-const B_REGIONS_FEMALE = withRegionOverrides(B_BASE, {
-  b_rear_shoulders: { poly:[[54,112],[168,112],[168,180],[54,180]] },
-  b_back: { poly:[[60,186],[162,186],[158,290],[64,290]] },
-  b_buttocks: { poly:[[50,296],[172,296],[176,346],[134,360],[88,360],[46,346]] },
-  b_thighs: {
-    poly:[[44,352],[102,352],[102,450],[74,456],[40,450]],
-    polyR:[[120,352],[178,352],[182,450],[148,456],[120,450]]
-  }
-});
-
-// Combined metadata
+// These ids must match the mesh object names inside assets/male_body_regions.glb.
+const BODY_MODEL_URL = "assets/male_body_regions.glb";
+const BODY_MODEL_ID = "male_body_regions_3d_v1";
 const ALL_REGIONS = [
-  ...F_REGIONS_MALE.map(r => ({ id:r.id, label:r.label.split(" / ")[0], side:"front" })),
-  ...B_REGIONS_MALE.map(r => ({ id:r.id, label:r.label.split(" / ")[0], side:"back" })),
+  { id:"scalp", zh:"头顶部", en:"Top of head / scalp", side:"top" },
+  { id:"face", zh:"面部", en:"Face", side:"front" },
+  { id:"back_of_head", zh:"后脑勺", en:"Back of head", side:"back" },
+  { id:"front_of_neck", zh:"颈前部", en:"Front of neck", side:"front" },
+  { id:"back_of_neck", zh:"颈后部", en:"Back of neck", side:"back" },
+  { id:"front_of_shoulders", zh:"肩部前侧", en:"Front of shoulders", side:"front" },
+  { id:"back_of_shoulders", zh:"肩部后侧", en:"Back of shoulders", side:"back" },
+  { id:"chest", zh:"胸部", en:"Chest", side:"front" },
+  { id:"abdomen", zh:"腹部", en:"Abdomen", side:"front" },
+  { id:"genital_area", zh:"生殖区域", en:"Genital area", side:"front" },
+  { id:"back", zh:"背部", en:"Back", side:"back" },
+  { id:"buttocks", zh:"臀部", en:"Buttocks", side:"back" },
+  { id:"upper_arms", zh:"大臂", en:"Upper arms", side:"bilateral" },
+  { id:"forearms", zh:"小臂", en:"Forearms", side:"bilateral" },
+  { id:"palms", zh:"手掌", en:"Palms", side:"front" },
+  { id:"back_of_hands", zh:"手背", en:"Back of hands", side:"back" },
+  { id:"fingers", zh:"手指", en:"Fingers", side:"bilateral" },
+  { id:"front_of_thighs", zh:"大腿前侧", en:"Front of thighs", side:"front" },
+  { id:"back_of_thighs", zh:"大腿后侧", en:"Back of thighs", side:"back" },
+  { id:"knees", zh:"膝盖", en:"Knees", side:"front" },
+  { id:"front_of_lower_legs", zh:"小腿前侧（胫部）", en:"Front of lower legs (shins)", side:"front" },
+  { id:"back_of_lower_legs", zh:"小腿后侧（小腿肚）", en:"Back of lower legs (calves)", side:"back" },
+  { id:"feet", zh:"足部", en:"Feet", side:"bilateral" },
 ];
-
-// ============================================================
-// SVG OUTLINE PATHS
-// ============================================================
-const OUTLINE_F_MALE = "M90,12 C78,12 70,20 70,38 C70,60 74,74 82,82 L88,86 L88,100 C72,102 48,106 32,118 C22,128 24,154 26,180 C27,200 24,226 24,248 C24,268 26,286 30,312 C32,342 30,366 28,380 L28,380 C50,372 78,364 102,360 L120,360 C144,364 172,372 194,380 L194,380 C192,366 190,342 192,312 C196,286 198,268 198,248 C198,226 195,200 196,180 C198,154 200,128 190,118 C174,106 150,102 134,100 L134,86 L140,82 C148,74 152,60 152,38 C152,22 144,12 132,12 Z";
-const OUTLINE_B_MALE = "M90,8 C78,8 70,16 72,34 C74,54 78,70 82,80 L88,84 L88,96 C72,98 48,104 38,116 C32,124 34,156 34,188 C34,228 32,260 34,290 C34,320 36,344 36,360 L36,360 C56,352 80,344 102,340 L120,340 C142,344 166,352 186,360 L186,360 C186,344 188,320 188,290 C190,260 188,228 188,188 C188,156 190,124 184,116 C174,104 150,98 134,96 L134,84 L140,80 C148,72 150,54 150,34 C150,16 142,8 132,8 Z M38,366 L38,366 C56,362 78,358 100,354 L122,354 C144,358 166,362 184,366 L186,404 C188,454 186,494 184,536 C162,530 142,526 122,524 L100,524 C80,526 60,530 38,536 C36,494 34,454 36,404 Z";
-const OUTLINE_F_FEMALE = "M92,12 C80,12 72,20 72,38 C72,60 76,74 84,82 L90,86 L90,100 C76,102 54,106 38,118 C28,128 28,154 30,180 C31,200 28,226 28,248 C28,268 26,286 30,312 C34,342 32,366 30,380 L30,380 C50,368 78,360 102,354 L120,354 C144,360 172,368 192,380 L192,380 C190,366 188,342 192,312 C196,286 194,268 194,248 C194,226 191,200 192,180 C194,154 194,128 184,118 C168,106 146,102 132,100 L132,86 L138,82 C146,74 150,60 150,38 C150,20 142,12 130,12 Z";
-const OUTLINE_B_FEMALE = "M92,8 C80,8 72,16 74,34 C76,54 80,70 84,80 L90,84 L90,96 C76,98 54,104 42,116 C36,124 38,156 38,188 C38,228 36,260 38,290 C38,320 40,344 38,360 L38,360 C58,350 82,342 102,336 L120,336 C140,342 164,350 184,360 L184,360 C182,344 184,320 184,290 C186,260 184,228 184,188 C184,156 186,124 180,116 C168,104 146,98 132,96 L132,84 L138,80 C146,72 148,54 148,34 C148,16 140,8 128,8 Z M34,366 L34,366 C56,358 80,352 100,348 L122,348 C142,352 166,358 188,366 L188,404 C190,454 188,494 186,536 C164,530 142,526 122,524 L100,524 C80,526 58,530 36,536 C34,494 32,454 34,404 Z";
+const REGION_BY_ID = new Map(ALL_REGIONS.map(region => [region.id, region]));
 
 // ============================================================
 // UTIL
 // ============================================================
-function polyD(pts) { return "M" + pts.map(p => p.join(",")).join("L") + "Z"; }
+function regionLabel(region) {
+  return `${region.zh} / ${region.en}`;
+}
 
 // ============================================================
 // STATE
@@ -410,6 +355,7 @@ function setPaint(v) {
   document.getElementById("bucketReject").classList.toggle("active", v === -1);
   document.getElementById("currentTool").textContent =
     v === 1 ? t("currentAcceptable") : t("currentUnacceptable");
+  if (bodyMap3d) bodyMap3d.setPaintPreview(paint);
 }
 
 // ============================================================
@@ -451,107 +397,75 @@ function updBtn() {
 }
 
 // ============================================================
-// DRAW SVG (base regions first, overlays after → overlays on top)
+// 3D BODY MAP
 // ============================================================
-function drawSVG(svgId, regions, outlinePath) {
-  const svg = document.getElementById(svgId);
-  svg.innerHTML = "";
-
-  // Outline
-  const op = document.createElementNS("http://www.w3.org/2000/svg","path");
-  op.setAttribute("d", outlinePath);
-  op.setAttribute("class","silhouette");
-  svg.appendChild(op);
-
-  // Render regions
-  regions.forEach(r => {
-    const polys = r.polyR ? [r.poly, r.polyR] : [r.poly];
-    polys.forEach(pts => {
-      const shape = document.createElementNS("http://www.w3.org/2000/svg","path");
-      shape.setAttribute("d", polyD(pts));
-      shape.setAttribute("data-rid", r.id);
-      shape.setAttribute("data-bilateral", r.polyR ? "1" : "0");
-      shape.setAttribute("class", "region s0");
-
-      const t = document.createElementNS("http://www.w3.org/2000/svg","title");
-      t.textContent = r.label;
-      shape.appendChild(t);
-
-      // Events
-      shape.addEventListener("mouseenter", (e) => {
-        showTT(r.label, e, isTouchLikeInput(e));
-        if (r.polyR) highlightPair(svgId, r.id, true);
-      });
-      shape.addEventListener("mouseleave", () => {
-        hideTT();
-        if (r.polyR) highlightPair(svgId, r.id, false);
-      });
-      shape.addEventListener("mousedown", (e) => {
-        e.preventDefault();
-      });
-
-      // CLICK → apply current paint bucket.
-      // States: 1=acceptable, 0=neutral/no intention, -1=unacceptable.
-      shape.addEventListener("click", (e) => {
-        e.preventDefault();
-        cur[r.id] = (cur[r.id] === paint) ? 0 : paint;
-        updCol();
-        if (isTouchLikeInput(e)) showTT(r.label, e, true);
-      });
-
-      svg.appendChild(shape);
-    });
-  });
-}
+let bodyMap3d = null;
+let bodyMap3dReady = null;
 
 function currentBodyProfile() {
-  return demographics.gender === "female" ? "female" : "male";
+  return BODY_MODEL_ID;
 }
 
-function activeBodyMap() {
-  if (currentBodyProfile() === "female") {
-    return {
-      frontRegions: F_REGIONS_FEMALE,
-      backRegions: B_REGIONS_FEMALE,
-      frontOutline: OUTLINE_F_FEMALE,
-      backOutline: OUTLINE_B_FEMALE
-    };
+function setBodyMapStatus(key, visible = true) {
+  const status = document.getElementById("bodyMapStatus");
+  if (!status) return;
+  status.textContent = key ? t(key) : "";
+  status.classList.toggle("show", visible && !!key);
+}
+
+function bodyMapRegionsForRenderer() {
+  return ALL_REGIONS.map(region => ({
+    id: region.id,
+    label: regionLabel(region),
+  }));
+}
+
+async function ensureBodyMap3D() {
+  if (bodyMap3d) return bodyMap3d;
+  if (!bodyMap3dReady) {
+    setBodyMapStatus("bodyMapLoading");
+    bodyMap3dReady = import("./body-map-3d.js")
+      .then(async module => {
+        const map = new module.BodyMap3D({
+          container: document.getElementById("bodyMap3d"),
+          modelUrl: BODY_MODEL_URL,
+          regions: bodyMapRegionsForRenderer(),
+          onRegionClick: (regionId, event) => {
+            cur[regionId] = (cur[regionId] === paint) ? 0 : paint;
+            updCol();
+            if (isTouchLikeInput(event)) showTT(regionLabel(REGION_BY_ID.get(regionId)), event, true);
+          },
+          onRegionHover: (regionId, event) => {
+            const region = REGION_BY_ID.get(regionId);
+            if (region) showTT(regionLabel(region), event);
+          },
+          onRegionLeave: hideTT,
+        });
+        await map.init();
+        bodyMap3d = map;
+        bodyMap3d.setPaintPreview(paint);
+        setBodyMapStatus("", false);
+        return map;
+      })
+      .catch(error => {
+        console.error(error);
+        bodyMap3dReady = null;
+        setBodyMapStatus("bodyMapLoadError");
+        throw error;
+      });
   }
-  return {
-    frontRegions: F_REGIONS_MALE,
-    backRegions: B_REGIONS_MALE,
-    frontOutline: OUTLINE_F_MALE,
-    backOutline: OUTLINE_B_MALE
-  };
+  return bodyMap3dReady;
 }
 
-function highlightPair(svgId, rid, on) {
-  document.getElementById(svgId).querySelectorAll(`[data-rid="${rid}"]`).forEach(el => {
-    el.classList.toggle("hover-pair", on);
-  });
-}
-
-// ============================================================
-// COLOR
-// ============================================================
-function stateClass(v) {
-  // v: 1=acceptable, 0=neutral/no intention, -1=unacceptable
-  if (v === 0)  return "s0";
-  if (v === 1)  return "sp1";
-  if (v === -1) return "sn1";
-  return "s0";
-}
 function updCol() {
-  ["svgF","svgB"].forEach(id => {
-    document.getElementById(id).querySelectorAll(".region").forEach(el => {
-      const rid = el.getAttribute("data-rid");
-      el.setAttribute("class", `region ${stateClass(cur[rid] || 0)}`);
-    });
-  });
+  if (bodyMap3d) {
+    bodyMap3d.setPaintPreview(paint);
+    bodyMap3d.setStates(cur);
+  }
 }
 
 // ============================================================
-// TOOLTIP  (minimal: just the label as-is from region definition)
+// TOOLTIP
 // ============================================================
 let tooltipTimer = null;
 function isTouchLikeInput(e) {
@@ -561,36 +475,47 @@ function isTouchLikeInput(e) {
 }
 function scheduleTooltipHide(delay = 900) {
   clearTimeout(tooltipTimer);
-  tooltipTimer = setTimeout(hideTT, delay);
+  tooltipTimer = setTimeout(() => hideTT(false), delay);
 }
 function showTT(text, e, autoHide = false) {
+  if (!text || !e) return;
   clearTimeout(tooltipTimer);
   const tt = document.getElementById("tooltip");
   tt.textContent = text;
-  tt.style.display = "block";
   tt.style.left = (e.clientX + 14) + "px";
   tt.style.top = (e.clientY - 30) + "px";
+  tt.classList.add("show");
   if (autoHide) scheduleTooltipHide();
 }
-function hideTT() {
+function hideTT(immediate = true) {
   clearTimeout(tooltipTimer);
-  document.getElementById("tooltip").style.display = "none";
+  const tt = document.getElementById("tooltip");
+  tt.classList.remove("show");
+  if (immediate) {
+    tt.style.transition = "none";
+    requestAnimationFrame(() => {
+      tt.style.transition = "";
+    });
+  }
 }
 window.addEventListener("scroll", hideTT, { passive: true });
 
 // ============================================================
 // NAVIGATION
 // ============================================================
-function goMaps() {
+async function goMaps() {
   order = [...sel];
   if (order.length === 0) return;
   order.forEach(id => { if (!(id in data)) data[id] = {}; });
   idx = 0;
   showStep("s2");
-  const map = activeBodyMap();
-  drawSVG("svgF", map.frontRegions, map.frontOutline);
-  drawSVG("svgB", map.backRegions, map.backOutline);
   load();
+  try {
+    await ensureBodyMap3D();
+    updCol();
+  } catch {
+    // The visible status message is set in ensureBodyMap3D.
+  }
 }
 function load() {
   const id = order[idx];
@@ -697,7 +622,13 @@ function selectedIntentPayload() {
 }
 
 function regionsPayload() {
-  return ALL_REGIONS.map(r => ({ id:r.id, label:r.label, side:r.side }));
+  return ALL_REGIONS.map(r => ({
+    id: r.id,
+    zh: r.zh,
+    en: r.en,
+    label: regionLabel(r),
+    side: r.side
+  }));
 }
 
 function buildSurveyPayload() {
@@ -706,7 +637,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "2.1",
+    study_version: "3.0",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -723,9 +654,10 @@ function buildSurveyPayload() {
       intentCount: INTENTS.length,
       nationalityName: nationalityCode ? countryName(nationalityCode) : null,
       bodyMapProfile: currentBodyProfile(),
+      bodyMapModel: BODY_MODEL_URL,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
-      source: "bodymap_questionnaire_v8_static_html"
+      source: "bodymap_questionnaire_v9_3d_static_html"
     }
   };
 }
