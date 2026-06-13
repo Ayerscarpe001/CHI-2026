@@ -52,9 +52,33 @@ const I18N = {
     countryOther:"其他",
     infoError:"请完整填写有效年龄、性别和国籍后继续。",
     intentTitle:"社交意图选择",
-    intentDesc:"以下列出 16 类社交意图。请选择你认为机器人可以通过身体接触向人传达的意图。",
+    intentDesc:"以下列出 16 类可能通过触碰表达的社交意图。请根据你的直觉，选择你认为“社交机器人可以通过主动触碰人的身体来表达”的意图。这里不需要考虑具体触碰哪个身体部位，下一步会继续询问。",
     selectAll:"全选",
     clearAll:"清空",
+    contextTitle:"关系亲近度与互动语境",
+    contextDesc:"请针对当前意图回答下面两道题。这里的“关系亲近度”指你与机器人之间的熟悉、信任和私人化互动程度；“互动语境”指这种触碰意图最可能出现的高层互动场景。",
+    relationshipQuestion:"如果机器人要通过触碰向你表达这一意图，你认为它通常至少需要与你达到怎样的关系亲近程度？",
+    contextQuestion:"你认为机器人通过触碰表达这一意图，最可能出现在以下哪一类互动语境中？",
+    contextError:"请先完成当前意图的关系亲近度和互动语境选择。",
+    closeness1:"完全陌生",
+    closeness2:"初步接触",
+    closeness3:"轻度熟悉",
+    closeness4:"一般熟悉",
+    closeness5:"较为熟悉",
+    closeness6:"亲近",
+    closeness7:"非常亲近",
+    ctxPublicService:"公共服务",
+    ctxPublicServiceDesc:"公共或半公共场所中的短时服务互动。",
+    ctxCompanionship:"日常陪伴",
+    ctxCompanionshipDesc:"家庭、私人空间、长期陪伴、日常共处或休闲陪伴。",
+    ctxCare:"健康照护",
+    ctxCareDesc:"医疗、护理、康复、心理支持、老人照护或脆弱状态下的支持。",
+    ctxLearning:"学习训练",
+    ctxLearningDesc:"学习、教育、技能训练、康复训练或指导。",
+    ctxTask:"任务协作",
+    ctxTaskDesc:"工作、导航、操作、家务或共同完成任务。",
+    ctxIntimate:"私人亲密",
+    ctxIntimateDesc:"高度私人化、浪漫、伴侣或明确亲密互动设定。",
     mapTitle:"身体地图标注",
     colorToolTitle:"颜色",
     acceptable:"愿意被触碰",
@@ -67,6 +91,12 @@ const I18N = {
     bodyMapLoadError:"身体地图加载失败，请刷新页面后重试。",
     backToIntentPrefix:"返回",
     intentSelectionNoun:"意图选择",
+    backToIntentSelection:"← 返回意图选择",
+    backToContextPrefix:"返回",
+    contextQuestionsNoun:"关系/场景",
+    prevContext:"← 上一个意图",
+    nextContext:"下一个意图 →",
+    contextToMaps:"进入身体地图 →",
     resetCurrent:"↺ 重置当前地图",
     prevIntent:"← 上一个意图",
     nextIntent:"下一个意图 →",
@@ -79,6 +109,7 @@ const I18N = {
     progressConsent:"知情同意",
     progressInfo:"基本信息",
     progressIntents:"选择社交意图",
+    progressContext:"关系亲近度与互动语境",
     progressMap:"身体地图",
     progressReview:"检查与提交",
     progressStatus:"提交状态",
@@ -137,9 +168,33 @@ const I18N = {
     countryOther:"Other",
     infoError:"Please complete a valid age, gender, and nationality before continuing.",
     intentTitle:"Social Intents",
-    intentDesc:"The following list contains 16 social intents. Select all intents that you believe a robot should be allowed to convey through physical touch.",
+    intentDesc:"The following list contains 16 social intents that may be expressed through touch. Based on your intuition, select the intents that you think a social robot could express by actively touching a person's body. You do not need to consider the specific body region yet; that will be asked later.",
     selectAll:"Select all",
     clearAll:"Clear all",
+    contextTitle:"Relationship Closeness and Interaction Context",
+    contextDesc:"Please answer the two questions below for the current intent. Relationship closeness refers to your familiarity, trust, and personalized interaction with the robot; interaction context refers to the broad setting where this touch intent would most likely occur.",
+    relationshipQuestion:"If a robot were to express this intent to you through touch, what minimum level of relationship closeness would usually be needed?",
+    contextQuestion:"In which interaction context would a robot most likely express this intent through touch?",
+    contextError:"Please complete both relationship closeness and interaction context for the current intent.",
+    closeness1:"Complete stranger",
+    closeness2:"Initial contact",
+    closeness3:"Slightly familiar",
+    closeness4:"Moderately familiar",
+    closeness5:"Fairly familiar",
+    closeness6:"Close",
+    closeness7:"Very close",
+    ctxPublicService:"Public service",
+    ctxPublicServiceDesc:"Brief service interactions in public or semi-public places.",
+    ctxCompanionship:"Everyday companionship",
+    ctxCompanionshipDesc:"Home, private-space, long-term companionship, everyday co-presence, or leisure companionship.",
+    ctxCare:"Care / health support",
+    ctxCareDesc:"Medical care, nursing, rehabilitation, psychological support, eldercare, or support in vulnerable states.",
+    ctxLearning:"Learning / training",
+    ctxLearningDesc:"Learning, education, skill training, rehabilitation training, or guidance.",
+    ctxTask:"Task collaboration",
+    ctxTaskDesc:"Work, navigation, operation, household tasks, or joint task completion.",
+    ctxIntimate:"Private / intimate interaction",
+    ctxIntimateDesc:"Highly private, romantic, partner-like, or explicitly intimate interaction settings.",
     mapTitle:"Body Map",
     colorToolTitle:"Color",
     acceptable:"Acceptable",
@@ -152,6 +207,12 @@ const I18N = {
     bodyMapLoadError:"Body map failed to load. Please refresh and try again.",
     backToIntentPrefix:"Back to",
     intentSelectionNoun:"intent selection",
+    backToIntentSelection:"← Back to intent selection",
+    backToContextPrefix:"Back to",
+    contextQuestionsNoun:"relationship/context",
+    prevContext:"← Previous intent",
+    nextContext:"Next intent →",
+    contextToMaps:"Go to body map →",
     resetCurrent:"↺ Reset current map",
     prevIntent:"← Previous intent",
     nextIntent:"Next intent →",
@@ -164,6 +225,7 @@ const I18N = {
     progressConsent:"Consent",
     progressInfo:"Basic information",
     progressIntents:"Select social intents",
+    progressContext:"Relationship and context",
     progressMap:"Body map",
     progressReview:"Review & Submit",
     progressStatus:"Submission status",
@@ -234,6 +296,7 @@ function setLang(nextLang) {
   document.getElementById("btnToMapsText").textContent = t("continueBtn");
   r1();
   syncIntentSelectionUI();
+  if (document.getElementById("sContext").classList.contains("active")) renderContextQuestion();
   setPaint(paint);
   if (document.getElementById("s2").classList.contains("active")) load();
   if (document.getElementById("s3").classList.contains("active")) r3();
@@ -260,6 +323,25 @@ const INTENTS = [
   { id:"refusal", zh:"拒绝", en:"Refusal", desc:{ zh:"在接收者靠近、请求或试图继续互动时，通过触碰表达不同意、保持距离或不愿继续当前互动。", en:"Touch intended to express disagreement, distance, or unwillingness to continue the current interaction when the recipient approaches, requests, or attempts to continue." } },
   { id:"dominance", zh:"支配", en:"Dominance", desc:{ zh:"在接收者处于被动、抗拒或被控制的位置时，通过触碰展示权力、控制或要求服从。", en:"Touch intended to assert power, control, or demand compliance when the recipient is passive, resistant, or positioned as being controlled." } },
   { id:"sexual_intent", zh:"性意图", en:"Sexual Intent", desc:{ zh:"通过触碰表达浪漫吸引、性兴趣或性意图。", en:"Touch intended to express romantic attraction, sexual interest, or sexual intent." } },
+];
+
+const RELATIONSHIP_LEVELS = [
+  { value: 1, labelKey: "closeness1" },
+  { value: 2, labelKey: "closeness2" },
+  { value: 3, labelKey: "closeness3" },
+  { value: 4, labelKey: "closeness4" },
+  { value: 5, labelKey: "closeness5" },
+  { value: 6, labelKey: "closeness6" },
+  { value: 7, labelKey: "closeness7" },
+];
+
+const INTERACTION_CONTEXTS = [
+  { id: "public_service", labelKey: "ctxPublicService", descKey: "ctxPublicServiceDesc" },
+  { id: "companionship", labelKey: "ctxCompanionship", descKey: "ctxCompanionshipDesc" },
+  { id: "care_health", labelKey: "ctxCare", descKey: "ctxCareDesc" },
+  { id: "learning_training", labelKey: "ctxLearning", descKey: "ctxLearningDesc" },
+  { id: "task_collaboration", labelKey: "ctxTask", descKey: "ctxTaskDesc" },
+  { id: "private_intimate", labelKey: "ctxIntimate", descKey: "ctxIntimateDesc" },
 ];
 
 // ============================================================
@@ -308,7 +390,9 @@ function regionLabel(region) {
 let sel = new Set();
 let order = [];
 let idx = 0;
+let contextIdx = 0;
 let data = {};
+let intentMeta = {};
 let cur = {};
 let paint = 1;
 let demographics = {};
@@ -394,6 +478,131 @@ function updBtn() {
   b.disabled = sel.size === 0;
   document.getElementById("selCount").textContent = sel.size;
   document.getElementById("btnToMapsText").textContent = t("continueBtn");
+}
+
+// ============================================================
+// STEP 2: RELATIONSHIP CLOSENESS AND INTERACTION CONTEXT
+// ============================================================
+function initIntentMeta() {
+  const selected = new Set(order);
+  Object.keys(intentMeta).forEach(id => {
+    if (!selected.has(id)) delete intentMeta[id];
+  });
+  order.forEach(id => {
+    if (!intentMeta[id]) {
+      intentMeta[id] = {
+        relationship_closeness: null,
+        interaction_context: null,
+      };
+    }
+  });
+}
+
+function contextLabel(contextId) {
+  const context = INTERACTION_CONTEXTS.find(item => item.id === contextId);
+  return context ? t(context.labelKey) : "";
+}
+
+function relationshipLabel(value) {
+  const level = RELATIONSHIP_LEVELS.find(item => item.value === Number(value));
+  return level ? t(level.labelKey) : "";
+}
+
+function iosDiagram(level) {
+  const humanLabel = lang === "zh" ? "人" : "H";
+  const robotLabel = lang === "zh" ? "机" : "R";
+  return `
+    <span class="ios-diagram ios-level-${level}" aria-hidden="true">
+      <span class="ios-circle ios-human">${humanLabel}</span>
+      <span class="ios-circle ios-robot">${robotLabel}</span>
+    </span>`;
+}
+
+function renderContextQuestion() {
+  const list = document.getElementById("contextList");
+  if (!list) return;
+  initIntentMeta();
+  if (contextIdx >= order.length) contextIdx = Math.max(0, order.length - 1);
+  const id = order[contextIdx];
+  const it = INTENTS.find(intent => intent.id === id);
+  const meta = intentMeta[id] || {};
+  const intentName = lang === "zh" ? it.zh : it.en;
+  document.getElementById("contextIntentName").textContent = intentName;
+  document.getElementById("contextIntentDesc").textContent = it.desc[lang];
+  const relationshipOptions = RELATIONSHIP_LEVELS.map(level => `
+    <button type="button"
+      class="scale-option ${meta.relationship_closeness === level.value ? "selected" : ""}"
+      onclick="setRelationship('${id}', ${level.value})">
+      <span class="scale-number">${level.value}</span>
+      ${iosDiagram(level.value)}
+      <span class="scale-label">${t(level.labelKey)}</span>
+    </button>`).join("");
+  const contextOptions = INTERACTION_CONTEXTS.map(context => `
+    <button type="button"
+      class="context-option ${meta.interaction_context === context.id ? "selected" : ""}"
+      onclick="setInteractionContext('${id}', '${context.id}')">
+      <span class="context-name">${t(context.labelKey)}</span>
+      <span class="context-desc">${t(context.descKey)}</span>
+    </button>`).join("");
+  list.innerHTML = `
+    <section class="context-card" id="context-card-${id}">
+      <div class="context-block">
+        <div class="context-question">${t("relationshipQuestion")}</div>
+        <div class="scale-row" role="radiogroup" aria-label="${t("relationshipQuestion")}">
+          ${relationshipOptions}
+        </div>
+      </div>
+      <div class="context-block">
+        <div class="context-question">${t("contextQuestion")}</div>
+        <div class="context-options" role="radiogroup" aria-label="${t("contextQuestion")}">
+          ${contextOptions}
+        </div>
+      </div>
+    </section>`;
+  document.getElementById("contextCounter").textContent = `${contextIdx+1} / ${order.length}`;
+  document.getElementById("btnPrevContext").textContent = t("prevContext");
+  document.getElementById("btnPrevContext").disabled = contextIdx === 0;
+  document.getElementById("btnNextContext").textContent = t("nextContext");
+  document.getElementById("btnContextDone").textContent = t("contextToMaps");
+  document.getElementById("btnNextContext").style.display = contextIdx < order.length-1 ? "" : "none";
+  document.getElementById("btnContextDone").style.display = contextIdx === order.length-1 ? "" : "none";
+}
+
+function setRelationship(intentId, value) {
+  if (!intentMeta[intentId]) intentMeta[intentId] = {};
+  intentMeta[intentId].relationship_closeness = value;
+  document.getElementById("contextError").classList.remove("show");
+  renderContextQuestion();
+}
+
+function setInteractionContext(intentId, contextId) {
+  if (!intentMeta[intentId]) intentMeta[intentId] = {};
+  intentMeta[intentId].interaction_context = contextId;
+  document.getElementById("contextError").classList.remove("show");
+  renderContextQuestion();
+}
+
+function currentContextAnswered() {
+  const id = order[contextIdx];
+  return !!(
+    intentMeta[id]?.relationship_closeness &&
+    intentMeta[id]?.interaction_context
+  );
+}
+
+function validateCurrentContextQuestion() {
+  const ok = currentContextAnswered();
+  document.getElementById("contextError").classList.toggle("show", !ok);
+  return ok;
+}
+
+function validateContextQuestions() {
+  const ok = order.every(id =>
+    intentMeta[id]?.relationship_closeness &&
+    intentMeta[id]?.interaction_context
+  );
+  document.getElementById("contextError").classList.toggle("show", !ok);
+  return ok;
 }
 
 // ============================================================
@@ -503,9 +712,47 @@ window.addEventListener("scroll", hideTT, { passive: true });
 // ============================================================
 // NAVIGATION
 // ============================================================
-async function goMaps() {
+function goContext() {
   order = [...sel];
   if (order.length === 0) return;
+  order.forEach(id => { if (!(id in data)) data[id] = {}; });
+  initIntentMeta();
+  if (contextIdx >= order.length) contextIdx = 0;
+  showStep("sContext");
+  renderContextQuestion();
+  prog();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function backToIntentSelectionFromContext() {
+  showStep("s1");
+  prog();
+}
+
+function nextContext() {
+  if (!validateCurrentContextQuestion()) return;
+  if (contextIdx < order.length - 1) {
+    contextIdx++;
+    document.getElementById("contextError").classList.remove("show");
+    renderContextQuestion();
+    prog();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+function prevContext() {
+  if (contextIdx > 0) {
+    contextIdx--;
+    document.getElementById("contextError").classList.remove("show");
+    renderContextQuestion();
+    prog();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+async function goMaps() {
+  if (!validateCurrentContextQuestion()) return;
+  if (!validateContextQuestions()) return;
   order.forEach(id => { if (!(id in data)) data[id] = {}; });
   idx = 0;
   showStep("s2");
@@ -537,6 +784,13 @@ function save() { data[order[idx]] = { ...cur }; }
 function next() { save(); if (idx < order.length-1) { idx++; load(); } }
 function prev() { save(); if (idx > 0) { idx--; load(); } }
 function backToIntentSelection() { save(); showStep("s1"); }
+function backToContextQuestions() {
+  save();
+  contextIdx = Math.min(idx, Math.max(0, order.length - 1));
+  showStep("sContext");
+  renderContextQuestion();
+  prog();
+}
 function resetCur() { cur = {}; updCol(); }
 function done() {
   save();
@@ -552,8 +806,12 @@ function prog() {
   if (document.getElementById("s0").classList.contains("active")) { f.style.width="8%"; textEl.textContent=t("progressConsent"); }
   else if (document.getElementById("sInfo").classList.contains("active")) { f.style.width="20%"; textEl.textContent=t("progressInfo"); }
   else if (document.getElementById("s1").classList.contains("active")) { f.style.width="35%"; textEl.textContent=t("progressIntents"); }
+  else if (document.getElementById("sContext").classList.contains("active")) {
+    const pct = 35 + Math.round((contextIdx+1)/Math.max(order.length, 1) * 13);
+    f.style.width=pct+"%"; textEl.textContent=`${t("progressContext")} ${contextIdx+1}/${Math.max(order.length, 1)}`;
+  }
   else if (document.getElementById("s2").classList.contains("active")) {
-    const pct = 35 + Math.round((idx+1)/order.length * 50);
+    const pct = 48 + Math.round((idx+1)/order.length * 37);
     f.style.width=pct+"%"; textEl.textContent=`${t("progressMap")} ${idx+1}/${order.length}`;
   }
   else if (document.getElementById("s3").classList.contains("active")) { f.style.width="95%"; textEl.textContent=t("progressReview"); }
@@ -566,6 +824,7 @@ function prog() {
 function r3() {
   document.getElementById("revGrid").innerHTML = order.map(id => {
     const it = INTENTS.find(i => i.id === id);
+    const meta = intentMeta[id] || {};
     const d = data[id] || {};
     const entries = Object.entries(d);
     const accept = entries.filter(([,v]) => v === 1).length;
@@ -575,7 +834,11 @@ function r3() {
       <div class="r-name">${lang === "zh" ? it.zh : it.en}</div>
       <div class="r-stats">
         ${t("acceptCount")}: ${accept} &nbsp;|&nbsp; ${t("rejectCount")}: ${reject} &nbsp;|&nbsp; ${t("neutralCount")}: ${neutral}
-      </div></div>`;
+      </div>
+      <div class="r-meta">
+        ${relationshipLabel(meta.relationship_closeness)} · ${contextLabel(meta.interaction_context)}
+      </div>
+    </div>`;
   }).join("");
 }
 function getParticipantId() {
@@ -611,14 +874,51 @@ function normalizedBodyData() {
 function selectedIntentPayload() {
   return order.map(id => {
     const it = INTENTS.find(i => i.id === id);
+    const meta = intentMeta[id] || {};
     return {
       id,
       zh: it.zh,
       en: it.en,
       definition_zh: it.desc.zh,
-      definition_en: it.desc.en
+      definition_en: it.desc.en,
+      relationship_closeness: meta.relationship_closeness ?? null,
+      relationship_closeness_label: relationshipLabel(meta.relationship_closeness),
+      interaction_context: meta.interaction_context ?? null,
+      interaction_context_label: contextLabel(meta.interaction_context)
     };
   });
+}
+
+function intentMetaPayload() {
+  const out = {};
+  order.forEach(id => {
+    const meta = intentMeta[id] || {};
+    out[id] = {
+      relationship_closeness: meta.relationship_closeness ?? null,
+      relationship_closeness_label: relationshipLabel(meta.relationship_closeness),
+      interaction_context: meta.interaction_context ?? null,
+      interaction_context_label: contextLabel(meta.interaction_context)
+    };
+  });
+  return out;
+}
+
+function relationshipScalePayload() {
+  return RELATIONSHIP_LEVELS.map(level => ({
+    value: level.value,
+    zh: I18N.zh[level.labelKey],
+    en: I18N.en[level.labelKey],
+  }));
+}
+
+function interactionContextsPayload() {
+  return INTERACTION_CONTEXTS.map(context => ({
+    id: context.id,
+    zh: I18N.zh[context.labelKey],
+    en: I18N.en[context.labelKey],
+    definition_zh: I18N.zh[context.descKey],
+    definition_en: I18N.en[context.descKey],
+  }));
 }
 
 function regionsPayload() {
@@ -652,6 +952,9 @@ function buildSurveyPayload() {
       demographics,
       intentPoolVersion: "意图池.xlsx / 2026-06-04 / 16 intents",
       intentCount: INTENTS.length,
+      intentMeta: intentMetaPayload(),
+      relationshipScale: relationshipScalePayload(),
+      interactionContexts: interactionContextsPayload(),
       nationalityName: nationalityCode ? countryName(nationalityCode) : null,
       bodyMapProfile: currentBodyProfile(),
       bodyMapModel: BODY_MODEL_URL,
