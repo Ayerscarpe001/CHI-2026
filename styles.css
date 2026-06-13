@@ -27,19 +27,26 @@
 
   .step { display: none; }
   .step.active { display: block; }
-  .step-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
-  .step-desc { color: var(--dim); font-size: 0.8rem; margin-bottom: 20px; }
-  .map-heading {
+  .step-title { font-size: 1.28rem; font-weight: 750; margin-bottom: 8px; letter-spacing:0; }
+  .step-desc {
+    color:#d0d0d0; font-size:0.92rem; font-weight:650; line-height:1.55;
+    margin-bottom:22px; max-width:920px;
+  }
+  .map-heading, .context-heading {
     display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center;
     margin-bottom:10px;
   }
-  .map-heading .step-title { margin-bottom:0; white-space:nowrap; }
-  .map-heading .intent-context {
+  .map-heading .step-title, .context-heading .step-title { margin-bottom:0; white-space:nowrap; }
+  .map-heading .intent-context, .context-heading .intent-context {
     background:transparent; border:none; border-radius:0; padding:0; margin:0;
     min-width:0;
   }
-  .map-heading .intent-name { display:inline; font-size:0.92rem; font-weight:700; margin-right:10px; }
-  .map-heading .intent-desc { display:inline; color:#999; font-size:0.78rem; line-height:1.35; }
+  .map-heading .intent-name, .context-heading .intent-name {
+    display:inline; font-size:0.96rem; font-weight:780; margin-right:10px;
+  }
+  .map-heading .intent-desc, .context-heading .intent-desc {
+    display:inline; color:#aaa; font-size:0.8rem; line-height:1.38;
+  }
 
   .progress-wrap { margin-bottom: 24px; }
   .progress-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
@@ -90,6 +97,67 @@
   }
   .intent-card.sel .dot { border-color: var(--accent); background: var(--accent); }
   .intent-card.sel .dot::after { content: "✓"; color: var(--bg); font-size: 11px; font-weight: 700; }
+
+  /* ── CONTEXT QUESTIONS ── */
+  .context-list { display:grid; gap:14px; }
+  .context-card {
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:16px; display:grid; gap:16px;
+  }
+  .context-block { display:grid; gap:8px; }
+  .context-question { font-size:0.92rem; font-weight:760; color:#eee; line-height:1.45; }
+  .scale-row {
+    display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); gap:8px;
+  }
+  .scale-option, .context-option {
+    background:#101010; border:1px solid var(--border); color:var(--text);
+    border-radius:8px; cursor:pointer; transition:all 0.16s ease;
+  }
+  .scale-option {
+    min-height:148px; padding:12px 6px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:7px; text-align:center;
+  }
+  .scale-option:hover, .context-option:hover { border-color:#555; }
+  .scale-option.selected, .context-option.selected {
+    border-color:var(--accent); background:#111b2a; box-shadow:0 0 0 1px rgba(91,155,255,0.22);
+  }
+  .scale-number {
+    width:24px; height:24px; border-radius:50%; display:grid; place-items:center;
+    background:#181818; color:#bbb; font-size:0.76rem; font-weight:800;
+  }
+  .scale-option.selected .scale-number { background:var(--accent); color:var(--bg); }
+  .scale-label { font-size:0.68rem; line-height:1.2; color:#aaa; }
+  .scale-option.selected .scale-label { color:#e5efff; }
+  .ios-diagram {
+    position:relative; width:92px; height:54px; margin:3px 0 4px;
+    display:block;
+  }
+  .ios-circle {
+    position:absolute; top:6px; width:42px; height:42px; border-radius:50%;
+    display:grid; place-items:center; font-size:0.8rem; font-weight:850;
+    border:2px solid rgba(255,255,255,0.62); color:rgba(255,255,255,0.88);
+    background:rgba(10,10,10,0.72);
+  }
+  .ios-human { left:3px; }
+  .ios-robot { background:rgba(20,38,68,0.72); color:#d8e7ff; }
+  .ios-level-1 .ios-robot { left:47px; }
+  .ios-level-2 .ios-robot { left:41px; }
+  .ios-level-3 .ios-robot { left:35px; }
+  .ios-level-4 .ios-robot { left:29px; }
+  .ios-level-5 .ios-robot { left:23px; }
+  .ios-level-6 .ios-robot { left:17px; }
+  .ios-level-7 .ios-robot { left:11px; }
+  .scale-option.selected .ios-circle {
+    border-color:rgba(255,255,255,0.55); color:#fff;
+  }
+  .context-options { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:8px; }
+  .context-option {
+    min-height:92px; padding:10px; text-align:left; display:flex; flex-direction:column; gap:5px;
+  }
+  .context-name { font-size:0.78rem; font-weight:750; color:#eee; }
+  .context-desc { font-size:0.68rem; color:#999; line-height:1.32; }
+  .context-option.selected .context-name { color:#fff; }
+  .context-option.selected .context-desc { color:#c8d9ff; }
 
   /* ── STEP 2 ── */
   .badge { display:inline-block;background:var(--accent);color:var(--bg);font-size:0.78rem;font-weight:600;padding:4px 14px;border-radius:20px;margin-bottom:8px; }
@@ -179,6 +247,7 @@
   .rev-card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:12px; }
   .rev-card .r-name { font-weight:600; font-size:0.86rem; }
   .rev-card .r-stats { font-size:0.72rem; color:var(--dim); margin-top:4px; }
+  .rev-card .r-meta { font-size:0.72rem; color:#a7c3ff; margin-top:5px; }
   .result-panel {
     max-width:720px; margin:0 auto; background:var(--card); border:1px solid var(--border);
     border-radius:8px; padding:18px;
@@ -190,14 +259,20 @@
   .result-panel.err .result-kicker { color:#ef4444; }
 
   @media (max-width: 760px) {
-    .map-heading { grid-template-columns:1fr; gap:6px; }
-    .map-heading .step-title { white-space:normal; }
+    .step-title { font-size:1.18rem; }
+    .step-desc { font-size:0.88rem; }
+    .map-heading, .context-heading { grid-template-columns:1fr; gap:6px; }
+    .map-heading .step-title, .context-heading .step-title { white-space:normal; }
     .body-map-shell { height:clamp(520px, 68vh, 680px); }
     .color-legend { grid-template-columns:1fr; padding:8px 10px; max-width:520px; }
     .toolbar-action { align-self:auto; }
     .intent-grid { grid-template-columns:1fr; }
+    .scale-row { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .scale-option { min-height:138px; }
+    .context-options { grid-template-columns:1fr; }
   }
 
   @media (min-width: 761px) and (max-width: 980px) {
     .intent-grid { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    .context-options { grid-template-columns:repeat(2, minmax(0, 1fr)); }
   }
