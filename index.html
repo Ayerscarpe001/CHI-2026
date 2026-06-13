@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Social Touch Acceptability Survey — RQ1</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="survey/intro_patch.css">
 </head>
 <body>
 <div class="container">
@@ -28,21 +29,43 @@
   </div>
 
   <!-- ================================================================ -->
+  <!-- STEP INTRO                                                        -->
+  <!-- ================================================================ -->
+  <div class="step active" id="sIntro">
+    <div class="step-title" data-i18n="introTitle">研究场景介绍</div>
+    <div class="step-desc" data-i18n="introDesc">在开始问卷前，请先观看下面的简短动画，并根据文字说明理解本研究中“机器人主动社交接触”的含义。</div>
+    <div class="intro-layout">
+      <div class="intro-animation-frame">
+        <iframe src="survey/intro_touch_animation_v16.html" title="Robot touch introduction animation" loading="lazy"></iframe>
+      </div>
+      <div class="intro-copy panel">
+        <p data-i18n="introP1">请将本研究中的机器人想象为一个具有人形上半身结构的社交机器人：它具有类似人体结构的机械手臂和手部，整体身高略低于成年人，主要通过手臂或手部主动触碰人的身体。</p>
+        <p data-i18n="introP2">本问卷中的“触碰”指机器人对人身体发起的直接、短暂、柔和、非疼痛、非强制性的身体接触。请先判断机器人是否适合通过这种接触表达某种社交意图，再在后续页面标注你认为可接受或不可接受的身体区域。</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn btn-p" onclick="showStep('s0')" data-i18n="introContinue">我已理解，继续 →</button>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
   <!-- STEP 0: CONSENT                                                   -->
   <!-- ================================================================ -->
-  <div class="step active" id="s0">
+  <div class="step" id="s0">
     <div class="step-title" data-i18n="consentTitle">知情同意</div>
     <div class="step-desc" data-i18n="consentDesc">请在开始问卷前阅读以下说明。</div>
     <div class="panel">
-      <p data-i18n="consentP1">本问卷旨在了解：当机器人主动通过身体接触传达不同社交意图时，人们对不同身体区域被触碰的接受程度。</p>
+      <p data-i18n="consentP1">本问卷旨在了解：当具有人形上半身结构的社交机器人，通过手臂或手部发起直接、短暂、柔和的身体接触来传达不同社交意图时，人们对不同身体区域被触碰的接受程度。</p>
       <p data-i18n="consentP2">你的回答仅用于学术研究。本问卷不会收集你的姓名或直接联系方式，你可以在提交前随时退出。</p>
       <p data-i18n="consentP3">问卷涉及身体部位与社交接触判断。如果你对此感到不适，可以随时停止填写。</p>
+      <p data-i18n="consentP4">请确认你已年满 18 岁后再继续填写本问卷。</p>
       <label class="consent-check">
         <input type="checkbox" id="consentBox" onchange="updConsent()">
-        <span data-i18n="consentCheck">我已阅读以上说明，并同意参与本研究。</span>
+        <span data-i18n="consentCheck">我已认真阅读以上说明，并同意参与本研究。</span>
       </label>
     </div>
     <div class="nav">
+      <button class="btn btn-s" onclick="showStep('sIntro')" data-i18n="backBtn">← 返回</button>
       <button class="btn btn-p" id="btnConsent" disabled onclick="goInfo()" data-i18n="continueBtn">继续 →</button>
     </div>
   </div>
@@ -88,7 +111,7 @@
   <!-- ================================================================ -->
   <div class="step" id="s1">
     <div class="step-title" data-i18n="intentTitle">社交意图选择</div>
-    <div class="step-desc" data-i18n="intentDesc">以下列出 16 类可能通过触碰表达的社交意图。请根据你的直觉，选择你认为“社交机器人可以通过主动触碰人的身体来表达”的意图。这里不需要考虑具体触碰哪个身体部位，下一步会继续询问。</div>
+    <div class="step-desc" data-i18n="intentDesc">以下列出 16 类可能通过触碰表达的社交意图。请根据你的直觉，选择你认为“社交机器人可以通过主动触碰人的身体来表达”的意图。</div>
     <div class="select-row">
       <button onclick="selAll(true)" data-i18n="selectAll">全选</button>
       <button onclick="selAll(false)" data-i18n="clearAll">清空</button>
@@ -107,7 +130,8 @@
   <div class="step" id="sContext">
     <div class="context-heading">
       <div class="step-title" data-i18n="contextTitle">关系亲近度与互动语境</div>
-      <div class="intent-context">
+      <div class="intent-context current-intent">
+        <span class="intent-label" data-i18n="currentIntentLabel">当前意图</span>
         <span class="intent-name" id="contextIntentName"></span>
         <span class="intent-desc" id="contextIntentDesc"></span>
       </div>
@@ -130,17 +154,16 @@
   <div class="step" id="s2">
     <div class="map-heading">
       <div class="step-title" data-i18n="mapTitle">身体地图标注</div>
-      <div class="intent-context">
+      <div class="intent-context current-intent">
+        <span class="intent-label" data-i18n="currentIntentLabel">当前意图</span>
         <span class="intent-name" id="mapIntentName"></span>
         <span class="intent-desc" id="mapIntentDesc"></span>
       </div>
     </div>
+    <div class="step-desc" data-i18n="mapDesc">请针对当前意图，在身体地图上标注：哪些身体区域你愿意被机器人触碰，哪些身体区域你不愿意被机器人触碰。未标注区域将视为无明确意向。</div>
 
     <!-- PAINT BUCKETS -->
     <div class="color-legend">
-      <button class="toolbar-action back-intents" onclick="backToContextQuestions()">
-        <span data-i18n="backToContextPrefix">返回</span><strong data-i18n="contextQuestionsNoun">关系/场景</strong>
-      </button>
       <div class="color-controls">
         <div class="leg-title" data-i18n="colorToolTitle">颜色</div>
         <button class="bucket active" id="bucketAccept" onclick="setPaint(1)">
@@ -150,11 +173,11 @@
           <span class="leg-swatch l2n"></span> <span data-i18n="unacceptable">不愿意被触碰</span>
         </button>
         <div class="leg-item"><span class="leg-swatch l0"></span> <span data-i18n="neutral">无意向</span></div>
-        <div class="tool-status">
-          <span class="current-tool" id="currentTool"></span>
-          <span class="status-dot">·</span>
-          <span data-i18n="colorHint">同色再次点击可取消；切换另一种颜色可覆盖。</span>
-        </div>
+      </div>
+      <div class="tool-status">
+        <span class="current-tool" id="currentTool"></span>
+        <span class="status-dot">·</span>
+        <span data-i18n="colorHint">同色再次点击可取消；切换另一种颜色可覆盖。</span>
       </div>
       <button class="toolbar-action reset-map" onclick="resetCur()" data-i18n="resetCurrent">↺ 重置当前地图</button>
     </div>
@@ -165,6 +188,7 @@
     </div>
 
     <div class="nav">
+      <button class="btn btn-s" onclick="backToContextQuestions()" data-i18n="backToContextFull">← 返回关系/场景</button>
       <button class="btn btn-s" id="btnPrevMap" onclick="prev()"></button>
       <span class="counter" id="counter"></span>
       <button class="btn btn-p" id="btnNext" onclick="next()"></button>
@@ -212,5 +236,6 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="app.js"></script>
+<script src="survey/intro_patch.js"></script>
 </body>
 </html>
