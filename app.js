@@ -15,12 +15,18 @@ const I18N = {
   zh: {
     appTitle:"机器人社交接触可接受性问卷",
     appSub:"机器人主动身体接触中的身体区域可接受性标注",
+    introTitle:"研究场景介绍",
+    introDesc:"在开始问卷前，请先观看下面的简短动画，并根据文字说明理解本研究中“机器人主动社交接触”的含义。",
+    introP1:"请将本研究中的机器人想象为一个具有人形上半身结构的社交机器人：它具有类似人体结构的机械手臂和手部，整体身高略低于成年人，主要通过手臂或手部主动触碰人的身体。",
+    introP2:"本问卷中的“触碰”指机器人对人身体发起的直接、短暂、柔和、非疼痛、非强制性的身体接触。请先判断机器人是否适合通过这种接触表达某种社交意图，再在后续页面标注你认为可接受或不可接受的身体区域。",
+    introContinue:"我已理解，继续 →",
     consentTitle:"知情同意",
     consentDesc:"请在开始问卷前阅读以下说明。",
-    consentP1:"本问卷旨在了解：当机器人主动通过身体接触传达不同社交意图时，人们对不同身体区域被触碰的接受程度。",
+    consentP1:"本问卷旨在了解：当具有人形上半身结构的社交机器人，通过手臂或手部发起直接、短暂、柔和的身体接触来传达不同社交意图时，人们对不同身体区域被触碰的接受程度。",
     consentP2:"你的回答仅用于学术研究。本问卷不会收集你的姓名或直接联系方式，你可以在提交前随时退出。",
     consentP3:"问卷涉及身体部位与社交接触判断。如果你对此感到不适，可以随时停止填写。",
-    consentCheck:"我已阅读以上说明，并同意参与本研究。",
+    consentP4:"请确认你已年满 18 岁后再继续填写本问卷。",
+    consentCheck:"我已认真阅读以上说明，并同意参与本研究。",
     continueBtn:"继续 →",
     backBtn:"← 返回",
     infoTitle:"基本信息",
@@ -52,7 +58,7 @@ const I18N = {
     countryOther:"其他",
     infoError:"请完整填写有效年龄、性别和国籍后继续。",
     intentTitle:"社交意图选择",
-    intentDesc:"以下列出 16 类可能通过触碰表达的社交意图。请根据你的直觉，选择你认为“社交机器人可以通过主动触碰人的身体来表达”的意图。这里不需要考虑具体触碰哪个身体部位，下一步会继续询问。",
+    intentDesc:"以下列出 16 类可能通过触碰表达的社交意图。请根据你的直觉，选择你认为“社交机器人可以通过主动触碰人的身体来表达”的意图。",
     selectAll:"全选",
     clearAll:"清空",
     contextTitle:"关系亲近度与互动语境",
@@ -79,7 +85,9 @@ const I18N = {
     ctxTaskDesc:"工作、导航、操作、家务或共同完成任务。",
     ctxIntimate:"私人亲密",
     ctxIntimateDesc:"高度私人化、浪漫、伴侣或明确亲密互动设定。",
+    currentIntentLabel:"当前意图",
     mapTitle:"身体地图标注",
+    mapDesc:"请针对当前意图，在身体地图上标注：哪些身体区域你愿意被机器人触碰，哪些身体区域你不愿意被机器人触碰。未标注区域将视为无明确意向。",
     colorToolTitle:"颜色",
     acceptable:"愿意被触碰",
     unacceptable:"不愿意被触碰",
@@ -94,6 +102,7 @@ const I18N = {
     backToIntentSelection:"← 返回意图选择",
     backToContextPrefix:"返回",
     contextQuestionsNoun:"关系/场景",
+    backToContextFull:"← 返回关系/场景",
     prevContext:"← 上一个意图",
     nextContext:"下一个意图 →",
     contextToMaps:"进入身体地图 →",
@@ -106,6 +115,7 @@ const I18N = {
     backToMaps:"← 返回地图",
     submitResponse:"提交问卷",
     backToReview:"返回检查",
+    progressIntro:"研究场景介绍",
     progressConsent:"知情同意",
     progressInfo:"基本信息",
     progressIntents:"选择社交意图",
@@ -131,12 +141,18 @@ const I18N = {
   en: {
     appTitle:"Robot Social Touch Acceptability Survey",
     appSub:"Body-region acceptability mapping for robot-initiated physical contact",
+    introTitle:"Study Scenario",
+    introDesc:"Before starting the survey, please watch the short animation below and read the description of what robot-initiated social touch means in this study.",
+    introP1:"Please imagine the robot in this study as a social robot with a humanoid upper-body structure. It has mechanical arms and hands shaped similarly to human arms and hands, is slightly shorter than an adult, and mainly initiates touch through its arm or hand.",
+    introP2:"In this survey, touch means direct, brief, gentle, non-painful, and non-coercive physical contact initiated by the robot on a person's body. You will first judge whether a robot could express a social intent through this kind of touch, and later mark which body regions you find acceptable or unacceptable.",
+    introContinue:"I understand, continue →",
     consentTitle:"Consent",
     consentDesc:"Please read the following information before starting the survey.",
-    consentP1:"This survey investigates how acceptable people find being touched on different body regions when a robot initiates physical contact to convey social intents.",
+    consentP1:"This survey investigates how acceptable people find being touched on different body regions when a social robot with a humanoid upper-body structure uses its arm or hand to initiate direct, brief, and gentle physical contact to convey different social intents.",
     consentP2:"Your responses will be used for academic research only. The survey does not ask for your name or direct contact information. You may stop at any time before submitting your response.",
     consentP3:"The survey involves judgments about body regions and social touch. You may stop at any time if you feel uncomfortable.",
-    consentCheck:"I have read the information above and agree to participate in this study.",
+    consentP4:"Please confirm that you are at least 18 years old before continuing this survey.",
+    consentCheck:"I have carefully read the information above and agree to participate in this study.",
     continueBtn:"Continue →",
     backBtn:"← Back",
     infoTitle:"Basic Information",
@@ -168,7 +184,7 @@ const I18N = {
     countryOther:"Other",
     infoError:"Please complete a valid age, gender, and nationality before continuing.",
     intentTitle:"Social Intents",
-    intentDesc:"The following list contains 16 social intents that may be expressed through touch. Based on your intuition, select the intents that you think a social robot could express by actively touching a person's body. You do not need to consider the specific body region yet; that will be asked later.",
+    intentDesc:"The following list contains 16 social intents that may be expressed through touch. Based on your intuition, select the intents that you think a social robot could express by actively touching a person's body.",
     selectAll:"Select all",
     clearAll:"Clear all",
     contextTitle:"Relationship Closeness and Interaction Context",
@@ -195,7 +211,9 @@ const I18N = {
     ctxTaskDesc:"Work, navigation, operation, household tasks, or joint task completion.",
     ctxIntimate:"Private / intimate interaction",
     ctxIntimateDesc:"Highly private, romantic, partner-like, or explicitly intimate interaction settings.",
+    currentIntentLabel:"Current intent",
     mapTitle:"Body Map",
+    mapDesc:"For the current intent, mark on the body map which body regions you would be willing to let the robot touch and which regions you would not be willing to let the robot touch. Unmarked regions will be treated as no clear preference.",
     colorToolTitle:"Color",
     acceptable:"Acceptable",
     unacceptable:"Unacceptable",
@@ -210,6 +228,7 @@ const I18N = {
     backToIntentSelection:"← Back to intent selection",
     backToContextPrefix:"Back to",
     contextQuestionsNoun:"relationship/context",
+    backToContextFull:"← Back to relationship/context",
     prevContext:"← Previous intent",
     nextContext:"Next intent →",
     contextToMaps:"Go to body map →",
@@ -222,6 +241,7 @@ const I18N = {
     backToMaps:"← Back to maps",
     submitResponse:"Submit response",
     backToReview:"Back to review",
+    progressIntro:"Study scenario",
     progressConsent:"Consent",
     progressInfo:"Basic information",
     progressIntents:"Select social intents",
@@ -562,10 +582,9 @@ function renderContextQuestion() {
   document.getElementById("contextCounter").textContent = `${contextIdx+1} / ${order.length}`;
   document.getElementById("btnPrevContext").textContent = t("prevContext");
   document.getElementById("btnPrevContext").disabled = contextIdx === 0;
-  document.getElementById("btnNextContext").textContent = t("nextContext");
-  document.getElementById("btnContextDone").textContent = t("contextToMaps");
-  document.getElementById("btnNextContext").style.display = contextIdx < order.length-1 ? "" : "none";
-  document.getElementById("btnContextDone").style.display = contextIdx === order.length-1 ? "" : "none";
+  document.getElementById("btnNextContext").textContent = t("contextToMaps");
+  document.getElementById("btnNextContext").style.display = "";
+  document.getElementById("btnContextDone").style.display = "none";
 }
 
 function setRelationship(intentId, value) {
@@ -717,7 +736,8 @@ function goContext() {
   if (order.length === 0) return;
   order.forEach(id => { if (!(id in data)) data[id] = {}; });
   initIntentMeta();
-  if (contextIdx >= order.length) contextIdx = 0;
+  contextIdx = 0;
+  idx = 0;
   showStep("sContext");
   renderContextQuestion();
   prog();
@@ -731,38 +751,34 @@ function backToIntentSelectionFromContext() {
 
 function nextContext() {
   if (!validateCurrentContextQuestion()) return;
-  if (contextIdx < order.length - 1) {
-    contextIdx++;
-    document.getElementById("contextError").classList.remove("show");
-    renderContextQuestion();
-    prog();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  idx = contextIdx;
+  showStep("s2");
+  load();
+  ensureBodyMap3D()
+    .then(updCol)
+    .catch(() => {
+      // The visible status message is set in ensureBodyMap3D.
+    });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function goPreviousIntentFromContext() {
+  if (contextIdx > 0) {
+    idx = contextIdx - 1;
+    showStep("s2");
+    load();
+    ensureBodyMap3D()
+      .then(updCol)
+      .catch(() => {});
   }
 }
 
 function prevContext() {
-  if (contextIdx > 0) {
-    contextIdx--;
-    document.getElementById("contextError").classList.remove("show");
-    renderContextQuestion();
-    prog();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  goPreviousIntentFromContext();
 }
 
 async function goMaps() {
-  if (!validateCurrentContextQuestion()) return;
-  if (!validateContextQuestions()) return;
-  order.forEach(id => { if (!(id in data)) data[id] = {}; });
-  idx = 0;
-  showStep("s2");
-  load();
-  try {
-    await ensureBodyMap3D();
-    updCol();
-  } catch {
-    // The visible status message is set in ensureBodyMap3D.
-  }
+  nextContext();
 }
 function load() {
   const id = order[idx];
@@ -774,19 +790,30 @@ function load() {
   updCol();
   document.getElementById("btnPrevMap").textContent = t("prevIntent");
   document.getElementById("btnPrevMap").disabled = idx === 0;
-  document.getElementById("btnNext").textContent = t("nextIntent");
+  document.getElementById("btnNext").textContent = idx < order.length-1 ? t("nextIntent") : t("reviewSubmit");
   document.getElementById("btnDone").textContent = t("reviewSubmit");
-  document.getElementById("btnNext").style.display = idx < order.length-1 ? "" : "none";
-  document.getElementById("btnDone").style.display = idx === order.length-1 ? "" : "none";
+  document.getElementById("btnNext").style.display = "";
+  document.getElementById("btnDone").style.display = "none";
   prog();
 }
 function save() { data[order[idx]] = { ...cur }; }
-function next() { save(); if (idx < order.length-1) { idx++; load(); } }
+function next() {
+  save();
+  if (idx < order.length-1) {
+    idx++;
+    contextIdx = idx;
+    document.getElementById("contextError").classList.remove("show");
+    showStep("sContext");
+    renderContextQuestion();
+  } else {
+    done();
+  }
+}
 function prev() { save(); if (idx > 0) { idx--; load(); } }
 function backToIntentSelection() { save(); showStep("s1"); }
 function backToContextQuestions() {
   save();
-  contextIdx = Math.min(idx, Math.max(0, order.length - 1));
+  contextIdx = idx;
   showStep("sContext");
   renderContextQuestion();
   prog();
@@ -803,15 +830,16 @@ function back() {
 }
 function prog() {
   const f = document.getElementById("pFill"); const textEl = document.getElementById("pText");
-  if (document.getElementById("s0").classList.contains("active")) { f.style.width="8%"; textEl.textContent=t("progressConsent"); }
-  else if (document.getElementById("sInfo").classList.contains("active")) { f.style.width="20%"; textEl.textContent=t("progressInfo"); }
+  if (document.getElementById("sIntro").classList.contains("active")) { f.style.width="6%"; textEl.textContent=t("progressIntro"); }
+  else if (document.getElementById("s0").classList.contains("active")) { f.style.width="12%"; textEl.textContent=t("progressConsent"); }
+  else if (document.getElementById("sInfo").classList.contains("active")) { f.style.width="22%"; textEl.textContent=t("progressInfo"); }
   else if (document.getElementById("s1").classList.contains("active")) { f.style.width="35%"; textEl.textContent=t("progressIntents"); }
   else if (document.getElementById("sContext").classList.contains("active")) {
-    const pct = 35 + Math.round((contextIdx+1)/Math.max(order.length, 1) * 13);
+    const pct = 35 + Math.round((contextIdx * 2 + 1)/Math.max(order.length * 2, 1) * 55);
     f.style.width=pct+"%"; textEl.textContent=`${t("progressContext")} ${contextIdx+1}/${Math.max(order.length, 1)}`;
   }
   else if (document.getElementById("s2").classList.contains("active")) {
-    const pct = 48 + Math.round((idx+1)/order.length * 37);
+    const pct = 35 + Math.round((idx * 2 + 2)/Math.max(order.length * 2, 1) * 55);
     f.style.width=pct+"%"; textEl.textContent=`${t("progressMap")} ${idx+1}/${order.length}`;
   }
   else if (document.getElementById("s3").classList.contains("active")) { f.style.width="95%"; textEl.textContent=t("progressReview"); }
@@ -950,6 +978,7 @@ function buildSurveyPayload() {
     regions: regionsPayload(),
     metadata: {
       demographics,
+      ageRequirement: "Participants are instructed to continue only if they are at least 18 years old.",
       intentPoolVersion: "意图池.xlsx / 2026-06-04 / 16 intents",
       intentCount: INTENTS.length,
       intentMeta: intentMetaPayload(),

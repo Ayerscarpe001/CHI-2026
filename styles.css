@@ -32,17 +32,34 @@
     color:#d0d0d0; font-size:0.92rem; font-weight:650; line-height:1.55;
     margin-bottom:22px; max-width:920px;
   }
+  .intro-layout {
+    display:grid; grid-template-columns:minmax(0, 1.35fr) minmax(280px, 0.65fr);
+    gap:18px; align-items:stretch;
+  }
+  .intro-animation-frame {
+    border:1px solid var(--border); border-radius:8px; overflow:hidden; background:#080808;
+    min-height:320px;
+  }
+  .intro-animation-frame iframe {
+    display:block; width:100%; height:100%; min-height:clamp(320px, 44vw, 540px); border:0;
+  }
+  .intro-copy { display:flex; flex-direction:column; justify-content:center; }
   .map-heading, .context-heading {
     display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center;
     margin-bottom:10px;
   }
   .map-heading .step-title, .context-heading .step-title { margin-bottom:0; white-space:nowrap; }
-  .map-heading .intent-context, .context-heading .intent-context {
-    background:transparent; border:none; border-radius:0; padding:0; margin:0;
-    min-width:0;
+  .current-intent {
+    display:grid; grid-template-columns:auto auto 1fr; align-items:center; gap:10px;
+    background:#101010; border:1px solid var(--border); border-radius:8px;
+    padding:8px 11px; min-width:0;
+  }
+  .intent-label {
+    color:var(--dim); font-size:0.68rem; font-weight:800;
+    text-transform:uppercase; letter-spacing:0.05em;
   }
   .map-heading .intent-name, .context-heading .intent-name {
-    display:inline; font-size:0.96rem; font-weight:780; margin-right:10px;
+    display:inline; font-size:0.96rem; font-weight:780; margin-right:0;
   }
   .map-heading .intent-desc, .context-heading .intent-desc {
     display:inline; color:#aaa; font-size:0.8rem; line-height:1.38;
@@ -129,7 +146,7 @@
   .scale-label { font-size:0.68rem; line-height:1.2; color:#aaa; }
   .scale-option.selected .scale-label { color:#e5efff; }
   .ios-diagram {
-    position:relative; width:92px; height:54px; margin:3px 0 4px;
+    position:relative; width:92px; height:54px; margin:3px auto 4px;
     display:block;
   }
   .ios-circle {
@@ -181,11 +198,11 @@
 
   /* Paint tools */
   .color-legend {
-    display:grid; grid-template-columns:minmax(130px, auto) 1fr minmax(130px, auto);
+    display:grid; grid-template-columns:minmax(420px, 1fr) minmax(240px, auto) minmax(130px, auto);
     align-items:center; gap:12px;
-    padding:0; margin:4px auto 10px; max-width:860px;
+    padding:0; margin:4px auto 10px; max-width:960px;
   }
-  .color-controls { display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; }
+  .color-controls { display:flex; align-items:center; justify-content:flex-start; gap:10px; flex-wrap:wrap; }
   .toolbar-action {
     background:#101010; border:1px solid var(--border); color:var(--text);
     border-radius:8px; padding:9px 10px; cursor:pointer; font-size:0.74rem;
@@ -211,7 +228,7 @@
   .color-controls .leg-swatch.l2n { background:rgba(220,38,38,0.72); }
   .color-controls .leg-title { font-size:0.75rem; font-weight:600; color:var(--text); margin-right:4px; }
   .tool-status {
-    flex-basis:100%; display:flex; justify-content:center; gap:6px; flex-wrap:wrap;
+    display:flex; justify-content:center; gap:6px; flex-wrap:wrap;
     text-align:center; font-size:0.68rem; color:var(--dim); line-height:1.25;
   }
   .current-tool { color:#bbb; }
@@ -261,8 +278,10 @@
   @media (max-width: 760px) {
     .step-title { font-size:1.18rem; }
     .step-desc { font-size:0.88rem; }
+    .intro-layout { grid-template-columns:1fr; }
     .map-heading, .context-heading { grid-template-columns:1fr; gap:6px; }
     .map-heading .step-title, .context-heading .step-title { white-space:normal; }
+    .current-intent { grid-template-columns:1fr; gap:4px; }
     .body-map-shell { height:clamp(520px, 68vh, 680px); }
     .color-legend { grid-template-columns:1fr; padding:8px 10px; max-width:520px; }
     .toolbar-action { align-self:auto; }
