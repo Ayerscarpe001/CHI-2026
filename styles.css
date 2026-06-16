@@ -94,6 +94,17 @@
   }
   .select-row { display:flex; gap:8px; justify-content:flex-end; margin-bottom:8px; }
   .select-row button { background:none; border:none; color:var(--accent); font-size:0.76rem; cursor:pointer; }
+  .no-intent-option {
+    display:flex; gap:10px; align-items:flex-start;
+    background:#101010; border:1px solid var(--border); border-radius:8px;
+    padding:11px 13px; margin:0 0 12px; cursor:pointer;
+  }
+  .no-intent-option input { margin-top:4px; }
+  .no-intent-option strong { display:block; font-size:0.82rem; color:#eee; line-height:1.35; }
+  .no-intent-option small { display:block; margin-top:3px; color:#999; font-size:0.72rem; line-height:1.4; }
+  .no-intent-option.selected {
+    border-color:var(--accent); background:#111b2a; box-shadow:0 0 0 1px rgba(91,155,255,0.18);
+  }
   .intent-card {
     background: var(--card); border: 2px solid var(--border); border-radius: var(--radius);
     padding: 14px 16px; cursor: pointer; transition: all 0.18s; user-select: none; position: relative;
@@ -202,6 +213,18 @@
     pointer-events:none; opacity:0; transition:opacity 0.18s ease;
   }
   .body-map-status.show { opacity:1; }
+  .empty-map-confirm {
+    display:flex; align-items:flex-start; gap:9px;
+    width:min(100%, 860px); margin:12px auto 0;
+    color:#cfcfcf; font-size:0.76rem; line-height:1.42;
+    background:#101010; border:1px solid var(--border); border-radius:8px;
+    padding:10px 12px;
+  }
+  .empty-map-confirm input { margin-top:3px; }
+  .empty-map-confirm.disabled { opacity:0.55; }
+  #mapError {
+    width:min(100%, 860px); margin:8px auto 0;
+  }
 
   /* Paint tools */
   .color-legend {
@@ -269,9 +292,11 @@
   /* ── STEP 3 ── */
   .rev-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap:10px; }
   .rev-card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:12px; }
+  .rev-card.no-intent-review { grid-column:1 / -1; }
   .rev-card .r-name { font-weight:600; font-size:0.86rem; }
   .rev-card .r-stats { font-size:0.72rem; color:var(--dim); margin-top:4px; }
   .rev-card .r-meta { font-size:0.72rem; color:#a7c3ff; margin-top:5px; }
+  .rev-card .r-note { font-size:0.7rem; color:#fbbf24; margin-top:5px; }
   .result-panel {
     max-width:720px; margin:0 auto; background:var(--card); border:1px solid var(--border);
     border-radius:8px; padding:18px;

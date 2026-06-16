@@ -58,9 +58,11 @@ const I18N = {
     countryOther:"其他",
     infoError:"请完整填写有效年龄、性别和国籍后继续。",
     intentTitle:"社交意图选择",
-    intentDesc:"以下列出 16 类可能通过触碰表达的社交意图。请根据你的直觉，选择你认为“社交机器人可以通过主动触碰人的身体来表达”的意图。",
+    intentDesc:"以下列出 16 类可能通过触碰表达的社交意图。请根据你的直觉，选择你认为“社交机器人可以通过主动触碰人的身体来表达”的意图；如果你认为均不适合，也可以选择下方的单独选项。",
     selectAll:"全选",
     clearAll:"清空",
+    noIntentTitle:"以上意图均不适合",
+    noIntentDesc:"如果你认为这些社交意图都不适合由机器人通过主动触碰表达，可以选择此项并直接进入检查页。",
     contextTitle:"关系亲近度与互动语境",
     contextDesc:"请针对当前意图回答下面两道题。这里的“关系亲近度”指你与机器人之间的熟悉、信任和私人化互动程度；“互动语境”指这种触碰意图最可能出现的高层互动场景。",
     relationshipQuestion:"如果机器人要通过触碰向你表达这一意图，你认为它通常至少需要与你达到怎样的关系亲近程度？",
@@ -88,6 +90,8 @@ const I18N = {
     currentIntentLabel:"当前意图",
     mapTitle:"身体地图标注",
     mapDesc:"请针对当前意图，在身体地图上标注：哪些身体区域你愿意被机器人触碰，哪些身体区域你不愿意被机器人触碰。未标注区域将视为无明确意向。",
+    emptyMapConfirm:"我已查看当前意图的身体地图，但没有任何明确愿意或不愿意标注的身体区域。",
+    mapError:"当前身体地图尚未标注。如你确实没有明确意向，请先勾选上方确认项。",
     colorToolTitle:"颜色",
     acceptable:"愿意被触碰",
     unacceptable:"不愿意被触碰",
@@ -112,6 +116,7 @@ const I18N = {
     reviewSubmit:"检查与提交 →",
     reviewTitle:"检查与提交",
     reviewDesc:"请检查你的回答，然后提交至研究数据库。",
+    noIntentReview:"你选择了“以上意图均不适合由机器人通过主动触碰表达”。本次回答将不会包含身体地图标注。",
     backToMaps:"← 返回地图",
     submitResponse:"提交问卷",
     backToReview:"返回检查",
@@ -126,6 +131,7 @@ const I18N = {
     acceptCount:"愿意",
     rejectCount:"不愿意",
     neutralCount:"无意向",
+    emptyMapConfirmedBadge:"已确认无明确标注",
     resultSubmitted:"已提交",
     resultError:"提交错误",
     submitLoading:"提交中...",
@@ -184,9 +190,11 @@ const I18N = {
     countryOther:"Other",
     infoError:"Please complete a valid age, gender, and nationality before continuing.",
     intentTitle:"Social Intents",
-    intentDesc:"The following list contains 16 social intents that may be expressed through touch. Based on your intuition, select the intents that you think a social robot could express by actively touching a person's body.",
+    intentDesc:"The following list contains 16 social intents that may be expressed through touch. Based on your intuition, select the intents that you think a social robot could express by actively touching a person's body. If none apply, you may select the separate option below.",
     selectAll:"Select all",
     clearAll:"Clear all",
+    noIntentTitle:"None of these intents are suitable",
+    noIntentDesc:"If you think none of these social intents are suitable for a robot to express through active touch, select this option and continue directly to review.",
     contextTitle:"Relationship Closeness and Interaction Context",
     contextDesc:"Please answer the two questions below for the current intent. Relationship closeness refers to your familiarity, trust, and personalized interaction with the robot; interaction context refers to the broad setting where this touch intent would most likely occur.",
     relationshipQuestion:"If a robot were to express this intent to you through touch, what minimum level of relationship closeness would usually be needed?",
@@ -214,6 +222,8 @@ const I18N = {
     currentIntentLabel:"Current intent",
     mapTitle:"Body Map",
     mapDesc:"For the current intent, mark on the body map which body regions you would be willing to let the robot touch and which regions you would not be willing to let the robot touch. Unmarked regions will be treated as no clear preference.",
+    emptyMapConfirm:"I have reviewed the body map for the current intent, but I have no clear acceptable or unacceptable body regions to mark.",
+    mapError:"No body region has been marked for the current intent. If you truly have no clear preference, please check the confirmation above first.",
     colorToolTitle:"Color",
     acceptable:"Acceptable",
     unacceptable:"Unacceptable",
@@ -238,6 +248,7 @@ const I18N = {
     reviewSubmit:"Review & Submit →",
     reviewTitle:"Review & Submit",
     reviewDesc:"Check your responses, then submit them to the research database.",
+    noIntentReview:"You selected “None of these intents are suitable for a robot to express through active touch.” This response will not include body-map markings.",
     backToMaps:"← Back to maps",
     submitResponse:"Submit response",
     backToReview:"Back to review",
@@ -252,6 +263,7 @@ const I18N = {
     acceptCount:"Accept",
     rejectCount:"Reject",
     neutralCount:"Neutral",
+    emptyMapConfirmedBadge:"Confirmed no clear markings",
     resultSubmitted:"Response submitted",
     resultError:"Submission error",
     submitLoading:"Submitting...",
@@ -416,9 +428,55 @@ let intentMeta = {};
 let cur = {};
 let paint = 1;
 let demographics = {};
+let noIntentSelected = false;
 const total = ALL_REGIONS.length;
+const surveyStartedAt = new Date();
+let currentStepId = "sIntro";
+let currentStepEnteredAt = Date.now();
+const qualityLog = {
+  stepDurationsMs: {},
+  stepVisits: { sIntro: 1 },
+  mapInteractions: {},
+  mapResets: {},
+  mapEmptyConfirmations: {},
+};
+
+function recordStepTime() {
+  const now = Date.now();
+  const elapsed = Math.max(0, now - currentStepEnteredAt);
+  qualityLog.stepDurationsMs[currentStepId] = (qualityLog.stepDurationsMs[currentStepId] || 0) + elapsed;
+  currentStepEnteredAt = now;
+}
+
+function recordStepTransition(nextStepId) {
+  if (nextStepId !== currentStepId) {
+    recordStepTime();
+    currentStepId = nextStepId;
+    qualityLog.stepVisits[nextStepId] = (qualityLog.stepVisits[nextStepId] || 0) + 1;
+  }
+}
+
+function ensureMeta(intentId) {
+  if (!intentMeta[intentId]) {
+    intentMeta[intentId] = {
+      relationship_closeness: null,
+      interaction_contexts: [],
+      empty_map_confirmed: false,
+    };
+  }
+  return intentMeta[intentId];
+}
+
+function recordMapInteraction(intentId) {
+  qualityLog.mapInteractions[intentId] = (qualityLog.mapInteractions[intentId] || 0) + 1;
+}
+
+function recordMapReset(intentId) {
+  qualityLog.mapResets[intentId] = (qualityLog.mapResets[intentId] || 0) + 1;
+}
 
 function showStep(id) {
+  recordStepTransition(id);
   document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
   document.getElementById(id).classList.add("active");
   prog();
@@ -478,14 +536,30 @@ function syncIntentSelectionUI() {
     const c = document.getElementById("c-"+i.id);
     if (c) c.classList.toggle("sel", sel.has(i.id));
   });
+  const noIntentBox = document.getElementById("noIntentBox");
+  const noIntentOption = document.getElementById("noIntentOption");
+  if (noIntentBox) noIntentBox.checked = noIntentSelected;
+  if (noIntentOption) noIntentOption.classList.toggle("selected", noIntentSelected);
   updBtn();
 }
 function tog(id) {
+  if (noIntentSelected) {
+    noIntentSelected = false;
+    const noIntentBox = document.getElementById("noIntentBox");
+    const noIntentOption = document.getElementById("noIntentOption");
+    if (noIntentBox) noIntentBox.checked = false;
+    if (noIntentOption) noIntentOption.classList.remove("selected");
+  }
   sel.has(id) ? sel.delete(id) : sel.add(id);
   document.getElementById("c-"+id).classList.toggle("sel");
   updBtn();
 }
 function selAll(v) {
+  noIntentSelected = false;
+  const noIntentBox = document.getElementById("noIntentBox");
+  const noIntentOption = document.getElementById("noIntentOption");
+  if (noIntentBox) noIntentBox.checked = false;
+  if (noIntentOption) noIntentOption.classList.remove("selected");
   INTENTS.forEach(i => {
     v ? sel.add(i.id) : sel.delete(i.id);
     const c = document.getElementById("c-"+i.id);
@@ -493,9 +567,18 @@ function selAll(v) {
   });
   updBtn();
 }
+function toggleNoIntent(checked) {
+  noIntentSelected = checked;
+  if (checked) {
+    sel.clear();
+    INTENTS.forEach(i => document.getElementById("c-"+i.id)?.classList.remove("sel"));
+  }
+  document.getElementById("noIntentOption")?.classList.toggle("selected", checked);
+  updBtn();
+}
 function updBtn() {
   const b = document.getElementById("btnToMaps");
-  b.disabled = sel.size === 0;
+  b.disabled = sel.size === 0 && !noIntentSelected;
   document.getElementById("selCount").textContent = sel.size;
   document.getElementById("btnToMapsText").textContent = t("continueBtn");
 }
@@ -509,15 +592,14 @@ function initIntentMeta() {
     if (!selected.has(id)) delete intentMeta[id];
   });
   order.forEach(id => {
-    if (!intentMeta[id]) {
-      intentMeta[id] = {
-        relationship_closeness: null,
-        interaction_contexts: [],
-      };
-    } else if (!Array.isArray(intentMeta[id].interaction_contexts)) {
+    const meta = ensureMeta(id);
+    if (!Array.isArray(meta.interaction_contexts)) {
       intentMeta[id].interaction_contexts = intentMeta[id].interaction_context
         ? [intentMeta[id].interaction_context]
         : [];
+    }
+    if (typeof meta.empty_map_confirmed !== "boolean") {
+      meta.empty_map_confirmed = false;
     }
   });
 }
@@ -598,25 +680,22 @@ function renderContextQuestion() {
 }
 
 function setRelationship(intentId, value) {
-  if (!intentMeta[intentId]) intentMeta[intentId] = {};
-  intentMeta[intentId].relationship_closeness = value;
+  ensureMeta(intentId).relationship_closeness = value;
   document.getElementById("contextError").classList.remove("show");
   renderContextQuestion();
 }
 
 function setInteractionContext(intentId, contextId) {
-  if (!intentMeta[intentId]) intentMeta[intentId] = {};
-  if (!Array.isArray(intentMeta[intentId].interaction_contexts)) {
-    intentMeta[intentId].interaction_contexts = [];
-  }
-  const contexts = intentMeta[intentId].interaction_contexts;
+  const meta = ensureMeta(intentId);
+  if (!Array.isArray(meta.interaction_contexts)) meta.interaction_contexts = [];
+  const contexts = meta.interaction_contexts;
   const existingIndex = contexts.indexOf(contextId);
   if (existingIndex >= 0) {
     contexts.splice(existingIndex, 1);
   } else {
     contexts.push(contextId);
   }
-  intentMeta[intentId].interaction_context = contexts[0] || null;
+  meta.interaction_context = contexts[0] || null;
   document.getElementById("contextError").classList.remove("show");
   renderContextQuestion();
 }
@@ -679,8 +758,14 @@ async function ensureBodyMap3D() {
           modelUrl: BODY_MODEL_URL,
           regions: bodyMapRegionsForRenderer(),
           onRegionClick: (regionId, event) => {
+            const intentId = order[idx];
             cur[regionId] = (cur[regionId] === paint) ? 0 : paint;
+            recordMapInteraction(intentId);
+            if (hasCurrentMapMarks()) {
+              ensureMeta(intentId).empty_map_confirmed = false;
+            }
             updCol();
+            updateEmptyMapConfirmUI();
             if (isTouchLikeInput(event)) showTT(regionLabel(REGION_BY_ID.get(regionId)), event, true);
           },
           onRegionHover: (regionId, event) => {
@@ -710,6 +795,38 @@ function updCol() {
     bodyMap3d.setPaintPreview(paint);
     bodyMap3d.setStates(cur);
   }
+}
+
+function hasCurrentMapMarks() {
+  return Object.values(cur).some(value => value === 1 || value === -1);
+}
+
+function setEmptyMapConfirmation(checked) {
+  const id = order[idx];
+  if (!id) return;
+  ensureMeta(id).empty_map_confirmed = checked;
+  qualityLog.mapEmptyConfirmations[id] = checked;
+  document.getElementById("mapError")?.classList.remove("show");
+}
+
+function updateEmptyMapConfirmUI() {
+  const id = order[idx];
+  const checkbox = document.getElementById("emptyMapConfirm");
+  if (!checkbox || !id) return;
+  const hasMarks = hasCurrentMapMarks();
+  const confirmed = !!ensureMeta(id).empty_map_confirmed;
+  checkbox.checked = !hasMarks && confirmed;
+  checkbox.disabled = hasMarks;
+  document.querySelector(".empty-map-confirm")?.classList.toggle("disabled", hasMarks);
+  document.getElementById("mapError")?.classList.remove("show");
+}
+
+function validateCurrentMap() {
+  const id = order[idx];
+  if (!id || hasCurrentMapMarks() || ensureMeta(id).empty_map_confirmed) return true;
+  document.getElementById("mapError")?.classList.add("show");
+  document.getElementById("emptyMapConfirm")?.focus();
+  return false;
 }
 
 // ============================================================
@@ -753,7 +870,17 @@ window.addEventListener("scroll", hideTT, { passive: true });
 // ============================================================
 function goContext() {
   order = [...sel];
-  if (order.length === 0) return;
+  if (order.length === 0) {
+    if (!noIntentSelected) return;
+    data = {};
+    intentMeta = {};
+    idx = 0;
+    contextIdx = 0;
+    showStep("s3");
+    r3();
+    return;
+  }
+  noIntentSelected = false;
   order.forEach(id => { if (!(id in data)) data[id] = {}; });
   initIntentMeta();
   contextIdx = 0;
@@ -803,11 +930,13 @@ async function goMaps() {
 function load() {
   const id = order[idx];
   const it = INTENTS.find(i => i.id === id);
+  ensureMeta(id);
   document.getElementById("mapIntentName").textContent = lang === "zh" ? it.zh : it.en;
   document.getElementById("mapIntentDesc").textContent = it.desc[lang];
   document.getElementById("counter").textContent = `${idx+1} / ${order.length}`;
   cur = { ...(data[id] || {}) };
   updCol();
+  updateEmptyMapConfirmUI();
   document.getElementById("btnPrevMap").textContent = t("prevIntent");
   document.getElementById("btnPrevMap").disabled = idx === 0;
   document.getElementById("btnNext").textContent = idx < order.length-1 ? t("nextIntent") : t("reviewSubmit");
@@ -816,8 +945,12 @@ function load() {
   document.getElementById("btnDone").style.display = "none";
   prog();
 }
-function save() { data[order[idx]] = { ...cur }; }
+function save() {
+  const id = order[idx];
+  if (id) data[id] = { ...cur };
+}
 function next() {
+  if (!validateCurrentMap()) return;
   save();
   if (idx < order.length-1) {
     idx++;
@@ -838,13 +971,28 @@ function backToContextQuestions() {
   renderContextQuestion();
   prog();
 }
-function resetCur() { cur = {}; updCol(); }
+function resetCur() {
+  const id = order[idx];
+  if (id) {
+    recordMapReset(id);
+    ensureMeta(id).empty_map_confirmed = false;
+    qualityLog.mapEmptyConfirmations[id] = false;
+  }
+  cur = {};
+  updCol();
+  updateEmptyMapConfirmUI();
+}
 function done() {
+  if (!validateCurrentMap()) return;
   save();
   showStep("s3");
   r3();
 }
 function back() {
+  if (order.length === 0 && noIntentSelected) {
+    showStep("s1");
+    return;
+  }
   showStep("s2");
   load();
 }
@@ -870,6 +1018,17 @@ function prog() {
 // STEP 3
 // ============================================================
 function r3() {
+  const reviewBackButton = document.querySelector("#s3 .nav .btn-s");
+  if (order.length === 0 && noIntentSelected) {
+    if (reviewBackButton) reviewBackButton.textContent = t("backToIntentSelection");
+    document.getElementById("revGrid").innerHTML = `
+      <div class="rev-card no-intent-review">
+        <div class="r-name">${t("noIntentTitle")}</div>
+        <div class="r-stats">${t("noIntentReview")}</div>
+      </div>`;
+    return;
+  }
+  if (reviewBackButton) reviewBackButton.textContent = t("backToMaps");
   document.getElementById("revGrid").innerHTML = order.map(id => {
     const it = INTENTS.find(i => i.id === id);
     const meta = intentMeta[id] || {};
@@ -878,6 +1037,7 @@ function r3() {
     const accept = entries.filter(([,v]) => v === 1).length;
     const reject = entries.filter(([,v]) => v === -1).length;
     const neutral = total - accept - reject;
+    const emptyConfirmed = accept + reject === 0 && meta.empty_map_confirmed;
     return `<div class="rev-card">
       <div class="r-name">${lang === "zh" ? it.zh : it.en}</div>
       <div class="r-stats">
@@ -886,6 +1046,7 @@ function r3() {
       <div class="r-meta">
         ${relationshipLabel(meta.relationship_closeness)} · ${contextLabels(meta.interaction_contexts).join(" / ")}
       </div>
+      ${emptyConfirmed ? `<div class="r-note">${t("emptyMapConfirmedBadge")}</div>` : ""}
     </div>`;
   }).join("");
 }
@@ -934,7 +1095,8 @@ function selectedIntentPayload() {
       interaction_contexts: Array.isArray(meta.interaction_contexts) ? meta.interaction_contexts : [],
       interaction_context_labels: contextLabels(meta.interaction_contexts),
       interaction_context: Array.isArray(meta.interaction_contexts) ? meta.interaction_contexts.join(",") : null,
-      interaction_context_label: contextLabels(meta.interaction_contexts).join(" / ")
+      interaction_context_label: contextLabels(meta.interaction_contexts).join(" / "),
+      empty_map_confirmed: !!meta.empty_map_confirmed
     };
   });
 }
@@ -949,10 +1111,56 @@ function intentMetaPayload() {
       interaction_contexts: Array.isArray(meta.interaction_contexts) ? meta.interaction_contexts : [],
       interaction_context_labels: contextLabels(meta.interaction_contexts),
       interaction_context: Array.isArray(meta.interaction_contexts) ? meta.interaction_contexts.join(",") : null,
-      interaction_context_label: contextLabels(meta.interaction_contexts).join(" / ")
+      interaction_context_label: contextLabels(meta.interaction_contexts).join(" / "),
+      empty_map_confirmed: !!meta.empty_map_confirmed,
+      map_interactions: qualityLog.mapInteractions[id] || 0,
+      map_resets: qualityLog.mapResets[id] || 0
     };
   });
   return out;
+}
+
+function mapCompletionPayload() {
+  const out = {};
+  order.forEach(id => {
+    const d = data[id] || {};
+    const values = Object.values(d);
+    const accept = values.filter(value => value === 1).length;
+    const reject = values.filter(value => value === -1).length;
+    out[id] = {
+      marked_regions: accept + reject,
+      acceptable_regions: accept,
+      unacceptable_regions: reject,
+      unmarked_regions: total - accept - reject,
+      empty_map_confirmed: !!intentMeta[id]?.empty_map_confirmed,
+      map_interactions: qualityLog.mapInteractions[id] || 0,
+      map_resets: qualityLog.mapResets[id] || 0
+    };
+  });
+  return out;
+}
+
+function qualityMetadataPayload() {
+  recordStepTime();
+  const completedAt = new Date();
+  return {
+    survey_started_at: surveyStartedAt.toISOString(),
+    survey_completed_at: completedAt.toISOString(),
+    total_duration_ms: completedAt.getTime() - surveyStartedAt.getTime(),
+    step_durations_ms: qualityLog.stepDurationsMs,
+    step_visits: qualityLog.stepVisits,
+    map_interactions: qualityLog.mapInteractions,
+    map_resets: qualityLog.mapResets,
+    map_empty_confirmations: qualityLog.mapEmptyConfirmations,
+    map_completion: mapCompletionPayload(),
+    no_intent_selected: noIntentSelected,
+    selected_intent_count: order.length,
+    user_agent: navigator.userAgent,
+    pointer: {
+      coarse: !!window.matchMedia?.("(pointer: coarse)").matches,
+      hover_none: !!window.matchMedia?.("(hover: none)").matches
+    }
+  };
 }
 
 function relationshipScalePayload() {
@@ -986,6 +1194,7 @@ function regionsPayload() {
 function buildSurveyPayload() {
   save();
   const nationalityCode = fieldVal("nationality");
+  const qualityMetadata = qualityMetadataPayload();
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
@@ -996,15 +1205,17 @@ function buildSurveyPayload() {
     age_group: fieldVal("age"),
     country: nationalityCode,
     gender: fieldVal("gender"),
-    scaleDescription: "1=Acceptable / willing to be touched, 0=Neutral or no intention (default), -1=Unacceptable / unwilling to be touched",
+    scaleDescription: "1=Acceptable / willing to be touched, 0=Unmarked / no clear preference, -1=Unacceptable / unwilling to be touched. Empty maps require explicit confirmation and are recorded in metadata.",
     selected_intents: selectedIntentPayload(),
     body_data: normalizedBodyData(),
     regions: regionsPayload(),
     metadata: {
       demographics,
+      noIntentSelected,
       ageRequirement: "Participants are instructed to continue only if they are at least 18 years old.",
       intentPoolVersion: "意图池.xlsx / 2026-06-04 / 16 intents",
       intentCount: INTENTS.length,
+      selectedIntentCount: order.length,
       intentMeta: intentMetaPayload(),
       relationshipScale: relationshipScalePayload(),
       interactionContexts: interactionContextsPayload(),
@@ -1013,6 +1224,7 @@ function buildSurveyPayload() {
       bodyMapModel: BODY_MODEL_URL,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
+      quality: qualityMetadata,
       source: "bodymap_questionnaire_v9_3d_static_html"
     }
   };

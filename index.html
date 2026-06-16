@@ -115,6 +115,13 @@
       <button onclick="selAll(true)" data-i18n="selectAll">全选</button>
       <button onclick="selAll(false)" data-i18n="clearAll">清空</button>
     </div>
+    <label class="no-intent-option" id="noIntentOption">
+      <input type="checkbox" id="noIntentBox" onchange="toggleNoIntent(this.checked)">
+      <span>
+        <strong data-i18n="noIntentTitle">以上意图均不适合</strong>
+        <small data-i18n="noIntentDesc">如果你认为这些社交意图都不适合由机器人通过主动触碰表达，可以选择此项并直接进入检查页。</small>
+      </span>
+    </label>
     <div class="intent-grid" id="intentGrid"></div>
     <div class="nav">
       <button class="btn btn-p" id="btnToMaps" disabled onclick="goContext()">
@@ -185,6 +192,11 @@
       <div class="body-map-3d" id="bodyMap3d" aria-label="3D body map"></div>
       <div class="body-map-status" id="bodyMapStatus" role="status"></div>
     </div>
+    <label class="empty-map-confirm">
+      <input type="checkbox" id="emptyMapConfirm" onchange="setEmptyMapConfirmation(this.checked)">
+      <span data-i18n="emptyMapConfirm">我已查看当前意图的身体地图，但没有任何明确愿意或不愿意标注的身体区域。</span>
+    </label>
+    <div class="error-text" id="mapError" data-i18n="mapError">当前身体地图尚未标注。如你确实没有明确意向，请先勾选上方确认项。</div>
 
     <div class="nav">
       <button class="btn btn-s" onclick="backToContextQuestions()" data-i18n="backToContextFull">← 返回关系/场景</button>
