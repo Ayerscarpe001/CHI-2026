@@ -387,11 +387,11 @@ const INTERACTION_CONTEXTS = [
 ];
 
 // ============================================================
-// 3D BODY MAP REGIONS
+// SVG BODY MAP REGIONS
 // ============================================================
-// These ids must match the mesh object names inside assets/male_body_regions.glb.
-const BODY_MODEL_URL = "assets/male_body_regions.glb";
-const BODY_MODEL_ID = "male_body_regions_3d_v1";
+// These ids must match the selectable path/group ids inside assets/female_bodymap.svg.
+const BODY_MAP_URL = "assets/female_bodymap.svg";
+const BODY_MAP_ID = "female_bodymap_2d_svg_v1";
 const ALL_REGIONS = [
   { id:"scalp", zh:"头顶部", en:"Top of head / scalp", side:"top" },
   { id:"face", zh:"面部", en:"Face", side:"front" },
@@ -567,7 +567,7 @@ function setPaint(v) {
   document.getElementById("bucketReject").classList.toggle("active", v === -1);
   document.getElementById("currentTool").textContent =
     v === 1 ? t("currentAcceptable") : t("currentUnacceptable");
-  if (bodyMap3d) bodyMap3d.setPaintPreview(paint);
+  if (bodyMap) bodyMap.setPaintPreview(paint);
 }
 
 // ============================================================
@@ -776,13 +776,13 @@ function validateContextQuestions() {
 }
 
 // ============================================================
-// 3D BODY MAP
+// BODY MAP
 // ============================================================
-let bodyMap3d = null;
-let bodyMap3dReady = null;
+let bodyMap = null;
+let bodyMapReady = null;
 
 function currentBodyProfile() {
-  return BODY_MODEL_ID;
+  return BODY_MAP_ID;
 }
 
 function setBodyMapStatus(key, visible = true) {
@@ -799,15 +799,15 @@ function bodyMapRegionsForRenderer() {
   }));
 }
 
-async function ensureBodyMap3D() {
-  if (bodyMap3d) return bodyMap3d;
-  if (!bodyMap3dReady) {
+async function ensureBodyMap() {
+  if (bodyMap) return bodyMap;
+  if (!bodyMapReady) {
     setBodyMapStatus("bodyMapLoading");
-    bodyMap3dReady = import("./body-map-3d.js")
+    bodyMapReady = import("./body-map-svg.js")
       .then(async module => {
-        const map = new module.BodyMap3D({
-          container: document.getElementById("bodyMap3d"),
-          modelUrl: BODY_MODEL_URL,
+        const map = new module.BodyMapSVG({
+          container: document.getElementById("bodyMap"),
+          svgUrl: BODY_MAP_URL,
           regions: bodyMapRegionsForRenderer(),
           onRegionClick: (regionId, event) => {
             const intentId = order[idx];
@@ -828,25 +828,25 @@ async function ensureBodyMap3D() {
           onRegionLeave: hideTT,
         });
         await map.init();
-        bodyMap3d = map;
-        bodyMap3d.setPaintPreview(paint);
+        bodyMap = map;
+        bodyMap.setPaintPreview(paint);
         setBodyMapStatus("", false);
         return map;
       })
       .catch(error => {
         console.error(error);
-        bodyMap3dReady = null;
+        bodyMapReady = null;
         setBodyMapStatus("bodyMapLoadError");
         throw error;
       });
   }
-  return bodyMap3dReady;
+  return bodyMapReady;
 }
 
 function updCol() {
-  if (bodyMap3d) {
-    bodyMap3d.setPaintPreview(paint);
-    bodyMap3d.setStates(cur);
+  if (bodyMap) {
+    bodyMap.setPaintPreview(paint);
+    bodyMap.setStates(cur);
   }
 }
 
@@ -967,7 +967,7 @@ function prevPageFromContext() {
   idx = contextIdx - 1;
   showStep("s2");
   load();
-  ensureBodyMap3D()
+  ensureBodyMap()
     .then(updCol)
     .catch(() => {});
 }
@@ -977,10 +977,10 @@ function nextContext() {
   idx = contextIdx;
   showStep("s2");
   load();
-  ensureBodyMap3D()
+  ensureBodyMap()
     .then(updCol)
     .catch(() => {
-      // The visible status message is set in ensureBodyMap3D.
+      // The visible status message is set in ensureBodyMap.
     });
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -990,7 +990,7 @@ function goPreviousIntentFromContext() {
     idx = contextIdx - 1;
     showStep("s2");
     load();
-    ensureBodyMap3D()
+    ensureBodyMap()
       .then(updCol)
       .catch(() => {});
   }
@@ -1304,11 +1304,12 @@ function buildSurveyPayload() {
       interactionContexts: interactionContextsPayload(),
       nationalityName: nationalityCode ? countryName(nationalityCode) : null,
       bodyMapProfile: currentBodyProfile(),
-      bodyMapModel: BODY_MODEL_URL,
+      bodyMapModel: BODY_MAP_URL,
+      bodyMapAsset: BODY_MAP_URL,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v9_3d_static_html"
+      source: "bodymap_questionnaire_v10_svg_static_html"
     }
   };
 }

@@ -227,14 +227,18 @@
   .badge { display:inline-block;background:var(--accent);color:var(--bg);font-size:0.78rem;font-weight:600;padding:4px 14px;border-radius:20px;margin-bottom:8px; }
   .body-map-shell, .color-legend, .nav { user-select:none; -webkit-user-select:none; }
   .body-map-shell {
-    position:relative; width:min(100%, 860px); height:clamp(560px, 72vh, 780px);
+    position:relative; width:min(100%, 900px); height:clamp(600px, 76vh, 820px);
     margin:10px auto 0; border:1px solid var(--border); border-radius:8px;
-    background:radial-gradient(circle at 50% 38%, #171717 0%, #0f0f0f 58%, #090909 100%);
+    background:radial-gradient(circle at 50% 42%, #191919 0%, #101010 58%, #080808 100%);
     overflow:hidden;
   }
-  .body-map-3d { width:100%; height:100%; cursor:grab; touch-action:none; }
-  .body-map-3d.grabbing { cursor:grabbing; }
-  .body-map-3d canvas { display:block; width:100%; height:100%; }
+  .body-map-svg {
+    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    overflow:hidden; touch-action:manipulation;
+  }
+  .body-map-svg-artwork {
+    display:block; width:100%; height:100%; max-width:100%; max-height:100%;
+  }
   .body-map-status {
     position:absolute; left:50%; bottom:12px; transform:translateX(-50%);
     min-height:18px; padding:4px 10px; border-radius:999px;
@@ -341,7 +345,7 @@
     .step-desc { font-size:0.88rem; }
     .intro-layout { grid-template-columns:1fr; }
     .current-intent { grid-template-columns:1fr; gap:4px; }
-    .body-map-shell { height:clamp(520px, 68vh, 680px); }
+    .body-map-shell { height:clamp(540px, 70vh, 700px); }
     .color-legend { grid-template-columns:1fr; padding:8px 10px; max-width:520px; }
     .toolbar-action { align-self:auto; }
     .intent-grid { grid-template-columns:1fr; }
