@@ -118,7 +118,7 @@
   .error-text { display:none; color:#fca5a5; font-size:0.74rem; margin-top:10px; }
   .error-text.show { display:block; }
   .intent-grid {
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-auto-rows: 1fr; gap: 10px; align-items: stretch;
   }
   .select-row { display:flex; gap:8px; justify-content:flex-end; margin-bottom:8px; }
@@ -364,7 +364,6 @@
   .rev-card .r-name { font-weight:600; font-size:0.86rem; }
   .rev-card .r-stats { font-size:0.72rem; color:var(--dim); margin-top:4px; }
   .rev-card .r-meta { font-size:0.72rem; color:#a7c3ff; margin-top:5px; }
-  .rev-card .r-reference { font-size:0.7rem; color:#c4b5fd; margin-top:5px; line-height:1.35; }
   .rev-card .r-note { font-size:0.7rem; color:#fbbf24; margin-top:5px; }
   .result-panel {
     max-width:720px; margin:0 auto; background:var(--card); border:1px solid var(--border);

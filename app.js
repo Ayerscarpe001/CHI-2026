@@ -58,7 +58,7 @@ const I18N = {
     countryOther:"其他",
     infoError:"请完整填写有效年龄、性别和国籍后继续。",
     intentTitle:"社交意图选择",
-    intentDesc:"以下列出 16 类可能通过触碰表达的社交意图。请根据你的直觉，选择你认为“社交机器人可以通过主动触碰人的身体来表达”的意图；如果你认为均不适合，也可以选择下方的单独选项。",
+    intentDesc:"以下列出 14 类可能通过触碰表达的社交意图。请根据你的直觉，选择你认为“社交机器人可以通过主动触碰人的身体来表达”的意图；如果你认为均不适合，也可以选择下方的单独选项。",
     selectAll:"全选",
     clearAll:"清空",
     noIntentTitle:"以上意图均不适合",
@@ -208,7 +208,7 @@ const I18N = {
     countryOther:"Other",
     infoError:"Please complete a valid age, gender, and nationality before continuing.",
     intentTitle:"Social Intents",
-    intentDesc:"The following list contains 16 social intents that may be expressed through touch. Based on your intuition, select the intents that you think a social robot could express by actively touching a person's body. If none apply, you may select the separate option below.",
+    intentDesc:"The following list contains 14 social intents that may be expressed through touch. Based on your intuition, select the intents that you think a social robot could express by actively touching a person's body. If none apply, you may select the separate option below.",
     selectAll:"Select all",
     clearAll:"Clear all",
     noIntentTitle:"None of these intents are suitable",
@@ -389,8 +389,6 @@ const INTENTS = [
   { id:"request", zh:"请求", en:"Request", desc:{ zh:"在发起者需要接收者回应、确认、允许、帮助或采取某种行动时，通过触碰表达询问、请示或祈求。", en:"Touch intended to express inquiry, ask for permission, seek help, or request the recipient’s response, confirmation, or action when the initiator needs it." } },
   { id:"apology", zh:"致歉", en:"Apology", desc:{ zh:"在发起者造成误解、冒犯、失误或让接收者不适后，通过触碰表达歉意、修复关系并请求谅解。", en:"Touch intended to express apology, repair the interaction, and seek forgiveness after the initiator has caused misunderstanding, offense, error, or discomfort." } },
   { id:"refusal", zh:"拒绝", en:"Refusal", desc:{ zh:"在接收者靠近、请求或试图继续互动时，通过触碰表达不同意、保持距离或不愿继续当前互动。", en:"Touch intended to express disagreement, distance, or unwillingness to continue the current interaction when the recipient approaches, requests, or attempts to continue." } },
-  { id:"dominance", zh:"支配", en:"Dominance", desc:{ zh:"在接收者处于被动、抗拒或被控制的位置时，通过触碰展示权力、控制或要求服从。", en:"Touch intended to assert power, control, or demand compliance when the recipient is passive, resistant, or positioned as being controlled." } },
-  { id:"sexual_intent", zh:"性意图", en:"Sexual Intent", desc:{ zh:"通过触碰表达浪漫吸引、性兴趣或性意图。", en:"Touch intended to express romantic attraction, sexual interest, or sexual intent." } },
 ];
 
 const TOUCH_REFERENCES = {
@@ -449,14 +447,6 @@ const TOUCH_REFERENCES = {
   refusal: {
     zh:"研究表明，在人际社交中，与拒绝有关的意图通常通过推开、移开对方肢体或解除正在发生的接触等触碰方式表达。",
     en:"Research shows that, in interpersonal interaction, intentions related to refusal are commonly expressed through pushing away, moving the other person's limb, or ending ongoing contact."
-  },
-  dominance: {
-    zh:"研究表明，在人际社交中，与支配或控制有关的意图通常通过坚定抓握、推、按压或较有力的拍触等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to dominance or control are commonly expressed through firm gripping, pushing, pressing, or forceful pats."
-  },
-  sexual_intent: {
-    zh:"研究表明，在人际社交中，与性吸引或性兴趣有关的意图通常通过持续握持、爱抚或涉及亲密身体区域的接触等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to sexual interest are commonly expressed through sustained holding, caressing, or contact involving intimate body regions."
   }
 };
 
@@ -779,6 +769,11 @@ function contextLabels(contextIds) {
 function conventionLabel(value) {
   const level = CONVENTION_LEVELS.find(item => item.value === Number(value));
   return level ? `${t(level.labelKey)}（${t(level.descKey)}）` : "";
+}
+
+function conventionShortLabel(value) {
+  const level = CONVENTION_LEVELS.find(item => item.value === Number(value));
+  return level ? t(level.labelKey) : "";
 }
 
 function iosDiagram(level) {
@@ -1259,14 +1254,14 @@ function r3() {
     const reject = entries.filter(([,v]) => v === -1).length;
     const neutral = total - accept - reject;
     const emptyConfirmed = accept + reject === 0 && meta.empty_map_confirmed;
+    const summary = [
+      relationshipLabel(meta.relationship_closeness),
+      contextLabels(meta.interaction_contexts).join(" / "),
+      conventionShortLabel(meta.interpersonal_reference)
+    ].filter(Boolean).join(" · ");
     return `<div class="rev-card">
       <div class="r-name">${lang === "zh" ? it.zh : it.en}</div>
-      <div class="r-meta">
-        ${relationshipLabel(meta.relationship_closeness)} · ${contextLabels(meta.interaction_contexts).join(" / ")}
-      </div>
-      <div class="r-reference">
-        ${t("conventionReferenceLabel")}：${conventionLabel(meta.interpersonal_reference)}
-      </div>
+      <div class="r-meta">${summary}</div>
       <div class="r-stats">
         ${t("acceptCount")}: ${accept} &nbsp;|&nbsp; ${t("rejectCount")}: ${reject} &nbsp;|&nbsp; ${t("neutralCount")}: ${neutral}
       </div>
@@ -1430,7 +1425,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.1",
+    study_version: "3.2",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1445,7 +1440,7 @@ function buildSurveyPayload() {
       demographics,
       noIntentSelected,
       ageRequirement: "Participants are instructed to continue only if they are at least 18 years old.",
-      intentPoolVersion: "意图池.xlsx / 2026-06-04 / 16 intents",
+      intentPoolVersion: "意图池.xlsx / 2026-06-20 / 14 intents",
       intentCount: INTENTS.length,
       selectedIntentCount: order.length,
       intentMeta: intentMetaPayload(),
