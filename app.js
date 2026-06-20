@@ -19,7 +19,7 @@ const I18N = {
     introDesc:"在开始问卷前，请先观看下面的简短动画，并根据文字说明理解本研究中“机器人主动社交接触”的含义。",
     introP1:"请将本研究中的机器人想象为一个具有人形上半身结构的社交机器人：它具有类似人体结构的机械手臂和手部，整体身高略低于成年人，主要通过手臂或手部主动触碰人的身体。",
     introP2:"本问卷中的“触碰”指机器人对人身体发起的直接、短暂、柔和、非疼痛、非强制性的身体接触。请先判断机器人是否适合通过这种接触表达某种社交意图，再在后续页面标注你认为可接受或不可接受的身体区域。",
-    introP3:"对每个你选择的社交意图，问卷会依次询问它通常需要怎样的关系亲近度、可能出现在哪些互动语境中、机器人应在多大程度上参考人际触碰方式，以及你对不同身体部位被触碰的接受程度。",
+    introP3:"对每个你选择的社交意图，问卷会依次询问它通常需要怎样的关系亲近度、可能出现在哪些互动语境中、机器人应在多大程度上参照人际触碰方式，以及你对不同身体部位被触碰的接受程度。",
     introContinue:"我已理解，继续 →",
     consentTitle:"知情同意",
     consentDesc:"请在开始问卷前阅读以下说明。",
@@ -64,22 +64,22 @@ const I18N = {
     noIntentTitle:"以上意图均不适合",
     noIntentDesc:"如果你认为这些社交意图都不适合由机器人通过主动触碰表达，可以选择此项并直接进入检查页。",
     contextTitle:"关系、语境与表达方式",
-    contextDesc:"请针对当前意图回答下面三道题。“关系亲近度”指你与机器人之间的熟悉、信任和私人化互动程度；“互动语境”指这种触碰意图可能出现的高层互动场景；第3题询问机器人应在多大程度上参考人际触碰方式。",
+    contextDesc:"请针对当前意图回答下面三道题。“关系亲近度”指你与机器人之间的熟悉、信任和私人化互动程度；“互动语境”指这种触碰意图可能出现的高层互动场景；“人际表达参照程度”指机器人表达该意图时参照人与人之间通常采用的触碰方式的程度。",
     relationshipQuestion:"1、如果机器人要通过触碰向你表达这一意图，你认为它通常至少需要与你达到怎样的关系亲近程度？",
     contextQuestion:"2、你认为机器人通过触碰表达这一意图，可能出现在以下哪些互动语境中？（可多选）",
     conventionReferenceTitle:"人际表达参照",
-    conventionQuestion:"3、你认为机器人通过触碰表达这一意图时，应在多大程度上参考人与人之间通常采用的触碰方式？",
-    convention1:"完全不参考",
+    conventionQuestion:"3、你认为机器人通过触碰表达这一意图时，应在多大程度上参照人与人之间通常采用的触碰方式？",
+    convention1:"完全不参照",
     convention1Desc:"采用机器人特有方式",
-    convention2:"较少参考",
+    convention2:"较少参照",
     convention2Desc:"主要采用机器人方式",
-    convention3:"部分参考",
-    convention3Desc:"参考后适当调整",
-    convention4:"较多参考",
+    convention3:"部分参照",
+    convention3Desc:"参照后适当调整",
+    convention4:"较多参照",
     convention4Desc:"大体接近人际方式",
-    convention5:"高度参考",
-    convention5Desc:"尽量接近人际方式",
-    contextError:"请完成当前意图的三道题：选择关系亲近度、至少一种互动语境和人际表达参考程度。",
+    convention5:"完全参照",
+    convention5Desc:"尽量与人际方式相同",
+    contextError:"请完成当前意图的三道题：选择关系亲近度、至少一种互动语境和人际表达参照程度。",
     closeness1:"完全陌生",
     closeness2:"初步接触",
     closeness3:"轻度熟悉",
@@ -149,7 +149,7 @@ const I18N = {
     rejectCount:"不愿意",
     neutralCount:"无意向",
     emptyMapConfirmedBadge:"已确认无明确标注",
-    conventionReferenceLabel:"人际表达参考",
+    conventionReferenceLabel:"人际表达参照",
     resultSubmitted:"已提交",
     resultError:"提交错误",
     submitLoading:"提交中...",
@@ -214,11 +214,11 @@ const I18N = {
     noIntentTitle:"None of these intents are suitable",
     noIntentDesc:"If you think none of these social intents are suitable for a robot to express through active touch, select this option and continue directly to review.",
     contextTitle:"Relationship, Context, and Expression",
-    contextDesc:"Please answer the three questions below for the current intent. Relationship closeness concerns familiarity, trust, and personalized interaction; interaction context concerns the broad settings where the intent may occur; Question 3 asks how closely the robot should refer to interpersonal touch conventions.",
+    contextDesc:"Please answer the three questions below for the current intent. Relationship closeness refers to familiarity, trust, and personalized interaction with the robot; interaction context refers to the broad settings where the touch intent may occur; interpersonal reference refers to how closely the robot should follow the touch expressions people commonly use with one another.",
     relationshipQuestion:"1. If a robot were to express this intent to you through touch, what minimum level of relationship closeness would usually be needed?",
     contextQuestion:"2. In which interaction contexts might a robot express this intent through touch? (Select all that apply.)",
     conventionReferenceTitle:"Interpersonal reference",
-    conventionQuestion:"3. To what extent should a robot refer to the touch expressions people commonly use with one another when expressing this intent?",
+    conventionQuestion:"3. To what extent should a robot follow the touch expressions people commonly use with one another when expressing this intent?",
     convention1:"Not at all",
     convention1Desc:"Use a robot-specific expression",
     convention2:"Slightly",
@@ -227,8 +227,8 @@ const I18N = {
     convention3Desc:"Refer to it and adapt",
     convention4:"Considerably",
     convention4Desc:"Largely resemble interpersonal touch",
-    convention5:"Very closely",
-    convention5Desc:"Resemble interpersonal touch as closely as possible",
+    convention5:"Fully",
+    convention5Desc:"Match interpersonal touch as closely as possible",
     contextError:"Please answer all three questions for the current intent: relationship closeness, at least one interaction context, and interpersonal reference.",
     closeness1:"Complete stranger",
     closeness2:"Initial contact",
@@ -395,68 +395,68 @@ const INTENTS = [
 
 const TOUCH_REFERENCES = {
   comfort: {
-    zh:"相关人际研究中，与安慰有关的触碰包括握住或扶住对方、轻拍肩背、缓慢抚摸或拥抱。",
-    en:"Interpersonal studies associate comfort with holding or supporting the other person, patting the shoulder or back, slow stroking, and hugging."
+    zh:"研究表明，在人际社交中，与安慰有关的意图通常通过握住或扶住对方、轻拍肩背、缓慢抚摸或拥抱等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to comfort are commonly expressed through holding or supporting the other person, patting the shoulder or back, slow stroking, or hugging."
   },
   calming: {
-    zh:"相关人际研究中，帮助他人平复情绪的触碰包括稳定扶持、拥抱、缓慢抚摸或轻拍；这些动作与安慰存在较多重合。",
-    en:"Interpersonal studies associate calming with steady support, hugging, slow stroking, and gentle patting; these actions overlap substantially with comfort."
+    zh:"研究表明，在人际社交中，与帮助他人冷静有关的意图通常通过稳定扶持、拥抱、缓慢抚摸或轻拍等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to calming another person are commonly expressed through steady support, hugging, slow stroking, or gentle patting."
   },
   affection: {
-    zh:"相关人际研究中，亲近常通过牵手、挽臂、拥抱、抚摸手臂或触碰脸颊表达。",
-    en:"Interpersonal studies associate affection with holding hands, linking arms, hugging, stroking the arm, and touching the cheek."
+    zh:"研究表明，在人际社交中，与亲近有关的意图通常通过牵手、挽臂、拥抱、抚摸手臂或触碰脸颊等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to affection are commonly expressed through holding hands, linking arms, hugging, stroking the arm, or touching the cheek."
   },
   salutation: {
-    zh:"相关人际研究中，问候或告别常通过握手、握掌、短暂拥抱或轻拍肩臂表达。",
-    en:"Interpersonal studies associate greetings and farewells with handshakes, handclasps, brief hugs, and light pats on the shoulder or arm."
+    zh:"研究表明，在人际社交中，与问候或告别有关的意图通常通过握手、握掌、短暂拥抱或轻拍肩臂等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to greetings or farewells are commonly expressed through handshakes, handclasps, brief hugs, or light pats on the shoulder or arm."
   },
   appreciation: {
-    zh:"相关人际研究中，对他人表现或成果的赞赏可能通过握手、击掌、拍肩背或庆祝性拥抱表达。",
-    en:"Interpersonal studies associate appreciation of performance or achievement with handshakes, high-fives, pats on the shoulder or back, and celebratory hugs."
+    zh:"研究表明，在人际社交中，与赞赏他人表现或成果有关的意图通常通过握手、击掌、拍肩背或庆祝性拥抱等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to appreciating another person's performance or achievement are commonly expressed through handshakes, high-fives, pats on the shoulder or back, or celebratory hugs."
   },
   gratitude: {
-    zh:"相关人际研究中，感谢常通过握手、短暂握住对方的手或手臂，并配合轻拍肩背表达。",
-    en:"Interpersonal studies associate gratitude with handshakes, briefly holding the other person's hand or arm, and light pats on the shoulder or back."
+    zh:"研究表明，在人际社交中，与感谢有关的意图通常通过握手、短暂握住对方的手或手臂、轻拍肩背等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to gratitude are commonly expressed through handshakes, briefly holding the other person's hand or arm, or lightly patting the shoulder or back."
   },
   encouragement: {
-    zh:"相关人际研究中，鼓励常通过拍肩或拍背、坚定握掌、节奏性轻拍手臂或轻推向前表达。",
-    en:"Interpersonal studies associate encouragement with pats on the shoulder or back, firm handclasps, rhythmic arm pats, and a light forward push."
+    zh:"研究表明，在人际社交中，与鼓励有关的意图通常通过拍肩或拍背、坚定握掌、节奏性轻拍手臂或轻推向前等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to encouragement are commonly expressed through pats on the shoulder or back, firm handclasps, rhythmic arm pats, or a light forward push."
   },
   inclusion: {
-    zh:"相关人际研究中，“我在这里”或共同存在感常通过牵手、挽臂、搭肩、侧抱或身体靠触表达。",
-    en:"Interpersonal studies associate shared presence or “I am here with you” with holding hands, linking arms, an arm around the shoulder, side hugs, and bodily leaning."
+    zh:"研究表明，在人际社交中，与传达“我在这里”或共同存在感有关的意图通常通过牵手、挽臂、搭肩、侧抱或身体靠触等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to shared presence or “I am here with you” are commonly expressed through holding hands, linking arms, placing an arm around the shoulder, side hugs, or bodily leaning."
   },
   playful: {
-    zh:"相关人际研究中，嬉戏可能通过轻戳、捏、挠痒、轻推、抓握、拉脸颊或假装打闹表达。",
-    en:"Interpersonal studies associate playfulness with light pokes, pinches, tickling, gentle pushes, grabbing, cheek pulling, and mock rough-and-tumble actions."
+    zh:"研究表明，在人际社交中，与嬉戏有关的意图通常通过轻戳、捏、挠痒、轻推、抓握、拉脸颊或假装打闹等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to playfulness are commonly expressed through light pokes, pinches, tickling, gentle pushes, grabbing, cheek pulling, or mock rough-and-tumble actions."
   },
   attention_getting: {
-    zh:"相关人际研究中，引起注意常通过短暂点触或轻拍对方的肩、手臂或上背表达。",
-    en:"Interpersonal studies associate attention-getting with a brief touch or light pat on the shoulder, arm, or upper back."
+    zh:"研究表明，在人际社交中，与引起注意有关的意图通常通过短暂点触或轻拍对方的肩、手臂或上背等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to getting another person's attention are commonly expressed through a brief touch or light pat on the shoulder, arm, or upper back."
   },
   guidance: {
-    zh:"相关人际研究中，引导可能通过扶住肩部或手臂、牵引手部、轻推背部或调整身体方向实现。",
-    en:"Interpersonal studies associate guidance with holding the shoulder or arm, leading by the hand, lightly pushing the back, or adjusting bodily direction."
+    zh:"研究表明，在人际社交中，与引导有关的意图通常通过扶住肩部或手臂、牵引手部、轻推背部或调整身体方向等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to guidance are commonly expressed through holding the shoulder or arm, leading by the hand, lightly pushing the back, or adjusting bodily direction."
   },
   request: {
-    zh:"相关人际研究中，人们有时会在提出询问、请示或求助时，短暂触碰、轻拍或握住对方的手、手臂或肩部；具体请求通常仍由语言说明。",
-    en:"Interpersonal studies show that people sometimes briefly touch, pat, or hold another person's hand, arm, or shoulder while asking a question, seeking permission, or requesting help; language usually specifies the request."
+    zh:"研究表明，在人际社交中，与请求回应、允许或帮助有关的意图通常通过短暂触碰、轻拍或握住对方的手、手臂或肩部等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to requesting a response, permission, or help are commonly expressed through briefly touching, patting, or holding the other person's hand, arm, or shoulder."
   },
   apology: {
-    zh:"人际研究中，道歉或和解有时伴随握持、轻拍、抚背或拥抱，但尚未发现能够独立、稳定表达致歉的统一触碰动作。",
-    en:"Interpersonal studies show that apologies or reconciliation may be accompanied by holding, patting, back stroking, or hugging, but no single touch action has been shown to convey apology independently and consistently."
+    zh:"研究表明，在人际社交中，与致歉或和解有关的意图通常通过握持、轻拍、抚背或拥抱等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to apology or reconciliation are commonly expressed through holding, patting, back stroking, or hugging."
   },
   refusal: {
-    zh:"人际互动中，拒绝身体接近常表现为推开、移开对方肢体或解除正在发生的接触；这些行为更多是边界反应，而非统一的触碰表达方式。",
-    en:"In interpersonal interaction, refusal of physical approach often involves pushing away, moving the other person's limb, or ending ongoing contact; these are more often boundary responses than a single conventional touch expression."
+    zh:"研究表明，在人际社交中，与拒绝有关的意图通常通过推开、移开对方肢体或解除正在发生的接触等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to refusal are commonly expressed through pushing away, moving the other person's limb, or ending ongoing contact."
   },
   dominance: {
-    zh:"相关人际研究中，支配或控制常与坚定抓握、推、按压或较有力的拍触相联系，通常作用于手臂、肩部或躯干。",
-    en:"Interpersonal studies associate dominance or control with firm gripping, pushing, pressing, and forceful pats, often directed at the arm, shoulder, or torso."
+    zh:"研究表明，在人际社交中，与支配或控制有关的意图通常通过坚定抓握、推、按压或较有力的拍触等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to dominance or control are commonly expressed through firm gripping, pushing, pressing, or forceful pats."
   },
   sexual_intent: {
-    zh:"相关人际研究中，性意图常与持续握持、爱抚或涉及亲密身体区域的接触相联系，并受到关系和情境的强烈限制。",
-    en:"Interpersonal studies associate sexual intent with sustained holding, caressing, or contact involving intimate body regions, under strong relational and contextual constraints."
+    zh:"研究表明，在人际社交中，与性吸引或性兴趣有关的意图通常通过持续握持、爱抚或涉及亲密身体区域的接触等触碰方式表达。",
+    en:"Research shows that, in interpersonal interaction, intentions related to sexual interest are commonly expressed through sustained holding, caressing, or contact involving intimate body regions."
   }
 };
 
@@ -842,11 +842,11 @@ function renderContextQuestion() {
         </div>
       </div>
       <div class="context-block convention-block">
+        <div class="context-question">${t("conventionQuestion")}</div>
         <div class="touch-reference">
           <span class="touch-reference-title">${t("conventionReferenceTitle")}</span>
           <span class="touch-reference-text">${touchReference}</span>
         </div>
-        <div class="context-question">${t("conventionQuestion")}</div>
         <div class="convention-scale" role="radiogroup" aria-label="${t("conventionQuestion")}">
           ${conventionOptions}
         </div>

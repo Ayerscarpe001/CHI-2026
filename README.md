@@ -39,7 +39,7 @@ The interpersonal-reference item records how closely participants think robot to
 2 = slightly
 3 = partly; refer to interpersonal touch and adapt it
 4 = considerably
-5 = very closely; resemble interpersonal touch as closely as possible
+5 = fully; match interpersonal touch as closely as possible
 ```
 
 Body-map ratings use a three-value scale:
