@@ -43,7 +43,7 @@ const I18N = {
     infoTitle:"基本信息",
     infoDesc:"以下信息用于理解不同参与者背景下的回答差异。",
     ageLabel:"年龄",
-    agePlaceholder:"请填写阿拉伯数字",
+    age100Plus:"100 岁及以上",
     genderLabel:"性别",
     nationalityLabel:"国家或地区",
     selectOne:"请选择",
@@ -90,7 +90,7 @@ const I18N = {
     convention4Desc:"大体接近人际方式",
     convention5:"完全参照",
     convention5Desc:"尽量与人际方式相同",
-    contextError:"请完成当前意图的三道题：选择关系亲近度、至少一种互动语境和人际表达参照程度。",
+    contextError:"请完成当前意图的三道题：选择关系亲近度、至少一种互动语境和人际表达参照程度；如选择“其他”，请填写具体语境。",
     closeness1:"完全陌生",
     closeness2:"初步接触",
     closeness3:"轻度熟悉",
@@ -108,6 +108,9 @@ const I18N = {
     ctxLearningDesc:"以知识学习、教学辅导、技能练习、行为训练或表现反馈为主要目标的互动。",
     ctxTask:"任务协作",
     ctxTaskDesc:"共同完成具有明确外部目标的工作、导航、操作、家务或其他任务。",
+    ctxOther:"其他（请补充）",
+    ctxOtherDesc:"以上选项未能涵盖的其他互动语境。",
+    ctxOtherPlaceholder:"请简要补充具体的互动语境",
     currentIntentLabel:"当前意图",
     mapTitle:"身体地图标注",
     mapDesc:"4、请针对当前意图，在身体地图上标注：哪些身体区域你愿意被机器人触碰，哪些身体区域你不愿意被机器人触碰。未标注区域将视为无明确意向。",
@@ -202,7 +205,7 @@ const I18N = {
     infoTitle:"Basic Information",
     infoDesc:"These questions help us understand participant background differences.",
     ageLabel:"Age",
-    agePlaceholder:"Enter numerals only",
+    age100Plus:"100 years or older",
     genderLabel:"Gender",
     nationalityLabel:"Country or Region",
     selectOne:"Select one",
@@ -249,7 +252,7 @@ const I18N = {
     convention4Desc:"Largely resemble interpersonal touch",
     convention5:"Fully",
     convention5Desc:"Match interpersonal touch as closely as possible",
-    contextError:"Please answer all three questions for the current intent: relationship closeness, at least one interaction context, and interpersonal reference.",
+    contextError:"Please answer all three questions for the current intent. If you select “Other,” describe the interaction context.",
     closeness1:"Complete stranger",
     closeness2:"Initial contact",
     closeness3:"Slightly familiar",
@@ -267,6 +270,9 @@ const I18N = {
     ctxLearningDesc:"Interaction primarily aimed at learning, tutoring, skill practice, behavioral training, or performance feedback.",
     ctxTask:"Task collaboration",
     ctxTaskDesc:"Joint work, navigation, operation, household activity, or another task with a clear external goal.",
+    ctxOther:"Other (please specify)",
+    ctxOtherDesc:"Another interaction context not covered by the options above.",
+    ctxOtherPlaceholder:"Briefly describe the interaction context",
     currentIntentLabel:"Current intent",
     mapTitle:"Body Map",
     mapDesc:"4. For the current intent, mark on the body map which body regions you would be willing to let the robot touch and which regions you would not be willing to let the robot touch. Unmarked regions will be treated as no clear preference.",
@@ -370,6 +376,16 @@ function renderCountryOptions() {
   select.innerHTML = `<option value="">${t("selectOne")}</option>${options}`;
   if (current) select.value = current;
 }
+function renderAgeOptions() {
+  const select = document.getElementById("age");
+  if (!select) return;
+  const current = select.value;
+  const ages = Array.from({ length: 82 }, (_, index) => index + 18)
+    .map(age => `<option value="${age}">${age}</option>`)
+    .join("");
+  select.innerHTML = `<option value="">${t("selectOne")}</option>${ages}<option value="100_plus">${t("age100Plus")}</option>`;
+  if (current) select.value = current;
+}
 
 let introSlideIndex = 0;
 let introVideoHasPlayed = false;
@@ -444,7 +460,7 @@ function setLang(nextLang) {
   document.getElementById("langZh").classList.toggle("active", lang === "zh");
   document.getElementById("langEn").classList.toggle("active", lang === "en");
   document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); });
-  document.getElementById("age").placeholder = t("agePlaceholder");
+  renderAgeOptions();
   renderCountryOptions();
   document.getElementById("btnToMapsText").textContent = t("continueBtn");
   renderIntroCarousel();
@@ -560,6 +576,7 @@ const INTERACTION_CONTEXTS = [
   { id: "care_health", labelKey: "ctxCare", descKey: "ctxCareDesc" },
   { id: "learning_training", labelKey: "ctxLearning", descKey: "ctxLearningDesc" },
   { id: "task_collaboration", labelKey: "ctxTask", descKey: "ctxTaskDesc" },
+  { id: "other", labelKey: "ctxOther", descKey: "ctxOtherDesc" },
 ];
 
 // ============================================================
@@ -619,7 +636,7 @@ function isIntentComplete(intentId) {
   const meta = intentMeta[intentId] || {};
   return !!(
     meta.relationship_closeness &&
-    meta.interaction_contexts?.length &&
+    hasValidInteractionContext(meta) &&
     meta.interpersonal_reference &&
     isMapComplete(intentId)
   );
@@ -688,6 +705,7 @@ function ensureMeta(intentId) {
     intentMeta[intentId] = {
       relationship_closeness: null,
       interaction_contexts: [],
+      interaction_context_other: "",
       interpersonal_reference: null,
       empty_map_confirmed: false,
     };
@@ -728,7 +746,7 @@ function validateInfo() {
   const age = document.getElementById("age").value.trim();
   const gender = document.getElementById("gender").value;
   const nationality = document.getElementById("nationality").value;
-  const validAge = age !== "" && Number(age) >= 18 && Number(age) <= 100;
+  const validAge = age === "100_plus" || (Number(age) >= 18 && Number(age) <= 99);
   const checks = [
     ["fieldAge", validAge],
     ["fieldGender", !!gender],
@@ -876,6 +894,9 @@ function initIntentMeta() {
         ? [intentMeta[id].interaction_context]
         : [];
     }
+    if (typeof meta.interaction_context_other !== "string") {
+      meta.interaction_context_other = "";
+    }
     if (!Number.isInteger(meta.interpersonal_reference)) {
       meta.interpersonal_reference = null;
     }
@@ -899,6 +920,31 @@ function contextLabels(contextIds) {
   return (Array.isArray(contextIds) ? contextIds : [])
     .map(contextLabel)
     .filter(Boolean);
+}
+
+function hasValidInteractionContext(meta) {
+  const contexts = Array.isArray(meta?.interaction_contexts) ? meta.interaction_contexts : [];
+  if (!contexts.length) return false;
+  return !contexts.includes("other") || !!meta.interaction_context_other?.trim();
+}
+
+function contextDisplayLabels(meta) {
+  return (Array.isArray(meta?.interaction_contexts) ? meta.interaction_contexts : [])
+    .map(contextId => {
+      if (contextId !== "other") return contextLabel(contextId);
+      const detail = meta.interaction_context_other?.trim();
+      return detail ? `${t("ctxOther")}: ${detail}` : t("ctxOther");
+    })
+    .filter(Boolean);
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 function conventionLabel(value) {
@@ -948,6 +994,14 @@ function renderContextQuestion() {
       <span class="context-name">${t(context.labelKey)}</span>
       <span class="context-desc">${t(context.descKey)}</span>
     </button>`).join("");
+  const otherContextInput = meta.interaction_contexts?.includes("other") ? `
+    <label class="other-context-field" for="other-context-${id}">
+      <span>${t("ctxOther")}</span>
+      <input id="other-context-${id}" type="text" maxlength="160"
+        value="${escapeHtml(meta.interaction_context_other || "")}"
+        placeholder="${escapeHtml(t("ctxOtherPlaceholder"))}"
+        oninput="setOtherContextText('${id}', this.value)">
+    </label>` : "";
   const conventionOptions = CONVENTION_LEVELS.map(level => `
     <button type="button"
       class="convention-option ${meta.interpersonal_reference === level.value ? "selected" : ""}"
@@ -970,6 +1024,7 @@ function renderContextQuestion() {
         <div class="context-options" role="group" aria-label="${t("contextQuestion")}">
           ${contextOptions}
         </div>
+        ${otherContextInput}
       </div>
       <div class="context-block convention-block">
         <div class="context-question">${t("conventionQuestion")}</div>
@@ -1004,12 +1059,21 @@ function setInteractionContext(intentId, contextId) {
   const existingIndex = contexts.indexOf(contextId);
   if (existingIndex >= 0) {
     contexts.splice(existingIndex, 1);
+    if (contextId === "other") meta.interaction_context_other = "";
   } else {
     contexts.push(contextId);
   }
   meta.interaction_context = contexts[0] || null;
   document.getElementById("contextError").classList.remove("show");
   renderContextQuestion();
+  if (contextId === "other" && contexts.includes("other")) {
+    document.getElementById(`other-context-${intentId}`)?.focus();
+  }
+}
+
+function setOtherContextText(intentId, value) {
+  ensureMeta(intentId).interaction_context_other = value.slice(0, 160);
+  document.getElementById("contextError").classList.remove("show");
 }
 
 function setInterpersonalReference(intentId, value) {
@@ -1022,7 +1086,7 @@ function currentContextAnswered() {
   const id = order[contextIdx];
   return !!(
     intentMeta[id]?.relationship_closeness &&
-    intentMeta[id]?.interaction_contexts?.length &&
+    hasValidInteractionContext(intentMeta[id]) &&
     intentMeta[id]?.interpersonal_reference
   );
 }
@@ -1036,7 +1100,7 @@ function validateCurrentContextQuestion() {
 function validateContextQuestions() {
   const ok = order.every(id =>
     intentMeta[id]?.relationship_closeness &&
-    intentMeta[id]?.interaction_contexts?.length &&
+    hasValidInteractionContext(intentMeta[id]) &&
     intentMeta[id]?.interpersonal_reference
   );
   document.getElementById("contextError").classList.toggle("show", !ok);
@@ -1391,12 +1455,12 @@ function r3() {
     const emptyConfirmed = accept + reject === 0 && meta.empty_map_confirmed;
     const summary = [
       relationshipLabel(meta.relationship_closeness),
-      contextLabels(meta.interaction_contexts).join(" / "),
+      contextDisplayLabels(meta).join(" / "),
       conventionShortLabel(meta.interpersonal_reference)
     ].filter(Boolean).join(" · ");
     return `<div class="rev-card">
       <div class="r-name">${lang === "zh" ? it.zh : it.en}</div>
-      <div class="r-meta">${summary}</div>
+      <div class="r-meta">${escapeHtml(summary)}</div>
       <div class="r-stats">
         ${t("acceptCount")}: ${accept} &nbsp;|&nbsp; ${t("rejectCount")}: ${reject} &nbsp;|&nbsp; ${t("neutralCount")}: ${neutral}
       </div>
@@ -1447,9 +1511,10 @@ function selectedIntentPayload() {
       relationship_closeness: meta.relationship_closeness ?? null,
       relationship_closeness_label: relationshipLabel(meta.relationship_closeness),
       interaction_contexts: Array.isArray(meta.interaction_contexts) ? meta.interaction_contexts : [],
-      interaction_context_labels: contextLabels(meta.interaction_contexts),
+      interaction_context_labels: contextDisplayLabels(meta),
       interaction_context: Array.isArray(meta.interaction_contexts) ? meta.interaction_contexts.join(",") : null,
-      interaction_context_label: contextLabels(meta.interaction_contexts).join(" / "),
+      interaction_context_label: contextDisplayLabels(meta).join(" / "),
+      interaction_context_other: meta.interaction_context_other?.trim() || null,
       interpersonal_reference: meta.interpersonal_reference ?? null,
       interpersonal_reference_label: conventionLabel(meta.interpersonal_reference),
       interpersonal_touch_reference_zh: TOUCH_REFERENCES[id]?.zh || null,
@@ -1467,9 +1532,10 @@ function intentMetaPayload() {
       relationship_closeness: meta.relationship_closeness ?? null,
       relationship_closeness_label: relationshipLabel(meta.relationship_closeness),
       interaction_contexts: Array.isArray(meta.interaction_contexts) ? meta.interaction_contexts : [],
-      interaction_context_labels: contextLabels(meta.interaction_contexts),
+      interaction_context_labels: contextDisplayLabels(meta),
       interaction_context: Array.isArray(meta.interaction_contexts) ? meta.interaction_contexts.join(",") : null,
-      interaction_context_label: contextLabels(meta.interaction_contexts).join(" / "),
+      interaction_context_label: contextDisplayLabels(meta).join(" / "),
+      interaction_context_other: meta.interaction_context_other?.trim() || null,
       interpersonal_reference: meta.interpersonal_reference ?? null,
       interpersonal_reference_label: conventionLabel(meta.interpersonal_reference),
       interpersonal_touch_reference_zh: TOUCH_REFERENCES[id]?.zh || null,
@@ -1560,7 +1626,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.4",
+    study_version: "3.5",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1573,6 +1639,7 @@ function buildSurveyPayload() {
     regions: regionsPayload(),
     metadata: {
       demographics,
+      ageLabel: fieldVal("age") === "100_plus" ? t("age100Plus") : fieldVal("age"),
       noIntentSelected,
       ageRequirement: "Participants are instructed to continue only if they are at least 18 years old.",
       intentPoolVersion: "意图池.xlsx / 2026-06-20 / 14 intents",
@@ -1589,7 +1656,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v11_intro_carousel_intent_motion"
+      source: "bodymap_questionnaire_v12_age_select_other_context"
     }
   };
 }
