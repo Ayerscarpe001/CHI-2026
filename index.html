@@ -32,19 +32,52 @@
   <!-- ================================================================ -->
   <div class="step active" id="sIntro">
     <div class="step-title" data-i18n="introTitle">研究场景介绍</div>
-    <div class="step-desc" data-i18n="introDesc">在开始问卷前，请先观看下面的简短动画，并根据文字说明理解本研究中“机器人主动社交接触”的含义。</div>
-    <div class="intro-layout">
-      <div class="intro-animation-frame">
-        <iframe src="survey/intro_touch_animation_v16.html" title="Robot touch introduction animation" loading="lazy"></iframe>
+    <div class="step-desc" data-i18n="introDesc">请依次阅读下面三页简短说明，了解本研究中的机器人、社交触摸及答题流程。</div>
+    <div class="intro-carousel" id="introCarousel">
+      <section class="intro-slide active" data-intro-slide="0">
+        <div class="intro-media">
+          <img src="assets/intro/robot-form.svg" alt="" data-intro-alt="introRobotAlt">
+        </div>
+        <div class="intro-copy">
+          <div class="intro-slide-kicker" data-i18n="introSlide1Kicker">01 · 机器人形态</div>
+          <h2 data-i18n="introSlide1Title">一个抽象的实体社交机器人</h2>
+          <p data-i18n="introP1">请将本研究中的机器人想象为一个具有人形上半身结构的社交机器人：它具有类似人体结构的机械手臂和手部，整体身高略低于成年人，主要通过手臂或手部主动触碰人的身体。</p>
+        </div>
+      </section>
+      <section class="intro-slide" data-intro-slide="1" hidden>
+        <div class="intro-media">
+          <video id="introTouchVideo" controls muted playsinline preload="metadata">
+            <source src="assets/intro/social-touch-animation.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="intro-copy">
+          <div class="intro-slide-kicker" data-i18n="introSlide2Kicker">02 · 社交触摸</div>
+          <h2 data-i18n="introSlide2Title">机器人主动发起的身体接触</h2>
+          <p data-i18n="introP2">本问卷中的“社交触摸”指机器人对人身体发起的直接、短暂、柔和、非疼痛、非强制性的身体接触。请先判断机器人是否适合通过这种接触表达某种社交意图，再在后续页面标注你认为可接受或不可接受的身体区域。</p>
+        </div>
+      </section>
+      <section class="intro-slide" data-intro-slide="2" hidden>
+        <div class="intro-media">
+          <img src="assets/intro/survey-flow.svg" alt="" data-intro-alt="introFlowAlt">
+        </div>
+        <div class="intro-copy">
+          <div class="intro-slide-kicker" data-i18n="introSlide3Kicker">03 · 答题流程</div>
+          <h2 data-i18n="introSlide3Title">围绕每个已选意图依次作答</h2>
+          <p data-i18n="introP3">填写时，你需要先选择认为适合由机器人主动传达的社交意图。对每个已选意图，问卷会依次询问关系亲近度、互动语境、人际触摸方式的参照程度，以及不同身体部位被触碰的接受程度。</p>
+        </div>
+      </section>
+      <div class="intro-carousel-nav">
+        <button class="btn btn-s intro-nav-button" id="introPrev" type="button" onclick="changeIntroSlide(-1)" data-i18n="introPrev">← 上一页</button>
+        <div class="intro-page-indicator">
+          <div class="intro-dots" role="group" aria-label="Introduction pages">
+            <button class="intro-dot active" type="button" onclick="setIntroSlide(0)" aria-current="true"></button>
+            <button class="intro-dot" type="button" onclick="setIntroSlide(1)" aria-current="false"></button>
+            <button class="intro-dot" type="button" onclick="setIntroSlide(2)" aria-current="false"></button>
+          </div>
+          <span class="intro-page-status" id="introPageStatus" aria-live="polite"></span>
+        </div>
+        <button class="btn btn-p intro-nav-button" id="introNext" type="button" onclick="changeIntroSlide(1)">下一页 →</button>
       </div>
-      <div class="intro-copy panel">
-        <p data-i18n="introP1">请将本研究中的机器人想象为一个具有近似人类上肢结构的实体社交机器人：它具有机械手臂和手部，主要通过手臂或手部主动触碰人的身体。本研究不限定具体品牌、面部外观、性别化特征或材质。</p>
-        <p data-i18n="introP2">本问卷中的“触碰”指机器人主动对人体实施的直接、非疼痛、非强制性身体接触。除题目另有说明外，不预设具体动作、力度、速度、持续时间、节奏、接触面积或材质。请先判断机器人是否适合通过这种接触表达某种社交意图，再在后续页面标注你认为可接受或不可接受的身体区域。</p>
-        <p data-i18n="introP3">对每个你选择的社交意图，问卷会依次询问它通常需要怎样的关系亲近度、可能出现在哪些互动语境中、机器人应在多大程度上参照人际触碰方式，以及你对不同身体部位被触碰的接受程度。</p>
-      </div>
-    </div>
-    <div class="nav">
-      <button class="btn btn-p" onclick="showStep('s0')" data-i18n="introContinue">我已理解，继续 →</button>
     </div>
   </div>
 
@@ -239,6 +272,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/icons/intent-icons-v3.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

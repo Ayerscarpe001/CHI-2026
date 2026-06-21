@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Abstract upper-body social robot</title>
+  <desc id="desc">A simple white line drawing of a neutral social robot with a head, torso, arms, and hands.</desc>
+  <rect width="1280" height="720" fill="#080808"/>
+  <g fill="#f4f4f4" stroke="#080808" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="640" cy="214" r="112"/>
+    <path d="M515 370c0-63 51-114 114-114h22c63 0 114 51 114 114v218H515Z"/>
+    <path d="M526 346c-67 25-121 80-150 151l-38 94c-9 23 2 49 25 58s49-2 58-25l38-94c19-47 52-82 93-99Z"/>
+    <path d="M754 346c67 25 121 80 150 151l38 94c9 23-2 49-25 58s-49-2-58-25l-38-94c-19-47-52-82-93-99Z"/>
+    <circle cx="378" cy="615" r="31"/>
+    <circle cx="902" cy="615" r="31"/>
+  </g>
+  <g fill="#080808">
+    <circle cx="603" cy="208" r="12"/>
+    <circle cx="677" cy="208" r="12"/>
+  </g>
+  <path d="M607 256c20 12 46 12 66 0" fill="none" stroke="#080808" stroke-width="8" stroke-linecap="round"/>
+  <g fill="none" stroke="#5b9bff" stroke-width="5" opacity=".82">
+    <path d="M640 72v-26"/>
+    <circle cx="640" cy="35" r="10" fill="#5b9bff" stroke="none"/>
+    <path d="M520 590h240"/>
+  </g>
+</svg>

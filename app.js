@@ -16,11 +16,22 @@ const I18N = {
     appTitle:"机器人社交接触可接受性问卷",
     appSub:"机器人主动身体接触中的身体区域可接受性标注",
     introTitle:"研究场景介绍",
-    introDesc:"在开始问卷前，请先观看下面的简短动画，并根据文字说明理解本研究中“机器人主动社交接触”的含义。",
-    introP1:"请将本研究中的机器人想象为一个具有近似人类上肢结构的实体社交机器人：它具有机械手臂和手部，主要通过手臂或手部主动触碰人的身体。本研究不限定具体品牌、面部外观、性别化特征或材质。",
-    introP2:"本问卷中的“触碰”指机器人主动对人体实施的直接、非疼痛、非强制性身体接触。除题目另有说明外，不预设具体动作、力度、速度、持续时间、节奏、接触面积或材质。请先判断机器人是否适合通过这种接触表达某种社交意图，再在后续页面标注你认为可接受或不可接受的身体区域。",
-    introP3:"对每个你选择的社交意图，问卷会依次询问它通常需要怎样的关系亲近度、可能出现在哪些互动语境中、机器人应在多大程度上参照人际触碰方式，以及你对不同身体部位被触碰的接受程度。",
-    introContinue:"我已理解，继续 →",
+    introDesc:"请依次阅读下面三页简短说明，了解本研究中的机器人、社交触摸及答题流程。",
+    introSlide1Kicker:"01 · 机器人形态",
+    introSlide1Title:"一个抽象的实体社交机器人",
+    introSlide2Kicker:"02 · 社交触摸",
+    introSlide2Title:"机器人主动发起的身体接触",
+    introSlide3Kicker:"03 · 答题流程",
+    introSlide3Title:"围绕每个已选意图依次作答",
+    introP1:"请将本研究中的机器人想象为一个具有人形上半身结构的社交机器人：它具有类似人体结构的机械手臂和手部，整体身高略低于成年人，主要通过手臂或手部主动触碰人的身体。",
+    introP2:"本问卷中的“社交触摸”指机器人对人身体发起的直接、短暂、柔和、非疼痛、非强制性的身体接触。请先判断机器人是否适合通过这种接触表达某种社交意图，再在后续页面标注你认为可接受或不可接受的身体区域。",
+    introP3:"填写时，你需要先选择认为适合由机器人主动传达的社交意图。对每个已选意图，问卷会依次询问关系亲近度、互动语境、人际触摸方式的参照程度，以及不同身体部位被触碰的接受程度。",
+    introRobotAlt:"抽象简笔画社交机器人，具有头部、上身、机械手臂和手部。",
+    introFlowAlt:"由意图选择、关系与语境判断、人际方式参照和身体地图标注组成的问卷流程示意图。",
+    introPrev:"← 上一页",
+    introNext:"下一页 →",
+    introEnter:"进入知情同意 →",
+    introPageOf:"第 {current} 页，共 {total} 页",
     consentTitle:"知情同意",
     consentDesc:"请在开始问卷前阅读以下说明。",
     consentP2:"你的回答仅用于学术研究。本问卷不会收集你的姓名或直接联系方式，你可以在提交前随时退出。",
@@ -164,11 +175,22 @@ const I18N = {
     appTitle:"Robot Social Touch Acceptability Survey",
     appSub:"Body-region acceptability mapping for robot-initiated physical contact",
     introTitle:"Study Scenario",
-    introDesc:"Before starting the survey, please watch the short animation below and read the description of what robot-initiated social touch means in this study.",
-    introP1:"Please imagine the robot in this study as an embodied social robot with an upper-limb structure resembling that of a human. It has a mechanical arm and hand and mainly initiates touch through its arm or hand. No specific brand, facial appearance, gendered features, or material are specified.",
-    introP2:"In this survey, touch means direct, non-painful, and non-coercive bodily contact initiated by the robot on a person. Unless otherwise stated, no specific action, force, speed, duration, rhythm, contact area, or material is assumed. You will first judge whether a robot could express a social intent through this kind of touch, and later mark which body regions you find acceptable or unacceptable.",
-    introP3:"For each social intent you select, the survey will ask what relationship closeness it usually requires, which interaction contexts it may occur in, how closely the robot should refer to interpersonal touch conventions, and how acceptable you find being touched on different body regions.",
-    introContinue:"I understand, continue →",
+    introDesc:"Please read the following three short pages about the robot, social touch, and the survey process.",
+    introSlide1Kicker:"01 · Robot form",
+    introSlide1Title:"An abstract embodied social robot",
+    introSlide2Kicker:"02 · Social touch",
+    introSlide2Title:"Physical contact initiated by the robot",
+    introSlide3Kicker:"03 · Survey process",
+    introSlide3Title:"Answer each selected intent in sequence",
+    introP1:"Imagine the robot as a social robot with a humanoid upper-body structure. It has mechanical arms and hands resembling human upper limbs, is slightly shorter than an adult, and mainly initiates physical contact through its arms or hands.",
+    introP2:"In this survey, “social touch” means direct, brief, gentle, non-painful, and non-coercive bodily contact initiated by a robot toward a person. First decide whether a robot could appropriately express an intent through this contact, then mark acceptable and unacceptable body regions.",
+    introP3:"First select the intents you consider suitable for a robot to express. For each selected intent, the survey will ask about relationship closeness, interaction context, reference to interpersonal touch conventions, and the acceptability of touch on different body regions.",
+    introRobotAlt:"A simple abstract social robot with a head, upper body, mechanical arms, and hands.",
+    introFlowAlt:"A survey flow diagram showing intent selection, relationship and context judgments, interpersonal reference, and body-map marking.",
+    introPrev:"← Previous",
+    introNext:"Next →",
+    introEnter:"Continue to consent →",
+    introPageOf:"Page {current} of {total}",
     consentTitle:"Consent",
     consentDesc:"Please read the following information before starting the survey.",
     consentP2:"Your responses will be used for academic research only. The survey does not ask for your name or direct contact information. You may stop at any time before submitting your response.",
@@ -348,6 +370,73 @@ function renderCountryOptions() {
   select.innerHTML = `<option value="">${t("selectOne")}</option>${options}`;
   if (current) select.value = current;
 }
+
+let introSlideIndex = 0;
+let introVideoHasPlayed = false;
+
+function renderIntroCarousel() {
+  const slides = Array.from(document.querySelectorAll("[data-intro-slide]"));
+  const dots = Array.from(document.querySelectorAll(".intro-dot"));
+  if (!slides.length) return;
+
+  slides.forEach((slide, index) => {
+    const active = index === introSlideIndex;
+    slide.hidden = !active;
+    slide.classList.toggle("active", active);
+  });
+  dots.forEach((dot, index) => {
+    const active = index === introSlideIndex;
+    dot.classList.toggle("active", active);
+    dot.setAttribute("aria-current", String(active));
+    dot.setAttribute("aria-label", t("introPageOf")
+      .replace("{current}", index + 1)
+      .replace("{total}", slides.length));
+  });
+
+  document.querySelectorAll("[data-intro-alt]").forEach(image => {
+    image.alt = t(image.dataset.introAlt);
+  });
+  const status = document.getElementById("introPageStatus");
+  if (status) {
+    status.textContent = t("introPageOf")
+      .replace("{current}", introSlideIndex + 1)
+      .replace("{total}", slides.length);
+  }
+  const prev = document.getElementById("introPrev");
+  const next = document.getElementById("introNext");
+  if (prev) {
+    prev.disabled = introSlideIndex === 0;
+    prev.textContent = t("introPrev");
+  }
+  if (next) {
+    next.textContent = introSlideIndex === slides.length - 1 ? t("introEnter") : t("introNext");
+  }
+
+  const video = document.getElementById("introTouchVideo");
+  if (!video) return;
+  if (introSlideIndex !== 1) {
+    video.pause();
+  } else if (!introVideoHasPlayed && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    introVideoHasPlayed = true;
+    video.play().catch(() => {});
+  }
+}
+
+function setIntroSlide(index) {
+  const total = document.querySelectorAll("[data-intro-slide]").length;
+  introSlideIndex = Math.max(0, Math.min(index, total - 1));
+  renderIntroCarousel();
+}
+
+function changeIntroSlide(delta) {
+  const total = document.querySelectorAll("[data-intro-slide]").length;
+  if (delta > 0 && introSlideIndex === total - 1) {
+    showStep("s0");
+    return;
+  }
+  setIntroSlide(introSlideIndex + delta);
+}
+
 function setLang(nextLang) {
   lang = nextLang;
   localStorage.setItem("survey_language", lang);
@@ -358,6 +447,7 @@ function setLang(nextLang) {
   document.getElementById("age").placeholder = t("agePlaceholder");
   renderCountryOptions();
   document.getElementById("btnToMapsText").textContent = t("continueBtn");
+  renderIntroCarousel();
   r1();
   syncIntentSelectionUI();
   if (document.getElementById("sContext").classList.contains("active")) renderContextQuestion();
@@ -661,18 +751,44 @@ function setPaint(v) {
 // ============================================================
 // STEP 1
 // ============================================================
+function intentIconMarkup(id) {
+  const icon = window.INTENT_ICONS?.[id];
+  if (!icon) return "";
+  return `<svg class="intent-icon" viewBox="${icon.viewBox}" aria-hidden="true">${icon.content}</svg>`;
+}
+
+function replayIntentAnimation(card) {
+  if (!card || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  card.classList.remove("is-animating");
+  void card.offsetWidth;
+  card.classList.add("is-animating");
+  window.setTimeout(() => card.classList.remove("is-animating"), 650);
+}
+
 function r1() {
   document.getElementById("intentGrid").innerHTML = INTENTS.map(i => `
-    <div class="intent-card" id="c-${i.id}" onclick="tog('${i.id}')">
+    <div class="intent-card" id="c-${i.id}" onclick="tog('${i.id}')" role="checkbox" tabindex="0"
+         aria-checked="${sel.has(i.id)}" onkeydown="intentCardKey(event, '${i.id}')">
       <div class="dot"></div>
-      <div class="name">${lang === "zh" ? i.zh : i.en}</div>
-      <div class="desc">${i.desc[lang]}</div>
+      <div class="intent-icon-wrap">${intentIconMarkup(i.id)}</div>
+      <div class="intent-copy">
+        <div class="name">${lang === "zh" ? i.zh : i.en}<span class="en">${lang === "zh" ? i.en : i.zh}</span></div>
+        <div class="desc">${i.desc[lang]}</div>
+      </div>
     </div>`).join("");
+}
+function intentCardKey(event, id) {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  event.preventDefault();
+  tog(id);
 }
 function syncIntentSelectionUI() {
   INTENTS.forEach(i => {
     const c = document.getElementById("c-"+i.id);
-    if (c) c.classList.toggle("sel", sel.has(i.id));
+    if (c) {
+      c.classList.toggle("sel", sel.has(i.id));
+      c.setAttribute("aria-checked", String(sel.has(i.id)));
+    }
   });
   const noIntentBox = document.getElementById("noIntentBox");
   const noIntentOption = document.getElementById("noIntentOption");
@@ -688,8 +804,12 @@ function tog(id) {
     if (noIntentBox) noIntentBox.checked = false;
     if (noIntentOption) noIntentOption.classList.remove("selected");
   }
-  sel.has(id) ? sel.delete(id) : sel.add(id);
-  document.getElementById("c-"+id).classList.toggle("sel");
+  const willSelect = !sel.has(id);
+  willSelect ? sel.add(id) : sel.delete(id);
+  const card = document.getElementById("c-"+id);
+  card.classList.toggle("sel", willSelect);
+  card.setAttribute("aria-checked", String(willSelect));
+  if (willSelect) replayIntentAnimation(card);
   updBtn();
 }
 function selAll(v) {
@@ -701,7 +821,10 @@ function selAll(v) {
   INTENTS.forEach(i => {
     v ? sel.add(i.id) : sel.delete(i.id);
     const c = document.getElementById("c-"+i.id);
-    if (c) v ? c.classList.add("sel") : c.classList.remove("sel");
+    if (c) {
+      c.classList.toggle("sel", v);
+      c.setAttribute("aria-checked", String(v));
+    }
   });
   updBtn();
 }
@@ -709,7 +832,11 @@ function toggleNoIntent(checked) {
   noIntentSelected = checked;
   if (checked) {
     sel.clear();
-    INTENTS.forEach(i => document.getElementById("c-"+i.id)?.classList.remove("sel"));
+    INTENTS.forEach(i => {
+      const card = document.getElementById("c-"+i.id);
+      card?.classList.remove("sel");
+      card?.setAttribute("aria-checked", "false");
+    });
   }
   document.getElementById("noIntentOption")?.classList.toggle("selected", checked);
   updBtn();
@@ -1420,7 +1547,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.3",
+    study_version: "3.4",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1449,7 +1576,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v10_svg_static_html"
+      source: "bodymap_questionnaire_v11_intro_carousel_intent_motion"
     }
   };
 }

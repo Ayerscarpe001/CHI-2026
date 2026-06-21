@@ -32,18 +32,44 @@
     color:#d0d0d0; font-size:0.92rem; font-weight:650; line-height:1.55;
     margin-bottom:22px; max-width:920px;
   }
-  .intro-layout {
-    display:grid; grid-template-columns:minmax(0, 1.35fr) minmax(280px, 0.65fr);
-    gap:18px; align-items:stretch;
+  .intro-carousel {
+    border:1px solid var(--border); border-radius:10px; overflow:hidden; background:#101010;
   }
-  .intro-animation-frame {
-    border:1px solid var(--border); border-radius:8px; overflow:hidden; background:#080808;
-    min-height:320px;
+  .intro-slide {
+    display:grid; grid-template-columns:minmax(0, 1.35fr) minmax(300px, 0.65fr);
+    min-height:470px;
   }
-  .intro-animation-frame iframe {
-    display:block; width:100%; height:100%; min-height:clamp(320px, 44vw, 540px); border:0;
+  .intro-slide[hidden] { display:none; }
+  .intro-media {
+    min-height:470px; display:flex; align-items:center; justify-content:center;
+    background:#080808; border-right:1px solid var(--border); overflow:hidden;
   }
-  .intro-copy { display:flex; flex-direction:column; justify-content:center; }
+  .intro-media img, .intro-media video {
+    display:block; width:100%; height:100%; min-height:470px; object-fit:contain; background:#080808;
+  }
+  .intro-copy {
+    display:flex; flex-direction:column; justify-content:center; padding:34px;
+  }
+  .intro-slide-kicker {
+    color:var(--accent); font-size:0.7rem; font-weight:800; margin-bottom:10px;
+  }
+  .intro-copy h2 { font-size:1.18rem; line-height:1.35; margin-bottom:14px; }
+  .intro-copy p { color:#bbb; font-size:0.88rem; line-height:1.72; }
+  .intro-carousel-nav {
+    display:grid; grid-template-columns:minmax(130px, auto) 1fr minmax(130px, auto);
+    align-items:center; gap:14px; padding:14px 18px;
+    border-top:1px solid var(--border); background:#0d0d0d;
+  }
+  .intro-nav-button { min-width:130px; }
+  .intro-page-indicator { display:grid; justify-items:center; gap:4px; }
+  .intro-dots { display:flex; align-items:center; justify-content:center; gap:9px; }
+  .intro-dot {
+    width:9px; height:9px; padding:0; border:0; border-radius:50%;
+    background:#3d3d3d; cursor:pointer; transition:width 160ms ease, background-color 160ms ease;
+  }
+  .intro-dot.active { width:24px; border-radius:999px; background:var(--accent); }
+  .intro-dot:focus-visible { outline:2px solid #fff; outline-offset:3px; }
+  .intro-page-status { color:var(--dim); font-size:0.66rem; min-height:1em; }
   .intent-workflow-header {
     display:grid; grid-template-columns:minmax(0, 1fr); gap:10px;
     margin-bottom:18px;
@@ -137,15 +163,24 @@
   .intent-card {
     background: var(--card); border: 2px solid var(--border); border-radius: var(--radius);
     padding: 14px 16px; cursor: pointer; transition: all 0.18s; user-select: none; position: relative;
-    display:flex; flex-direction:column; height:100%;
+    display:grid; grid-template-columns:68px minmax(0, 1fr); gap:14px; align-items:center; height:100%;
   }
   .intent-card:hover { border-color: #444; }
   .intent-card.sel { border-color: var(--accent); background: #111b2a; }
+  .intent-icon-wrap {
+    width:64px; height:64px; display:grid; place-items:center;
+    color:var(--accent); border-right:1px solid #2b2b2b; padding-right:12px;
+  }
+  .intent-icon {
+    width:52px; height:52px; overflow:visible; fill:none; stroke:currentColor;
+    stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;
+  }
+  .intent-icon *, .intent-icon { transform-box:fill-box; transform-origin:center; }
+  .intent-copy { min-width:0; padding-right:24px; }
   .intent-card .name { font-size: 0.9rem; font-weight: 600; }
   .intent-card .en { display:block; font-size: 0.7rem; color: var(--dim); margin-top:2px; }
   .intent-card .desc {
-    font-size: 0.74rem; color:#999; margin-top:8px; line-height:1.35; padding-right:22px;
-    flex:1; display:flex; align-items:center;
+    font-size: 0.74rem; color:#999; margin-top:7px; line-height:1.4;
   }
   .intent-card .dot {
     position: absolute; top: 12px; right: 14px;
@@ -154,6 +189,61 @@
   }
   .intent-card.sel .dot { border-color: var(--accent); background: var(--accent); }
   .intent-card.sel .dot::after { content: "✓"; color: var(--bg); font-size: 11px; font-weight: 700; }
+
+  .intent-card.is-animating .comfort-heart { animation:comfort-embrace 520ms cubic-bezier(.2,.8,.2,1); }
+  .intent-card.is-animating .comfort-clasp { animation:comfort-clasp 520ms cubic-bezier(.2,.8,.2,1); }
+  .intent-card.is-animating .calm-wave-1 { animation:calm-wave 480ms ease-out; }
+  .intent-card.is-animating .calm-wave-2 { animation:calm-wave 480ms 40ms ease-out both; }
+  .intent-card.is-animating .calm-wave-3 { animation:calm-wave 480ms 80ms ease-out both; }
+  .intent-card.is-animating .affection-heart { animation:heart-beat 480ms cubic-bezier(.2,.8,.2,1); }
+  .intent-card.is-animating .salutation-hand { animation:hand-wave 560ms cubic-bezier(.2,.8,.2,1); transform-origin:72% 88%; }
+  .intent-card.is-animating .salutation-lines,
+  .intent-card.is-animating .attention-ring-lines { animation:signal-flicker 560ms ease-out; }
+  .intent-card.is-animating .appreciation-thumb { animation:thumb-up 440ms cubic-bezier(.2,.85,.25,1); transform-origin:45% 90%; }
+  .intent-card.is-animating .gratitude-hands { animation:gratitude-hands 500ms cubic-bezier(.2,.8,.2,1); }
+  .intent-card.is-animating .gratitude-heart { animation:gratitude-heart 560ms cubic-bezier(.2,.8,.2,1); }
+  .intent-card.is-animating .encouragement-path { animation:line-rise 500ms ease-out; }
+  .intent-card.is-animating .encouragement-arrow { animation:arrow-forward 500ms cubic-bezier(.2,.8,.2,1); }
+  .intent-card.is-animating .presence-pin { animation:pin-drop 470ms cubic-bezier(.2,.85,.25,1); }
+  .intent-card.is-animating .presence-dot { animation:location-pulse 550ms 100ms ease-out both; }
+  .intent-card.is-animating .playful-cone { animation:popper-compress 540ms cubic-bezier(.2,.8,.2,1); transform-origin:25% 78%; }
+  .intent-card.is-animating .playful-confetti { animation:confetti-burst 580ms cubic-bezier(.15,.8,.25,1); transform-origin:58% 42%; }
+  .intent-card.is-animating .attention-bell { animation:bell-ring 560ms cubic-bezier(.2,.8,.2,1); transform-origin:50% 15%; }
+  .intent-card.is-animating .attention-clapper { animation:clapper-swing 560ms cubic-bezier(.2,.8,.2,1); transform-origin:50% 0; }
+  .intent-card.is-animating .guidance-sign { animation:sign-guide 500ms cubic-bezier(.2,.8,.2,1); }
+  .intent-card.is-animating .guidance-post { animation:post-settle 500ms cubic-bezier(.2,.8,.2,1); transform-origin:50% 100%; }
+  .intent-card.is-animating .request-bubble { animation:bubble-pop 470ms cubic-bezier(.2,.85,.25,1); }
+  .intent-card.is-animating .request-question { animation:question-pop 500ms 80ms cubic-bezier(.2,.85,.25,1) both; }
+  .intent-card.is-animating .apology-head { animation:apology-return 520ms cubic-bezier(.2,.8,.2,1); }
+  .intent-card.is-animating .apology-path { animation:apology-path 520ms ease-out; }
+  .intent-card.is-animating .refusal-ring { animation:boundary-set 440ms cubic-bezier(.2,.8,.2,1); }
+  .intent-card.is-animating .refusal-slash { animation:slash-draw 440ms 70ms ease-out both; }
+
+  @keyframes comfort-embrace { 0%,100%{transform:scale(1)} 32%{transform:scale(.96)} 62%{transform:scale(1.035)} }
+  @keyframes comfort-clasp { 0%,100%{transform:translateY(0)} 35%{transform:translateY(1px) scale(.97)} 65%{transform:translateY(-.5px)} }
+  @keyframes calm-wave { 0%{transform:translateX(-2px);opacity:.55} 45%{transform:translateX(1.25px);opacity:1} 100%{transform:translateX(0);opacity:1} }
+  @keyframes heart-beat { 0%,100%{transform:scale(1)} 28%{transform:scale(1.1)} 48%{transform:scale(.97)} 70%{transform:scale(1.045)} }
+  @keyframes hand-wave { 0%,100%{transform:rotate(0)} 22%{transform:rotate(-9deg)} 45%{transform:rotate(11deg)} 68%{transform:rotate(-6deg)} 84%{transform:rotate(4deg)} }
+  @keyframes signal-flicker { 0%,100%{opacity:1} 22%,62%{opacity:.25} 42%,82%{opacity:1} }
+  @keyframes thumb-up { 0%{transform:translateY(2px) rotate(-3deg) scale(.96)} 58%{transform:translateY(-2px) rotate(2deg) scale(1.035)} 100%{transform:none} }
+  @keyframes gratitude-hands { 0%,100%{transform:scale(1)} 38%{transform:scale(.97)} 70%{transform:scale(1.015)} }
+  @keyframes gratitude-heart { 0%{transform:translateY(2px) scale(.75);opacity:.3} 55%{transform:translateY(-2px) scale(1.08);opacity:1} 100%{transform:none;opacity:1} }
+  @keyframes line-rise { 0%{transform:translateY(2px);opacity:.55} 70%{transform:translateY(-1px);opacity:1} 100%{transform:none} }
+  @keyframes arrow-forward { 0%{transform:translate(-2px,2px) scale(.88);opacity:.35} 65%{transform:translate(1px,-1px) scale(1.06);opacity:1} 100%{transform:none;opacity:1} }
+  @keyframes pin-drop { 0%{transform:translateY(-4px) scale(.92);opacity:.35} 68%{transform:translateY(1px) scale(1.03);opacity:1} 100%{transform:none;opacity:1} }
+  @keyframes location-pulse { 0%{transform:scale(.55);opacity:.3} 55%{transform:scale(1.25);opacity:1} 100%{transform:scale(1);opacity:1} }
+  @keyframes popper-compress { 0%,100%{transform:rotate(0) scale(1)} 28%{transform:rotate(5deg) scale(.88)} 58%{transform:rotate(-2deg) scale(1.05)} }
+  @keyframes confetti-burst { 0%,24%{transform:translate(-2px,3px) scale(.35);opacity:0} 62%{transform:translate(1px,-1px) scale(1.08);opacity:1} 100%{transform:none;opacity:1} }
+  @keyframes bell-ring { 0%,100%{transform:rotate(0)} 24%{transform:rotate(-8deg)} 48%{transform:rotate(8deg)} 70%{transform:rotate(-4deg)} 86%{transform:rotate(2deg)} }
+  @keyframes clapper-swing { 0%,100%{transform:rotate(0)} 26%{transform:rotate(11deg)} 52%{transform:rotate(-10deg)} 76%{transform:rotate(5deg)} }
+  @keyframes sign-guide { 0%{transform:translateX(-2px);opacity:.55} 58%{transform:translateX(1.5px);opacity:1} 100%{transform:none} }
+  @keyframes post-settle { 0%,100%{transform:rotate(0)} 35%{transform:rotate(-2deg)} 70%{transform:rotate(1deg)} }
+  @keyframes bubble-pop { 0%{transform:scale(.86);opacity:.35} 62%{transform:scale(1.04);opacity:1} 100%{transform:scale(1);opacity:1} }
+  @keyframes question-pop { 0%{transform:translateY(2px) scale(.55);opacity:0} 65%{transform:translateY(-1px) scale(1.12);opacity:1} 100%{transform:none;opacity:1} }
+  @keyframes apology-return { 0%{transform:translateX(3px);opacity:.35} 58%{transform:translateX(-1px);opacity:1} 100%{transform:none;opacity:1} }
+  @keyframes apology-path { 0%{stroke-dasharray:40;stroke-dashoffset:-40;opacity:.35} 100%{stroke-dasharray:40;stroke-dashoffset:0;opacity:1} }
+  @keyframes boundary-set { 0%{transform:scale(.82);opacity:.3} 62%{transform:scale(1.04);opacity:1} 100%{transform:scale(1);opacity:1} }
+  @keyframes slash-draw { 0%{stroke-dasharray:24;stroke-dashoffset:24;opacity:.3} 100%{stroke-dasharray:24;stroke-dashoffset:0;opacity:1} }
 
   /* ── CONTEXT QUESTIONS ── */
   .context-list { display:grid; gap:14px; }
@@ -378,7 +468,13 @@
   @media (max-width: 760px) {
     .step-title { font-size:1.18rem; }
     .step-desc { font-size:0.88rem; }
-    .intro-layout { grid-template-columns:1fr; }
+    .intro-slide { grid-template-columns:1fr; min-height:0; }
+    .intro-media { min-height:250px; border-right:0; border-bottom:1px solid var(--border); }
+    .intro-media img, .intro-media video { min-height:250px; max-height:320px; }
+    .intro-copy { padding:24px 20px; }
+    .intro-carousel-nav { grid-template-columns:1fr 1fr; }
+    .intro-page-indicator { grid-column:1 / -1; grid-row:1; }
+    .intro-nav-button { min-width:0; }
     .current-intent { grid-template-columns:1fr; gap:4px; }
     .body-map-shell { height:clamp(540px, 70vh, 700px); }
     .color-legend { grid-template-columns:1fr; padding:8px 10px; max-width:520px; }
@@ -390,9 +486,17 @@
     .touch-reference { grid-template-columns:1fr; gap:4px; }
     .toolbar-action { align-self:auto; }
     .intent-grid { grid-template-columns:1fr; }
+    .intent-card { grid-template-columns:58px minmax(0, 1fr); gap:11px; padding:12px 13px; }
+    .intent-icon-wrap { width:56px; height:56px; }
+    .intent-icon { width:44px; height:44px; }
     .scale-row { grid-template-columns:repeat(2, minmax(0, 1fr)); }
     .scale-option { min-height:138px; }
     .context-options { grid-template-columns:1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intro-dot, .intent-card, .intent-card .dot { transition:none; }
+    .intent-card.is-animating .intent-icon * { animation:none !important; }
   }
 
   @media (min-width: 761px) and (max-width: 980px) {
