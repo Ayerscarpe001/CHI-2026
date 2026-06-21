@@ -1038,7 +1038,7 @@ function renderContextQuestion() {
         </div>
       </div>
     </section>`;
-  document.getElementById("contextCounter").textContent = `${contextIdx+1} / ${order.length}`;
+  document.getElementById("contextCounter").textContent = `${contextIdx * 2 + 1} / ${order.length * 2}`;
   document.getElementById("btnPrevContext").textContent = t("prevPage");
   document.getElementById("btnPrevContext").disabled = contextIdx === 0;
   document.getElementById("btnNextContext").textContent = t("nextPage");
@@ -1355,7 +1355,7 @@ function load() {
   ensureMeta(id);
   document.getElementById("mapIntentName").textContent = lang === "zh" ? it.zh : it.en;
   document.getElementById("mapIntentDesc").textContent = it.desc[lang];
-  document.getElementById("counter").textContent = `${idx+1} / ${order.length}`;
+  document.getElementById("counter").textContent = `${idx * 2 + 2} / ${order.length * 2}`;
   cur = { ...(data[id] || {}) };
   updCol();
   updateEmptyMapConfirmUI();
@@ -1640,7 +1640,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.8",
+    study_version: "3.9",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1670,7 +1670,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v15_scale_and_copy_refinement"
+      source: "bodymap_questionnaire_v16_continuous_workflow_pagination"
     }
   };
 }
