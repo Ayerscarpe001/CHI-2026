@@ -477,20 +477,20 @@ function setLang(nextLang) {
 // INTENTS
 // ============================================================
 const INTENTS = [
-  { id:"comfort", zh:"安慰", en:"Comfort", desc:{ zh:"在人悲伤、压力、焦虑或脆弱时，通过触碰传达关心、抚慰和情感支持，使其感到被理解和支持。", en:"Touch intended to convey care, soothing, and emotional support when the person is sad, stressed, anxious, or vulnerable, helping them feel understood and supported." } },
-  { id:"calming", zh:"冷静", en:"Calming", desc:{ zh:"在人紧张、激动、害怕或高唤醒时，通过触碰帮助其平复情绪、降低紧张并恢复稳定。", en:"Touch intended to help the person settle down, reduce tension, and regain emotional stability when they are tense, agitated, afraid, or highly aroused." } },
-  { id:"affection", zh:"亲近", en:"Affection", desc:{ zh:"通过触碰表达喜爱、亲近、温柔、依恋、信任或情感上的亲密感。", en:"Touch intended to express fondness, closeness, tenderness, attachment, trust, or emotional affection." } },
-  { id:"salutation", zh:"问候", en:"Salutation", desc:{ zh:"在互动开始或结束时，通过触碰表达欢迎、问候、告别或礼貌性确认。", en:"Touch intended to mark the beginning or end of an interaction by conveying greeting, farewell, welcome, or polite acknowledgment." } },
-  { id:"appreciation", zh:"赞赏", en:"Appreciation", desc:{ zh:"在人表现出值得肯定的行为、能力或成果后，通过触碰表达认可、肯定或赞许。", en:"Touch intended to express recognition, approval, or praise after the person has shown a valued action, ability, or achievement." } },
-  { id:"gratitude", zh:"感谢", en:"Gratitude", desc:{ zh:"在人帮助了机器人或做出有益行为后，通过触碰表达谢意。", en:"Touch intended to express thanks after the person has helped the robot or done something beneficial." } },
-  { id:"encouragement", zh:"鼓励", en:"Encouragement", desc:{ zh:"在人面临压力、挑战、不确定或缺乏信心时，通过触碰传达支持和信心，鼓励其继续行动。", en:"Touch intended to convey support and confidence when the person faces pressure, challenge, uncertainty, or self-doubt, encouraging them to continue." } },
-  { id:"presence", zh:"同在", en:"Presence", desc:{ zh:"在人感到孤单、疏离或需要陪伴时，通过触碰表达“我在这里”，传达共同存在或陪伴感。", en:"Touch intended to convey “I am here with you,” shared presence, or companionship, especially when the person feels alone, distant, or in need of company." } },
-  { id:"playful", zh:"嬉戏", en:"Playfulness", desc:{ zh:"在人处于轻松或可玩笑的状态时，通过触碰表达玩笑、调皮、逗趣或轻松互动。", en:"Touch intended to express joking, teasing, playfulness, or lighthearted interaction when the person is in a relaxed or playful state." } },
-  { id:"attention_getting", zh:"引起注意", en:"Attention-getting", desc:{ zh:"在人分心、忽略、忙于他事而未注意，或需要更加关注某事时，通过触碰改变其注意焦点或强调信息的重要性。", en:"Touch intended to redirect or heighten the person’s attention when they are distracted, have overlooked something, are occupied with something else, or need to pay closer attention." } },
-  { id:"guidance", zh:"引导", en:"Guidance", desc:{ zh:"在人需要协助或调整动作、方向或行为时，通过触碰提供帮助与指引。", en:"Touch intended to guide the person’s action, direction, or movement when help or adjustment is needed." } },
-  { id:"request", zh:"请求", en:"Request", desc:{ zh:"在机器人需要人的回应、确认、允许、帮助或某种行动时，通过触碰表达询问、请示或请求。", en:"Touch intended to express inquiry, ask for permission, seek help, or request the person’s response, confirmation, or action." } },
-  { id:"apology", zh:"致歉", en:"Apology", desc:{ zh:"在机器人造成误解、冒犯、失误或让人不适后，通过触碰表达歉意、尝试修复互动并请求谅解。", en:"Touch intended to express apology, repair the interaction, and seek forgiveness after the robot has caused misunderstanding, offense, error, or discomfort." } },
-  { id:"refusal", zh:"拒绝", en:"Refusal", desc:{ zh:"在人靠近、提出请求或试图继续互动时，通过触碰表达不同意、保持边界或不愿继续当前互动。", en:"Touch intended to express disagreement, maintain a boundary, or signal unwillingness to continue the current interaction when the person approaches, makes a request, or attempts to continue." } },
+  { id:"comfort", zh:"安慰", en:"Comfort", desc:{ zh:"在人们悲伤、压力、焦虑或脆弱时，机器人通过触碰传达关心、抚慰和情感支持，使其感到被理解和支持。", en:"When people are sad, stressed, anxious, or vulnerable, the robot uses touch to convey care, soothing, and emotional support, helping them feel understood and supported." } },
+  { id:"calming", zh:"冷静", en:"Calming", desc:{ zh:"在人们紧张、激动、害怕或高唤醒时，机器人通过触碰帮助其平复情绪、降低紧张并恢复稳定。", en:"When people are tense, agitated, afraid, or highly aroused, the robot uses touch to help them settle down, reduce tension, and regain emotional stability." } },
+  { id:"affection", zh:"亲近", en:"Affection", desc:{ zh:"机器人通过触碰表达喜爱、亲近、温柔、依恋、信任或情感上的亲密感。", en:"The robot uses touch to express fondness, closeness, tenderness, attachment, trust, or emotional affection." } },
+  { id:"salutation", zh:"问候", en:"Salutation", desc:{ zh:"在互动开始或结束时，机器人通过触碰表达欢迎、问候、告别或礼貌性确认。", en:"At the beginning or end of an interaction, the robot uses touch to express a greeting, farewell, welcome, or polite acknowledgment." } },
+  { id:"appreciation", zh:"赞赏", en:"Appreciation", desc:{ zh:"在人们表现出值得肯定的行为、能力或成果后，机器人通过触碰表达认可、肯定或赞许。", en:"After people have demonstrated a valued action, ability, or achievement, the robot uses touch to express recognition, approval, or praise." } },
+  { id:"gratitude", zh:"感谢", en:"Gratitude", desc:{ zh:"在人们帮助了机器人或做出有益行为后，机器人通过触碰表达谢意。", en:"After people have helped the robot or done something beneficial, the robot uses touch to express thanks." } },
+  { id:"encouragement", zh:"鼓励", en:"Encouragement", desc:{ zh:"在人们面临压力、挑战、不确定或缺乏信心时，机器人通过触碰传达支持和信心，鼓励其继续行动。", en:"When people face pressure, challenge, uncertainty, or self-doubt, the robot uses touch to convey support and confidence, encouraging them to continue." } },
+  { id:"presence", zh:"同在", en:"Presence", desc:{ zh:"在人们感到孤单、疏离或需要陪伴时，机器人通过触碰表达“我在这里”，传达共同存在或陪伴感。", en:"When people feel alone, distant, or in need of company, the robot uses touch to convey “I am here with you,” shared presence, or companionship." } },
+  { id:"playful", zh:"嬉戏", en:"Playfulness", desc:{ zh:"在人们处于轻松或可玩笑的状态时，机器人通过触碰表达玩笑、调皮、逗趣或轻松互动。", en:"When people are in a relaxed or playful state, the robot uses touch to express joking, teasing, playfulness, or lighthearted interaction." } },
+  { id:"attention_getting", zh:"引起注意", en:"Attention-getting", desc:{ zh:"在人们分心、忽略、忙于他事而未注意，或需要更加关注某事时，机器人通过触碰改变其注意焦点或强调信息的重要性。", en:"When people are distracted, have overlooked something, are occupied with something else, or need to pay closer attention, the robot uses touch to redirect or heighten their attention." } },
+  { id:"guidance", zh:"引导", en:"Guidance", desc:{ zh:"在人们需要协助或调整动作、方向或行为时，机器人通过触碰提供帮助与指引。", en:"When people need help or adjustment, the robot uses touch to guide their action, direction, or movement." } },
+  { id:"request", zh:"请求", en:"Request", desc:{ zh:"在机器人需要人们的回应、确认、允许、帮助或某种行动时，其通过触碰表达询问、请示或请求。", en:"When the robot needs a response, confirmation, permission, help, or action from people, it uses touch to express an inquiry, ask for permission, seek help, or make a request." } },
+  { id:"apology", zh:"致歉", en:"Apology", desc:{ zh:"在机器人造成误解、冒犯、失误或让人们不适后，其通过触碰表达歉意、尝试修复互动并请求谅解。", en:"After the robot has caused a misunderstanding, offense, or error, or made people uncomfortable, it uses touch to express an apology, attempt to repair the interaction, and seek forgiveness." } },
+  { id:"refusal", zh:"拒绝", en:"Refusal", desc:{ zh:"在人们靠近、提出请求或试图继续互动时，机器人通过触碰表达不同意、保持边界或不愿继续当前互动。", en:"When people approach, make a request, or attempt to continue an interaction, the robot uses touch to express disagreement, maintain a boundary, or signal unwillingness to continue." } },
 ];
 
 const TOUCH_REFERENCES = {
@@ -1645,7 +1645,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.6",
+    study_version: "3.7",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1675,7 +1675,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v13_robot_person_definitions"
+      source: "bodymap_questionnaire_v14_explicit_robot_people_definitions"
     }
   };
 }
