@@ -584,9 +584,17 @@ const INTERACTION_CONTEXTS = [
 // ============================================================
 // SVG BODY MAP REGIONS
 // ============================================================
-// These ids must match the selectable path/group ids inside assets/female_bodymap.svg.
-const BODY_MAP_URL = "assets/female_bodymap.svg";
-const BODY_MAP_ID = "female_bodymap_2d_svg_v1";
+// Region ids must match in both SVG assets so answers share one data schema.
+const BODY_MAP_PROFILES = {
+  female: {
+    id: "female_bodymap_2d_svg_v2",
+    url: "assets/female_bodymap.svg",
+  },
+  male: {
+    id: "male_bodymap_2d_svg_v2",
+    url: "assets/male_bodymap.svg?v=2",
+  },
+};
 const ALL_REGIONS = [
   { id:"scalp", zh:"头顶部", en:"Top of head / scalp", side:"top" },
   { id:"face", zh:"面部", en:"Face", side:"front" },
@@ -1113,9 +1121,20 @@ function validateContextQuestions() {
 // ============================================================
 let bodyMap = null;
 let bodyMapReady = null;
+let bodyMapProfileId = null;
+let bodyMapReadyProfileId = null;
+
+function currentBodyMapConfig() {
+  const gender = demographics.gender || document.getElementById("gender")?.value;
+  return gender === "female" ? BODY_MAP_PROFILES.female : BODY_MAP_PROFILES.male;
+}
 
 function currentBodyProfile() {
-  return BODY_MAP_ID;
+  return currentBodyMapConfig().id;
+}
+
+function currentBodyMapAsset() {
+  return currentBodyMapConfig().url;
 }
 
 function setBodyMapStatus(key, visible = true) {
@@ -1133,14 +1152,25 @@ function bodyMapRegionsForRenderer() {
 }
 
 async function ensureBodyMap() {
-  if (bodyMap) return bodyMap;
-  if (!bodyMapReady) {
+  const profile = currentBodyMapConfig();
+  if (bodyMap && bodyMapProfileId === profile.id) return bodyMap;
+
+  if (bodyMapProfileId && bodyMapProfileId !== profile.id) {
+    bodyMap = null;
+    bodyMapReady = null;
+    bodyMapProfileId = null;
+    bodyMapReadyProfileId = null;
+    document.getElementById("bodyMap")?.replaceChildren();
+  }
+
+  if (!bodyMapReady || bodyMapReadyProfileId !== profile.id) {
     setBodyMapStatus("bodyMapLoading");
-    bodyMapReady = import("./body-map-svg.js")
+    bodyMapReadyProfileId = profile.id;
+    bodyMapReady = import("./body-map-svg.js?v=2")
       .then(async module => {
         const map = new module.BodyMapSVG({
           container: document.getElementById("bodyMap"),
-          svgUrl: BODY_MAP_URL,
+          svgUrl: profile.url,
           regions: bodyMapRegionsForRenderer(),
           onRegionClick: (regionId, event) => {
             const intentId = order[idx];
@@ -1162,6 +1192,7 @@ async function ensureBodyMap() {
         });
         await map.init();
         bodyMap = map;
+        bodyMapProfileId = profile.id;
         bodyMap.setPaintPreview(paint);
         setBodyMapStatus("", false);
         return map;
@@ -1169,6 +1200,7 @@ async function ensureBodyMap() {
       .catch(error => {
         console.error(error);
         bodyMapReady = null;
+        bodyMapReadyProfileId = null;
         setBodyMapStatus("bodyMapLoadError");
         throw error;
       });
@@ -1676,8 +1708,8 @@ function buildSurveyPayload() {
       interactionContexts: interactionContextsPayload(),
       nationalityName: nationalityCode ? countryName(nationalityCode) : null,
       bodyMapProfile: currentBodyProfile(),
-      bodyMapModel: BODY_MAP_URL,
-      bodyMapAsset: BODY_MAP_URL,
+      bodyMapModel: currentBodyMapAsset(),
+      bodyMapAsset: currentBodyMapAsset(),
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,

@@ -385,7 +385,7 @@
   .body-map-shell {
     position:relative; width:min(100%, 900px); height:clamp(600px, 76vh, 820px);
     margin:10px auto 0; border:1px solid var(--border); border-radius:8px;
-    background:radial-gradient(circle at 50% 42%, #191919 0%, #101010 58%, #080808 100%);
+    background:#080808;
     overflow:hidden;
   }
   .body-map-svg {
@@ -443,7 +443,7 @@
   }
   .color-controls .bucket.active { border-color:#fff; box-shadow:0 0 0 2px rgba(255,255,255,0.08); }
   .color-controls .leg-swatch.l2p { background:rgba(22,163,74,0.76); }
-  .color-controls .leg-swatch.l0  { background:#181818; border:1px solid #444; }
+  .color-controls .leg-swatch.l0  { background:rgba(216,216,216,0.5); border:1px solid #fff; }
   .color-controls .leg-swatch.l2n { background:rgba(220,38,38,0.72); }
   .color-controls .leg-title { font-size:0.75rem; font-weight:600; color:var(--text); margin-right:4px; }
   .tool-status {

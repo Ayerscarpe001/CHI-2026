@@ -4,15 +4,14 @@ const COLORS = {
   unacceptable: "#c23535",
   acceptablePreview: "#45d878",
   unacceptablePreview: "#f15b5b",
-  stroke: "#202020",
+  stroke: "#ffffff",
   hoverStrokeAcceptable: "#1fc764",
   hoverStrokeUnacceptable: "#dc3d3d",
 };
 
 const SELECTED_OPACITY = "0.9";
-const NEUTRAL_OPACITY = "0.78";
+const NEUTRAL_OPACITY = "0.5";
 const PREVIEW_OPACITY = "0.38";
-const ARTBOARD_OPACITY = "0.94";
 
 const REGION_ALIASES = new Map([
   ["back_of_thighs_2", "back_of_thighs"],
@@ -51,6 +50,7 @@ export class BodyMapSVG {
     this.onRegionLeave = onRegionLeave;
     this.regionElements = new Map();
     this.elementRegionIds = new WeakMap();
+    this.outlineOnlyElements = new WeakSet();
     this.regionStates = {};
     this.paintPreview = 1;
     this.hovered = null;
@@ -92,8 +92,17 @@ export class BodyMapSVG {
       const regionId = this.regionIdForElement(element);
       if (!regionId) return;
 
+      const fill = element.getAttribute("fill");
+      const stroke = element.getAttribute("stroke");
+      const outlineOnly = (!fill || fill === "none") && stroke && stroke !== "none";
+      if (outlineOnly) {
+        this.outlineOnlyElements.add(element);
+        element.style.fill = "none";
+        element.style.fillOpacity = "0";
+      }
+
       element.dataset.regionId = regionId;
-      element.style.pointerEvents = "visiblePainted";
+      element.style.pointerEvents = outlineOnly ? "visibleStroke" : "visiblePainted";
       element.style.cursor = "pointer";
       element.style.transition = "fill 0.12s ease, fill-opacity 0.12s ease, stroke 0.12s ease, stroke-width 0.12s ease";
       this.elementRegionIds.set(element, regionId);
@@ -106,8 +115,8 @@ export class BodyMapSVG {
   prepareArtworkSurface() {
     const background = Array.from(this.svg.children).find(child => child.tagName.toLowerCase() === "rect");
     if (!background) return;
-    background.setAttribute("fill", "#eeeeee");
-    background.setAttribute("fill-opacity", ARTBOARD_OPACITY);
+    background.setAttribute("fill", "none");
+    background.setAttribute("fill-opacity", "0");
     background.style.pointerEvents = "none";
   }
 
@@ -196,8 +205,13 @@ export class BodyMapSVG {
     const strokeWidth = hovered && !clearsCurrentState ? "2.8" : null;
 
     elements.forEach(element => {
-      element.style.fill = fill;
-      element.style.fillOpacity = fillOpacity;
+      if (this.outlineOnlyElements.has(element)) {
+        element.style.fill = "none";
+        element.style.fillOpacity = "0";
+      } else {
+        element.style.fill = fill;
+        element.style.fillOpacity = fillOpacity;
+      }
       element.style.stroke = stroke;
       if (strokeWidth) {
         if (element.dataset.previousStrokeWidth === undefined) {
