@@ -16,7 +16,7 @@ const I18N = {
     appTitle:"机器人社交接触可接受性问卷",
     appSub:"机器人主动身体接触中的身体区域可接受性标注",
     introTitle:"研究场景介绍",
-    introDesc:"请依次阅读下面三页简短说明，了解本研究中的社交机器人、社交触摸及答题流程。",
+    introDesc:"本问卷旨在了解人们对社交机器人主动触摸的接受程度。请依次阅读下面三页简短说明，明确本研究中的社交机器人、社交触摸等概念及答题流程。",
     introSlide1Kicker:"01 · 机器人形态",
     introSlide1Title:"一个具有胳膊与手的实体机器人",
     introSlide2Kicker:"02 · 社交触摸",
@@ -179,7 +179,7 @@ const I18N = {
     appTitle:"Robot Social Touch Acceptability Survey",
     appSub:"Body-region acceptability mapping for robot-initiated physical contact",
     introTitle:"Study Scenario",
-    introDesc:"Please read the following three short pages about the social robot, social touch, and the survey process.",
+    introDesc:"This survey examines people's acceptance of touch initiated by social robots. Please read the following three short pages to understand how this study defines the social robot and social touch, as well as the survey process.",
     introSlide1Kicker:"01 · Robot form",
     introSlide1Title:"An embodied robot with arms and hands",
     introSlide2Kicker:"02 · Social touch",
@@ -413,6 +413,10 @@ function renderIntroCarousel() {
 
   document.querySelectorAll("[data-intro-alt]").forEach(image => {
     image.alt = t(image.dataset.introAlt);
+    const localizedSource = lang === "zh" ? image.dataset.introSrcZh : image.dataset.introSrcEn;
+    if (localizedSource && image.getAttribute("src") !== localizedSource) {
+      image.setAttribute("src", localizedSource);
+    }
   });
   const status = document.getElementById("introPageStatus");
   if (status) {
@@ -588,7 +592,7 @@ const INTERACTION_CONTEXTS = [
 const BODY_MAP_PROFILES = {
   female: {
     id: "female_bodymap_2d_svg_v2",
-    url: "assets/female_bodymap.svg",
+    url: "assets/female_bodymap.svg?v=2",
   },
   male: {
     id: "male_bodymap_2d_svg_v2",
@@ -1683,7 +1687,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.11",
+    study_version: "3.12",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1708,12 +1712,13 @@ function buildSurveyPayload() {
       interactionContexts: interactionContextsPayload(),
       nationalityName: nationalityCode ? countryName(nationalityCode) : null,
       bodyMapProfile: currentBodyProfile(),
+      bodyMapSchema: "canonical_23_regions_v1",
       bodyMapModel: currentBodyMapAsset(),
       bodyMapAsset: currentBodyMapAsset(),
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v18_scoped_progress_alignment"
+      source: "bodymap_questionnaire_v19_gender_specific_2d_maps"
     }
   };
 }
