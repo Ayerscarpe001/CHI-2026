@@ -146,8 +146,8 @@
     background: var(--card); border:1px solid var(--border); border-radius: var(--radius);
     padding:18px; margin-bottom:16px;
   }
-  .panel p { color:#aaa; font-size:0.84rem; margin-bottom:10px; }
-  .consent-check { display:flex; gap:10px; align-items:flex-start; color:#ddd; font-size:0.84rem; margin-top:14px; }
+  .panel p { color:#b8b8b8; font-size:0.88rem; line-height:1.55; margin-bottom:10px; }
+  .consent-check { display:flex; gap:10px; align-items:flex-start; color:#ddd; font-size:0.86rem; margin-top:14px; }
   .consent-check input { margin-top:4px; }
   .form-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:14px; }
   .field label { display:block; font-size:0.76rem; color:var(--dim); margin-bottom:5px; }
@@ -172,7 +172,7 @@
   }
   .no-intent-option input { margin-top:4px; }
   .no-intent-option strong { display:block; font-size:0.82rem; color:#eee; line-height:1.35; }
-  .no-intent-option small { display:block; margin-top:3px; color:#999; font-size:0.72rem; line-height:1.4; }
+  .no-intent-option small { display:block; margin-top:3px; color:#aaa; font-size:0.76rem; line-height:1.42; }
   .no-intent-option.selected {
     border-color:var(--accent); background:#111b2a; box-shadow:0 0 0 1px rgba(91,155,255,0.18);
   }
@@ -198,7 +198,7 @@
   .intent-copy { min-width:0; padding-right:24px; }
   .intent-card .name { font-size: 0.9rem; font-weight: 600; }
   .intent-card .desc {
-    font-size: 0.74rem; color:#999; margin-top:5px; line-height:1.36;
+    font-size:0.78rem; color:#aaa; margin-top:5px; line-height:1.4;
   }
   .intent-card .dot {
     position: absolute; top: 12px; right: 14px;
@@ -291,7 +291,7 @@
     background:#181818; color:#bbb; font-size:0.76rem; font-weight:800;
   }
   .scale-option.selected .scale-number { background:var(--accent); color:var(--bg); }
-  .scale-label { font-size:0.68rem; line-height:1.2; color:#aaa; }
+  .scale-label { font-size:0.74rem; line-height:1.25; color:#b5b5b5; }
   .scale-option.selected .scale-label { color:#e5efff; }
   .ios-diagram {
     position:relative; width:108px; height:56px; margin:3px auto 4px;
@@ -335,10 +335,10 @@
     background:rgba(91,155,255,0.07); border-radius:0 7px 7px 0;
   }
   .touch-reference-title {
-    color:#bfdbfe; font-size:0.7rem; font-weight:800; white-space:nowrap;
+    color:#bfdbfe; font-size:0.78rem; font-weight:800; white-space:nowrap;
   }
   .touch-reference-text {
-    color:#b8c3d4; font-size:0.75rem; line-height:1.5;
+    color:#c4cede; font-size:0.78rem; line-height:1.52;
   }
   .convention-scale {
     display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:8px;
@@ -360,7 +360,7 @@
   .convention-option.selected .convention-number { background:var(--accent); color:var(--bg); }
   .convention-label { color:#eee; font-size:0.76rem; font-weight:760; line-height:1.25; }
   .context-name { font-size:0.78rem; font-weight:750; color:#eee; }
-  .context-desc { font-size:0.68rem; color:#999; line-height:1.32; }
+  .context-desc { font-size:0.74rem; color:#aaa; line-height:1.4; }
   .context-option.selected .context-name { color:#fff; }
   .context-option.selected .context-desc { color:#c8d9ff; }
   .other-context-field {
@@ -402,7 +402,7 @@
   .empty-map-confirm {
     display:flex; align-items:flex-start; gap:9px;
     width:min(100%, 860px); margin:12px auto 0;
-    color:#cfcfcf; font-size:0.76rem; line-height:1.42;
+    color:#d5d5d5; font-size:0.8rem; line-height:1.46;
     background:#101010; border:1px solid var(--border); border-radius:8px;
     padding:10px 12px;
   }
@@ -445,7 +445,7 @@
   .color-controls .leg-title { font-size:0.75rem; font-weight:600; color:var(--text); margin-right:4px; }
   .tool-status {
     display:flex; justify-content:center; gap:6px; flex-wrap:wrap;
-    text-align:center; font-size:0.68rem; color:var(--dim); line-height:1.25;
+    text-align:center; font-size:0.72rem; color:#8c8c8c; line-height:1.3;
   }
   .current-tool { color:#bbb; }
   .status-dot { color:#555; }
@@ -526,7 +526,7 @@
     .intent-icon { width:39px; height:39px; }
     .intent-copy { padding-right:22px; }
     .intent-card .name { font-size:0.88rem; }
-    .intent-card .desc { margin-top:3px; font-size:0.72rem; line-height:1.32; }
+    .intent-card .desc { margin-top:3px; font-size:0.76rem; line-height:1.38; }
     .field input, .field select, .other-context-field input {
       font-size:16px;
     }
