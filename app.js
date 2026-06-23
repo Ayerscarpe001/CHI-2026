@@ -1264,9 +1264,29 @@ function showTT(text, e, autoHide = false) {
   clearTimeout(tooltipTimer);
   const tt = document.getElementById("tooltip");
   tt.textContent = text;
-  tt.style.left = (e.clientX + 14) + "px";
-  tt.style.top = (e.clientY - 30) + "px";
   tt.classList.add("show");
+
+  const margin = 8;
+  const gap = 14;
+  const viewportWidth = window.visualViewport?.width || document.documentElement.clientWidth;
+  const viewportHeight = window.visualViewport?.height || document.documentElement.clientHeight;
+  const tooltipWidth = tt.offsetWidth;
+  const tooltipHeight = tt.offsetHeight;
+
+  let left = e.clientX + gap;
+  if (left + tooltipWidth > viewportWidth - margin) {
+    left = e.clientX - tooltipWidth - gap;
+  }
+  left = Math.max(margin, Math.min(left, viewportWidth - tooltipWidth - margin));
+
+  let top = e.clientY - tooltipHeight - 12;
+  if (top < margin) {
+    top = e.clientY + 12;
+  }
+  top = Math.max(margin, Math.min(top, viewportHeight - tooltipHeight - margin));
+
+  tt.style.left = `${left}px`;
+  tt.style.top = `${top}px`;
   if (autoHide) scheduleTooltipHide();
 }
 function hideTT(immediate = true) {
@@ -1681,7 +1701,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.15",
+    study_version: "3.16",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1712,7 +1732,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v22_reduced_reading_load"
+      source: "bodymap_questionnaire_v23_bounded_region_tooltips"
     }
   };
 }
