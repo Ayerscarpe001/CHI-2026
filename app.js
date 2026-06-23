@@ -595,8 +595,8 @@ const BODY_MAP_PROFILES = {
     url: "assets/female_bodymap.svg?v=2",
   },
   male: {
-    id: "male_bodymap_2d_svg_v2",
-    url: "assets/male_bodymap.svg?v=2",
+    id: "male_bodymap_2d_svg_v3",
+    url: "assets/male_bodymap.svg?v=3",
   },
 };
 const ALL_REGIONS = [
@@ -1687,7 +1687,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.12",
+    study_version: "3.13",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1718,7 +1718,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v19_gender_specific_2d_maps"
+      source: "bodymap_questionnaire_v20_refined_male_2d_map"
     }
   };
 }
