@@ -466,6 +466,7 @@ function setLang(nextLang) {
   setPaint(paint);
   if (document.getElementById("s2").classList.contains("active")) load();
   if (document.getElementById("s3").classList.contains("active")) r3();
+  if (document.getElementById("s4").classList.contains("active")) renderSubmissionResult();
   prog();
 }
 
@@ -681,6 +682,7 @@ const total = ALL_REGIONS.length;
 const surveyStartedAt = new Date();
 let currentStepId = "sIntro";
 let currentStepEnteredAt = Date.now();
+let submissionResultState = null;
 const qualityLog = {
   stepDurationsMs: {},
   stepVisits: { sIntro: 1 },
@@ -741,6 +743,13 @@ function showStep(id) {
 
 function updConsent() {
   document.getElementById("btnConsent").disabled = !document.getElementById("consentBox").checked;
+}
+function resetConsentState() {
+  const consentBox = document.getElementById("consentBox");
+  if (!consentBox) return;
+  consentBox.checked = false;
+  consentBox.defaultChecked = false;
+  updConsent();
 }
 function goInfo() { showStep("sInfo"); }
 function goIntents() {
@@ -1353,7 +1362,7 @@ function backToIntentSelectionFromContext() {
 
 function backToIntentSelectionFromWorkflow() {
   if (document.getElementById("s2")?.classList.contains("active")) {
-    saveCur();
+    save();
   }
   showStep("s1");
   prog();
@@ -1701,7 +1710,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.17",
+    study_version: "3.18",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1732,18 +1741,25 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v24_readability_type_scale"
+      source: "bodymap_questionnaire_v25_interaction_fixes"
     }
   };
 }
 
-function showSubmissionResult(ok, title, message) {
+function renderSubmissionResult() {
+  if (!submissionResultState) return;
+  const { ok, titleKey, messageKey } = submissionResultState;
   const panel = document.getElementById("resultPanel");
   panel.className = `result-panel ${ok ? "ok" : "err"}`;
   document.getElementById("resultKicker").textContent = ok ? t("resultSubmitted") : t("resultError");
-  document.getElementById("resultTitle").textContent = title;
-  document.getElementById("resultMessage").textContent = message;
+  document.getElementById("resultTitle").textContent = t(titleKey);
+  document.getElementById("resultMessage").textContent = t(messageKey);
   document.getElementById("btnRetry").style.display = ok ? "none" : "";
+}
+
+function showSubmissionResult(ok, titleKey, messageKey) {
+  submissionResultState = { ok, titleKey, messageKey };
+  renderSubmissionResult();
   showStep("s4");
 }
 
@@ -1761,8 +1777,8 @@ async function submitToSupabase() {
   if (!supabaseClient) {
     showSubmissionResult(
       false,
-      t("submitFailTitle"),
-      t("submitFailLib")
+      "submitFailTitle",
+      "submitFailLib"
     );
     return;
   }
@@ -1770,8 +1786,8 @@ async function submitToSupabase() {
   if (!payload.consent_given) {
     showSubmissionResult(
       false,
-      t("consentRequiredTitle"),
-      t("consentRequiredMsg")
+      "consentRequiredTitle",
+      "consentRequiredMsg"
     );
     return;
   }
@@ -1802,8 +1818,8 @@ async function submitToSupabase() {
     btn.textContent = t("submitResponse");
     showSubmissionResult(
       false,
-      t("submitFailTitle"),
-      t("submitFailNetwork")
+      "submitFailTitle",
+      "submitFailNetwork"
     );
     return;
   }
@@ -1812,12 +1828,13 @@ async function submitToSupabase() {
   btn.textContent = t("submitDone");
   showSubmissionResult(
     true,
-    t("thankTitle"),
-    t("thankMsg")
+    "thankTitle",
+    "thankMsg"
   );
 }
 
 // ============================================================
 // INIT
 // ============================================================
-r1(); updBtn(); setLang(lang); prog();
+r1(); updBtn(); resetConsentState(); setLang(lang); prog();
+window.addEventListener("pageshow", resetConsentState);
