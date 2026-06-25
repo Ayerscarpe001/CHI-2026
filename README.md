@@ -112,5 +112,5 @@ To publish the survey:
 The survey should then be available at:
 
 ```text
-https://ayerscarpe001.github.io/CHI-2026/
+https://ayerscarpe001.github.io/touch_with_robots_survey/
 ```
