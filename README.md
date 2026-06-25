@@ -35,11 +35,11 @@ Each submitted row contains:
 The interpersonal-reference item records how closely participants think robot touch should refer to the touch expressions people commonly use with one another:
 
 ```text
-1 = not at all; use a robot-specific expression
+1 = not at all
 2 = slightly
-3 = partly; refer to interpersonal touch and adapt it
-4 = considerably
-5 = fully; match interpersonal touch as closely as possible
+3 = partly
+4 = mostly
+5 = fully
 ```
 
 Body-map ratings use a three-value scale:
