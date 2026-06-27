@@ -18,14 +18,14 @@ const I18N = {
     introTitle:"研究场景介绍",
     introDesc:"本问卷旨在了解人们对社交机器人主动触摸的接受程度。请依次阅读下面三页简短说明，明确本研究中的社交机器人、社交触摸等概念及答题流程。",
     introSlide1Kicker:"01 · 机器人形态",
-    introSlide1Title:"具有手臂与手的机器人",
+    introSlide1Title:"具有手臂与手的人形机器人",
     introSlide2Kicker:"02 · 社交触摸",
     introSlide2Title:"机器人主动发起的身体接触",
     introSlide3Kicker:"03 · 答题流程",
-    introSlide3Title:"按所选内容逐项作答",
-    introP1:"请将问卷中的“机器人”想象为一个具有人形上半身结构的社交机器人。它具有类似人体结构的双臂和双手，整体身高略低于你。",
+    introSlide3Title:"问卷填写流程",
+    introP1:"请将问卷中的“社交机器人”想象为一个具有人形上半身结构的机器人，它具有类似人体结构的双臂和双手，整体身高略矮于成年人水平。它能够遵循恰当的行为规范，与人进行社交互动。",
     introP2:"问卷中的“社交触摸”指机器人对人身体发起的直接、短暂、柔和、非疼痛、非强制性的身体接触。这种触摸旨在传达具有社会意义的意图，例如表达关心。",
-    introP3:"填写问卷时，请先选择你能接受机器人通过主动触摸来表达的内容。随后，问卷会围绕你选择的每一项，循环询问一组相关问题。",
+    introP3:"填写过程中，问卷会先询问“你能接受社交机器人通过主动触摸表达哪些意图”，随后，将会围绕你选择的每种意图，循环询问一组相关问题。",
     introRobotAlt:"抽象简笔画社交机器人，具有头部、上身、机械手臂和手部。",
     introFlowAlt:"先选择可接受的表达内容，再围绕每个选择逐项作答的问卷流程示意图。",
     introPrev:"← 上一页",
@@ -168,7 +168,15 @@ const I18N = {
     consentRequiredTitle:"需要知情同意",
     consentRequiredMsg:"请返回开始页面并勾选知情同意后再提交。",
     thankTitle:"感谢参与",
-    thankMsg:"你的回答已成功提交。"
+    thankMsg:"你的回答已成功提交。",
+    followupTitle:"后续研究联系（选填）",
+    followupDesc:"如果你有意愿参与后续研究中的访谈或实验，请在此留下你的联系邮箱或手机号。",
+    followupPlaceholder:"邮箱或手机号",
+    followupSubmit:"提交联系方式",
+    followupSubmitting:"提交中...",
+    followupSubmitted:"联系方式已提交，感谢。",
+    followupEmpty:"请先填写联系方式，或直接关闭页面。",
+    followupError:"联系方式提交失败，请稍后重试。"
   },
   en: {
     appTitle:"Robot Social Touch Acceptability Survey",
@@ -176,14 +184,14 @@ const I18N = {
     introTitle:"Study Scenario",
     introDesc:"This survey examines people's acceptance of touch initiated by social robots. Please read the following three short pages to understand how this study defines the social robot and social touch, as well as the survey process.",
     introSlide1Kicker:"01 · Robot form",
-    introSlide1Title:"Robot with Arms and Hands",
+    introSlide1Title:"Humanoid Robot with Arms and Hands",
     introSlide2Kicker:"02 · Social touch",
     introSlide2Title:"Physical contact initiated by the robot",
     introSlide3Kicker:"03 · Survey process",
     introSlide3Title:"Answer each selected item in sequence",
-    introP1:"Imagine the “robot” in this survey as a social robot with a humanoid upper-body structure. It has two arms and two hands with a human-like structure and is slightly shorter than you.",
+    introP1:"Please imagine the “social robot” in this survey as a robot with a humanoid upper-body structure. It has two arms and two hands with a human-like structure and is slightly shorter than an adult. It can follow appropriate behavioral norms and socially interact with people.",
     introP2:"In this survey, “social touch” refers to direct, brief, gentle, non-painful, and non-coercive bodily contact initiated by a robot toward a person. The touch is intended to convey a socially meaningful intent, such as showing care.",
-    introP3:"First choose what you would find acceptable for a robot to express through active touch. Then, for each selected item, the survey will ask a short set of related questions.",
+    introP3:"During the survey, you will first choose which intents you would accept a social robot expressing through active touch. Then, for each selected intent, you will answer a repeated set of related questions.",
     introRobotAlt:"A simple abstract social robot with a head, upper body, mechanical arms, and hands.",
     introFlowAlt:"A survey flow diagram showing selection first, followed by repeated questions for each selected item.",
     introPrev:"← Previous",
@@ -326,7 +334,15 @@ const I18N = {
     consentRequiredTitle:"Consent is required.",
     consentRequiredMsg:"Please go back to the start page and confirm consent before submitting.",
     thankTitle:"Thank you for taking part.",
-    thankMsg:"Your response has been successfully submitted."
+    thankMsg:"Your response has been successfully submitted.",
+    followupTitle:"Follow-up contact (optional)",
+    followupDesc:"If you are willing to take part in a follow-up interview or experiment, you may leave your email address or phone number here.",
+    followupPlaceholder:"Email address or phone number",
+    followupSubmit:"Submit contact",
+    followupSubmitting:"Submitting...",
+    followupSubmitted:"Contact submitted. Thank you.",
+    followupEmpty:"Please enter contact information first, or simply close this page.",
+    followupError:"Contact submission failed. Please try again later."
   }
 };
 const COUNTRY_CODES = [
@@ -457,6 +473,7 @@ function setLang(nextLang) {
   document.getElementById("langZh").classList.toggle("active", lang === "zh");
   document.getElementById("langEn").classList.toggle("active", lang === "en");
   document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
   renderAgeOptions();
   renderCountryOptions();
   document.getElementById("btnToMapsText").textContent = t("continueBtn");
@@ -738,7 +755,7 @@ function collectDraftPayload() {
   const activeStep = currentActiveStepId();
   return {
     saved_at: new Date().toISOString(),
-    study_version: "3.20",
+    study_version: "3.21",
     lang,
     active_step: activeStep === "s4" ? "s3" : activeStep,
     introSlideIndex,
@@ -790,7 +807,7 @@ function restoreSurveyDraft() {
     resetConsentState();
     return false;
   }
-  if (draft.study_version && draft.study_version !== "3.20") {
+  if (draft.study_version && draft.study_version !== "3.21") {
     clearSurveyDraft();
     resetConsentState();
     return false;
@@ -1921,7 +1938,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.20",
+    study_version: "3.21",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1952,7 +1969,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v27_plain_language_iteration"
+      source: "bodymap_questionnaire_v28_followup_contact_iteration"
     }
   };
 }
@@ -1966,6 +1983,8 @@ function renderSubmissionResult() {
   document.getElementById("resultTitle").textContent = t(titleKey);
   document.getElementById("resultMessage").textContent = t(messageKey);
   document.getElementById("btnRetry").style.display = ok ? "none" : "";
+  const followupPanel = document.getElementById("followupPanel");
+  if (followupPanel) followupPanel.style.display = ok ? "" : "none";
 }
 
 function showSubmissionResult(ok, titleKey, messageKey) {
@@ -1979,6 +1998,49 @@ function backToReview() {
   btn.disabled = false;
   btn.textContent = t("submitResponse");
   showStep("s3");
+}
+
+async function submitFollowupContact() {
+  const input = document.getElementById("followupContact");
+  const status = document.getElementById("followupStatus");
+  const btn = document.getElementById("btnFollowup");
+  const contact = input?.value.trim() || "";
+  if (!contact) {
+    status.textContent = t("followupEmpty");
+    status.className = "followup-status warn";
+    return;
+  }
+  if (!supabaseClient) {
+    status.textContent = t("followupError");
+    status.className = "followup-status err";
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = t("followupSubmitting");
+  const { error } = await supabaseClient
+    .from("followup_contacts")
+    .insert({
+      participant_id: getParticipantId(),
+      study_version: "3.21",
+      language: lang,
+      contact,
+      metadata: {
+        source: "post_submission_followup_contact",
+        submitted_at: new Date().toISOString()
+      }
+    });
+  if (error) {
+    console.error(error);
+    btn.disabled = false;
+    btn.textContent = t("followupSubmit");
+    status.textContent = t("followupError");
+    status.className = "followup-status err";
+    return;
+  }
+  input.disabled = true;
+  btn.style.display = "none";
+  status.textContent = t("followupSubmitted");
+  status.className = "followup-status ok";
 }
 
 async function submitToSupabase() {

@@ -43,8 +43,8 @@
         </div>
         <div class="intro-copy">
           <div class="intro-slide-kicker" data-i18n="introSlide1Kicker">01 · 机器人形态</div>
-          <h2 data-i18n="introSlide1Title">具有手臂与手的机器人</h2>
-          <p data-i18n="introP1">请将问卷中的“机器人”想象为一个具有人形上半身结构的社交机器人。它具有类似人体结构的双臂和双手，整体身高略低于你。</p>
+          <h2 data-i18n="introSlide1Title">具有手臂与手的人形机器人</h2>
+          <p data-i18n="introP1">请将问卷中的“社交机器人”想象为一个具有人形上半身结构的机器人，它具有类似人体结构的双臂和双手，整体身高略矮于成年人水平。它能够遵循恰当的行为规范，与人进行社交互动。</p>
         </div>
       </section>
       <section class="intro-slide" data-intro-slide="1" hidden>
@@ -61,14 +61,14 @@
       </section>
       <section class="intro-slide" data-intro-slide="2" hidden>
         <div class="intro-media">
-          <img src="assets/intro/survey-flow.svg?v=6" alt="" data-intro-alt="introFlowAlt"
-               data-intro-src-zh="assets/intro/survey-flow.svg?v=6"
-               data-intro-src-en="assets/intro/survey-flow-en.svg?v=6">
+          <img src="assets/intro/survey-flow.svg?v=7" alt="" data-intro-alt="introFlowAlt"
+               data-intro-src-zh="assets/intro/survey-flow.svg?v=7"
+               data-intro-src-en="assets/intro/survey-flow-en.svg?v=7">
         </div>
         <div class="intro-copy">
           <div class="intro-slide-kicker" data-i18n="introSlide3Kicker">03 · 答题流程</div>
-          <h2 data-i18n="introSlide3Title">按所选内容逐项作答</h2>
-          <p data-i18n="introP3">填写问卷时，请先选择你能接受机器人通过主动触摸来表达的内容。随后，问卷会围绕你选择的每一项，循环询问一组相关问题。</p>
+          <h2 data-i18n="introSlide3Title">问卷填写流程</h2>
+          <p data-i18n="introP3">填写过程中，问卷会先询问“你能接受社交机器人通过主动触摸表达哪些意图”，随后，将会围绕你选择的每种意图，循环询问一组相关问题。</p>
         </div>
       </section>
       <div class="intro-carousel-nav">
@@ -270,6 +270,15 @@
       <div class="step-desc" id="resultMessage"></div>
       <div class="nav">
         <button class="btn btn-s" id="btnRetry" onclick="backToReview()" style="display:none" data-i18n="backToReview">返回检查</button>
+      </div>
+      <div class="followup-panel" id="followupPanel">
+        <div class="followup-title" data-i18n="followupTitle">后续研究联系（选填）</div>
+        <label class="followup-label" for="followupContact" data-i18n="followupDesc">如果你有意愿参与后续研究中的访谈或实验，请在此留下你的联系邮箱或手机号。</label>
+        <div class="followup-row">
+          <input id="followupContact" type="text" autocomplete="email" data-i18n-placeholder="followupPlaceholder" placeholder="邮箱或手机号">
+          <button class="btn btn-s followup-submit" id="btnFollowup" type="button" onclick="submitFollowupContact()" data-i18n="followupSubmit">提交联系方式</button>
+        </div>
+        <div class="followup-status" id="followupStatus" aria-live="polite"></div>
       </div>
     </div>
   </div>

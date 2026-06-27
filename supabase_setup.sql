@@ -56,3 +56,44 @@ on public.survey_responses (created_at);
 
 create index if not exists survey_responses_participant_id_idx
 on public.survey_responses (participant_id);
+
+-- Optional contact information for participants willing to join follow-up interviews or experiments.
+-- This table is intentionally separated from the main anonymous survey response table.
+create table if not exists public.followup_contacts (
+  id uuid primary key default gen_random_uuid(),
+  participant_id uuid not null,
+  created_at timestamptz not null default now(),
+
+  study_version text not null,
+  language text,
+  contact text not null,
+  metadata jsonb not null default '{}'::jsonb,
+
+  constraint followup_contact_not_empty
+    check (length(trim(contact)) > 0),
+  constraint followup_contact_reasonable_size
+    check (length(contact) <= 300)
+);
+
+alter table public.followup_contacts enable row level security;
+
+revoke all on public.followup_contacts from anon, authenticated;
+grant insert on public.followup_contacts to anon;
+
+drop policy if exists "allow anonymous followup contact submissions"
+on public.followup_contacts;
+
+create policy "allow anonymous followup contact submissions"
+on public.followup_contacts
+for insert
+to anon
+with check (
+  length(trim(contact)) > 0
+  and length(contact) <= 300
+);
+
+create index if not exists followup_contacts_created_at_idx
+on public.followup_contacts (created_at);
+
+create index if not exists followup_contacts_participant_id_idx
+on public.followup_contacts (participant_id);

@@ -503,6 +503,29 @@
   .result-panel.ok .result-kicker { color:#22c55e; }
   .result-panel.err { border-color:rgba(239,68,68,0.5); }
   .result-panel.err .result-kicker { color:#ef4444; }
+  .followup-panel {
+    display:block; margin-top:20px; padding-top:18px; border-top:1px solid var(--border);
+  }
+  .followup-title {
+    font-size:0.88rem; font-weight:750; margin-bottom:6px; color:#e8e8e8;
+  }
+  .followup-label {
+    display:block; color:#b8b8b8; font-size:0.82rem; line-height:1.55; margin-bottom:10px;
+  }
+  .followup-row { display:flex; gap:10px; align-items:center; }
+  .followup-row input {
+    flex:1 1 auto; min-width:0;
+    background:#0f0f0f; color:var(--text); border:1px solid var(--border);
+    border-radius:8px; padding:10px 11px; font-size:0.84rem;
+  }
+  .followup-row input:focus { outline:none; border-color:var(--accent); }
+  .followup-submit { flex:0 0 auto; min-height:40px; padding:8px 13px; }
+  .followup-status {
+    min-height:1.3em; margin-top:8px; font-size:0.76rem; color:#aaa;
+  }
+  .followup-status.ok { color:#86efac; }
+  .followup-status.warn { color:#fbbf24; }
+  .followup-status.err { color:#fca5a5; }
 
   @media (max-width: 760px) {
     .step-title { font-size:1.18rem; }
@@ -562,9 +585,10 @@
     .intent-copy { padding-right:22px; }
     .intent-card .name { font-size:0.88rem; }
     .intent-card .desc { margin-top:3px; font-size:0.76rem; line-height:1.38; }
-    .field input, .field select, .other-context-field input {
+    .field input, .field select, .other-context-field input, .followup-row input {
       font-size:16px;
     }
+    .followup-row { flex-direction:column; align-items:stretch; }
     .nav {
       padding-bottom:max(64px, calc(env(safe-area-inset-bottom) + 48px));
     }

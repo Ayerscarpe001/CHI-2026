@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
   <title id="title">Survey response flow</title>
-  <desc id="desc">Participants first select acceptable expressions, then answer a repeated set of related questions for each selected item.</desc>
+  <desc id="desc">Participants first select acceptable intents, then repeat questions about relationship distance, context, interpersonal reference, and body-region acceptability for each selected intent.</desc>
   <rect width="1280" height="720" fill="#080808"/>
 
   <g fill="#111" stroke="#f2f2f2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
@@ -10,6 +10,7 @@
     <circle cx="134" cy="389" r="11"/>
   </g>
   <path d="m119 274 13 13 22-27M119 331l13 13 22-27" fill="none" stroke="#5b9bff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="194" y="520" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="30" font-weight="800" text-anchor="middle">Intent selection</text>
 
   <g fill="none" stroke="#4d82d2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
     <path d="M352 360h70"/>
@@ -17,6 +18,7 @@
   </g>
 
   <rect x="448" y="86" width="780" height="548" rx="30" fill="#0e0e0e" stroke="#3a3a3a" stroke-width="3"/>
+  <text x="486" y="130" fill="#8fb9ff" font-family="Arial, sans-serif" font-size="29" font-weight="800">For each selected intent</text>
 
   <g fill="#151515" stroke="#f2f2f2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
     <rect x="488" y="158" width="300" height="180" rx="22"/>
@@ -30,6 +32,7 @@
     <path d="M532 207v26M567 211v18M602 211v18M638 207v26M674 211v18M709 211v18M744 207v26"/>
   </g>
   <circle cx="638" cy="220" r="12" fill="#5b9bff"/>
+  <text x="638" y="296" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="29" font-weight="800" text-anchor="middle">Relationship</text>
 
   <g fill="none" stroke="#f2f2f2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
     <rect x="934" y="197" width="31" height="31" rx="4"/>
@@ -37,6 +40,7 @@
     <path d="M987 212h145M987 262h145"/>
   </g>
   <path d="m940 212 9 9 15-19" fill="none" stroke="#5b9bff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1038" y="305" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="30" font-weight="800" text-anchor="middle">Context</text>
 
   <g fill="none" stroke="#f2f2f2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M535 460h206"/>
@@ -46,6 +50,7 @@
     <circle cx="690" cy="460" r="9"/>
     <circle cx="741" cy="460" r="9"/>
   </g>
+  <text x="638" y="535" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="28" font-weight="800" text-anchor="middle">Human reference</text>
 
   <g fill="none" stroke="#f2f2f2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="1004" cy="428" r="13"/>
@@ -55,6 +60,7 @@
     <path d="M1058 466c0-15 6-23 14-23s14 8 14 23v34h-28Z"/>
     <path d="m1059 454-14 28M1085 454l14 28M1065 500l-7 18M1079 500l7 18"/>
   </g>
+  <text x="1038" y="548" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="25" font-weight="800" text-anchor="middle">Body acceptance</text>
   <g fill="#5b9bff">
     <circle cx="1000" cy="465" r="5"/>
     <circle cx="1009" cy="482" r="5"/>
