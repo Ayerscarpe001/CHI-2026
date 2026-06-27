@@ -22,12 +22,12 @@ const I18N = {
     introSlide2Kicker:"02 · 社交触摸",
     introSlide2Title:"机器人主动发起的身体接触",
     introSlide3Kicker:"03 · 答题流程",
-    introSlide3Title:"围绕每个已选意图依次作答",
+    introSlide3Title:"按所选内容逐项作答",
     introP1:"请将问卷中的“机器人”想象为一个具有人形上半身结构的社交机器人。它具有类似人体结构的双臂和双手，整体身高略低于你。",
     introP2:"问卷中的“社交触摸”指机器人对人身体发起的直接、短暂、柔和、非疼痛、非强制性的身体接触。这种触摸旨在传达具有社会意义的意图，例如表达关心。",
-    introP3:"填写问卷时，请先选择你认为适合由机器人通过主动触摸表达的意图，再对每个已选意图依次回答关系亲近度、互动语境、人际方式参照程度，以及不同身体部位被触碰的接受程度。",
+    introP3:"填写问卷时，请先选择你能接受机器人通过主动触摸来表达的内容。随后，问卷会围绕你选择的每一项，循环询问一组相关问题。",
     introRobotAlt:"抽象简笔画社交机器人，具有头部、上身、机械手臂和手部。",
-    introFlowAlt:"由意图选择、关系与语境判断、人际方式参照和身体地图标注组成的问卷流程示意图。",
+    introFlowAlt:"先选择可接受的表达内容，再围绕每个选择逐项作答的问卷流程示意图。",
     introPrev:"← 上一页",
     introNext:"下一页 →",
     introEnter:"进入知情同意 →",
@@ -69,13 +69,13 @@ const I18N = {
     countryOther:"其他",
     infoError:"请完整填写有效年龄、性别和所属国家或地区后继续。",
     intentTitle:"社交意图选择",
-    intentDesc:"请想象一个社交机器人主动、短暂、轻柔地触碰你。下面哪些意图适合用这种方式表达？请选择你认为可以接受的意图；如果都不适合，也可以选择下方的单独选项。",
+    intentDesc:"当机器人希望通过主动触摸你来传达某种意思或表达某种社交目的时，你认为下列哪些表达是可以接受的？请选择所有你能接受的选项；如果都不能接受，也可以选择下方的单独选项。",
     selectAll:"全选",
     clearAll:"清空",
     noIntentTitle:"以上意图均不适合",
     noIntentDesc:"如果你认为这些社交意图都不适合由机器人通过主动触碰表达，可以选择此项并直接进入检查页。",
     contextTitle:"关系、语境与表达方式",
-    contextDesc:"请围绕当前意图回答下面三题：关系亲近度、可能出现的语境，以及机器人是否应参考人际触碰方式。",
+    contextDesc:"请围绕当前意图回答下面三题：",
     relationshipQuestion:"1、机器人通过触碰表达这一意图时，通常至少需要与你有多熟悉？",
     contextQuestion:"2、这种触碰表达可能出现在哪些互动语境中？（可多选）",
     conventionReferenceTitle:"人际触碰示例",
@@ -108,7 +108,7 @@ const I18N = {
     ctxOtherPlaceholder:"请简要补充具体的互动语境",
     currentIntentLabel:"当前意图",
     mapTitle:"身体地图标注",
-    mapDesc:"4、请针对当前意图，在身体地图上标出你明确愿意或不愿意被机器人触碰的部位。无需给每个部位都涂色；未标注区域将视为无明确意向。",
+    mapDesc:"4、请针对当前意图，选择不同颜色，在身体地图上标注出你明确愿意或不愿意被机器人触碰的部位，未点选填色区域将视为无明确意向。",
     emptyMapConfirm:"我已查看当前意图的身体地图，但没有任何明确愿意或不愿意标注的身体区域。",
     mapError:"当前身体地图尚未标注。如你确实没有明确意向，请先勾选上方确认项。",
     colorToolTitle:"颜色",
@@ -180,12 +180,12 @@ const I18N = {
     introSlide2Kicker:"02 · Social touch",
     introSlide2Title:"Physical contact initiated by the robot",
     introSlide3Kicker:"03 · Survey process",
-    introSlide3Title:"Answer each selected intent in sequence",
+    introSlide3Title:"Answer each selected item in sequence",
     introP1:"Imagine the “robot” in this survey as a social robot with a humanoid upper-body structure. It has two arms and two hands with a human-like structure and is slightly shorter than you.",
     introP2:"In this survey, “social touch” refers to direct, brief, gentle, non-painful, and non-coercive bodily contact initiated by a robot toward a person. The touch is intended to convey a socially meaningful intent, such as showing care.",
-    introP3:"First select the intents you consider suitable for a robot to express through active touch. For each selected intent, you will then answer questions about relationship closeness, interaction context, reference to interpersonal expressions, and the acceptability of touch on different body regions.",
+    introP3:"First choose what you would find acceptable for a robot to express through active touch. Then, for each selected item, the survey will ask a short set of related questions.",
     introRobotAlt:"A simple abstract social robot with a head, upper body, mechanical arms, and hands.",
-    introFlowAlt:"A survey flow diagram showing intent selection, relationship and context judgments, interpersonal reference, and body-map marking.",
+    introFlowAlt:"A survey flow diagram showing selection first, followed by repeated questions for each selected item.",
     introPrev:"← Previous",
     introNext:"Next →",
     introEnter:"Continue to consent →",
@@ -227,13 +227,13 @@ const I18N = {
     countryOther:"Other",
     infoError:"Please complete a valid age, gender, and country or region before continuing.",
     intentTitle:"Social Intents",
-    intentDesc:"Imagine a social robot briefly and gently touching you. Which intents would be suitable for the robot to express in this way? Select the intents you would find acceptable; if none apply, choose the separate option below.",
+    intentDesc:"When a robot uses active touch to convey a signal or express an intent to you, which of the following would you find acceptable? Select all acceptable options; if none apply, choose the separate option below.",
     selectAll:"Select all",
     clearAll:"Clear all",
     noIntentTitle:"None of these intents are suitable",
     noIntentDesc:"If you think none of these social intents are suitable for a robot to express through active touch, select this option and continue directly to review.",
     contextTitle:"Relationship, Context, and Expression",
-    contextDesc:"For the current intent, answer three questions about relationship closeness, possible context, and whether the robot should refer to human touch expressions.",
+    contextDesc:"For the current intent, answer the three questions below:",
     relationshipQuestion:"1. How familiar would the robot usually need to be with you to express this intent through touch?",
     contextQuestion:"2. In which interaction contexts might this touch expression appear? (Select all that apply.)",
     conventionReferenceTitle:"Interpersonal touch examples",
@@ -266,7 +266,7 @@ const I18N = {
     ctxOtherPlaceholder:"Briefly describe the interaction context",
     currentIntentLabel:"Current intent",
     mapTitle:"Body Map",
-    mapDesc:"4. For the current intent, mark only the body regions where you have a clear acceptable or unacceptable preference. You do not need to color every region; unmarked regions will be treated as no clear preference.",
+    mapDesc:"4. For the current intent, choose different colors on the body map to mark the regions where you clearly would or would not want to be touched by the robot. Regions left uncolored will be treated as no clear preference.",
     emptyMapConfirm:"I have reviewed the body map for the current intent, but I have no clear acceptable or unacceptable body regions to mark.",
     mapError:"No body region has been marked for the current intent. If you truly have no clear preference, please check the confirmation above first.",
     colorToolTitle:"Color",
@@ -738,7 +738,7 @@ function collectDraftPayload() {
   const activeStep = currentActiveStepId();
   return {
     saved_at: new Date().toISOString(),
-    study_version: "3.19",
+    study_version: "3.20",
     lang,
     active_step: activeStep === "s4" ? "s3" : activeStep,
     introSlideIndex,
@@ -790,7 +790,7 @@ function restoreSurveyDraft() {
     resetConsentState();
     return false;
   }
-  if (draft.study_version && draft.study_version !== "3.19") {
+  if (draft.study_version && draft.study_version !== "3.20") {
     clearSurveyDraft();
     resetConsentState();
     return false;
@@ -1921,7 +1921,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.19",
+    study_version: "3.20",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1952,7 +1952,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v26_usability_iteration"
+      source: "bodymap_questionnaire_v27_plain_language_iteration"
     }
   };
 }

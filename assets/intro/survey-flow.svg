@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
   <title id="title">问卷答题流程</title>
-  <desc id="desc">先筛选可接受的意图，再针对每个已选意图循环回答关系距离、社交场景、人际参照和身体部位接受度四道题。</desc>
+  <desc id="desc">先选择可以接受的表达内容，再围绕每个选择循环回答一组相关问题。</desc>
   <rect width="1280" height="720" fill="#080808"/>
 
   <!-- One-time intent selection -->
@@ -11,7 +11,6 @@
     <circle cx="134" cy="389" r="11"/>
   </g>
   <path d="m119 274 13 13 22-27M119 331l13 13 22-27" fill="none" stroke="#5b9bff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="194" y="512" fill="#f2f2f2" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="29" font-weight="700" text-anchor="middle">意图筛选</text>
 
   <!-- Transition into the repeated block -->
   <g fill="none" stroke="#4d82d2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
@@ -21,7 +20,6 @@
 
   <!-- Repeated questions -->
   <rect x="448" y="86" width="780" height="548" rx="30" fill="#0e0e0e" stroke="#3a3a3a" stroke-width="3"/>
-  <text x="486" y="130" fill="#8fb9ff" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="25" font-weight="700">针对每个已选意图</text>
 
   <g fill="#151515" stroke="#f2f2f2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
     <rect x="488" y="158" width="300" height="180" rx="22"/>
@@ -36,7 +34,6 @@
     <path d="M532 207v26M567 211v18M602 211v18M638 207v26M674 211v18M709 211v18M744 207v26"/>
   </g>
   <circle cx="638" cy="220" r="12" fill="#5b9bff"/>
-  <text x="638" y="294" fill="#f2f2f2" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="28" font-weight="700" text-anchor="middle">关系距离</text>
 
   <!-- Multiple-choice context -->
   <g fill="none" stroke="#f2f2f2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
@@ -45,7 +42,6 @@
     <path d="M987 212h145M987 262h145"/>
   </g>
   <path d="m940 212 9 9 15-19" fill="none" stroke="#5b9bff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="1038" y="305" fill="#f2f2f2" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="28" font-weight="700" text-anchor="middle">社交场景</text>
 
   <!-- Five-point interpersonal reference scale -->
   <g fill="none" stroke="#f2f2f2" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
@@ -56,7 +52,6 @@
     <circle cx="690" cy="460" r="9"/>
     <circle cx="741" cy="460" r="9"/>
   </g>
-  <text x="638" y="535" fill="#f2f2f2" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="28" font-weight="700" text-anchor="middle">人际参照</text>
 
   <!-- Front and back body-map silhouettes -->
   <g fill="none" stroke="#f2f2f2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
@@ -73,7 +68,6 @@
     <circle cx="1068" cy="465" r="5"/>
     <circle cx="1077" cy="482" r="5"/>
   </g>
-  <text x="1038" y="548" fill="#f2f2f2" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="25" font-weight="700" text-anchor="middle">身体部位接受度</text>
 
   <!-- One open loop marker for the repeated four-question cycle -->
   <path d="M866 386A40 40 0 1 1 865 333" fill="none" stroke="#4d82d2" stroke-width="7" stroke-linecap="round"/>

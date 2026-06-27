@@ -61,14 +61,14 @@
       </section>
       <section class="intro-slide" data-intro-slide="2" hidden>
         <div class="intro-media">
-          <img src="assets/intro/survey-flow.svg?v=5" alt="" data-intro-alt="introFlowAlt"
-               data-intro-src-zh="assets/intro/survey-flow.svg?v=5"
-               data-intro-src-en="assets/intro/survey-flow-en.svg?v=5">
+          <img src="assets/intro/survey-flow.svg?v=6" alt="" data-intro-alt="introFlowAlt"
+               data-intro-src-zh="assets/intro/survey-flow.svg?v=6"
+               data-intro-src-en="assets/intro/survey-flow-en.svg?v=6">
         </div>
         <div class="intro-copy">
           <div class="intro-slide-kicker" data-i18n="introSlide3Kicker">03 · 答题流程</div>
-          <h2 data-i18n="introSlide3Title">围绕每个已选意图依次作答</h2>
-          <p data-i18n="introP3">填写问卷时，请先选择你认为适合由机器人通过主动触摸表达的意图，再对每个已选意图依次回答关系亲近度、互动语境、人际方式参照程度，以及不同身体部位被触碰的接受程度。</p>
+          <h2 data-i18n="introSlide3Title">按所选内容逐项作答</h2>
+          <p data-i18n="introP3">填写问卷时，请先选择你能接受机器人通过主动触摸来表达的内容。随后，问卷会围绕你选择的每一项，循环询问一组相关问题。</p>
         </div>
       </section>
       <div class="intro-carousel-nav">
@@ -150,7 +150,7 @@
   <!-- ================================================================ -->
   <div class="step" id="s1">
     <div class="step-title" data-i18n="intentTitle">社交意图选择</div>
-    <div class="step-desc" data-i18n="intentDesc">请想象一个社交机器人主动、短暂、轻柔地触碰你。下面哪些意图适合用这种方式表达？请选择你认为可以接受的意图；如果都不适合，也可以选择下方的单独选项。</div>
+    <div class="step-desc" data-i18n="intentDesc">当机器人希望通过主动触摸你来传达某种意思或表达某种社交目的时，你认为下列哪些表达是可以接受的？请选择所有你能接受的选项；如果都不能接受，也可以选择下方的单独选项。</div>
     <div class="select-row">
       <button onclick="selAll(true)" data-i18n="selectAll">全选</button>
       <button onclick="selAll(false)" data-i18n="clearAll">清空</button>
@@ -185,7 +185,7 @@
       <button class="return-intents-inline" type="button" onclick="backToIntentSelectionFromWorkflow()" data-i18n="backToIntentSelection">← 返回意图选择</button>
     </div>
     <div class="step-title" data-i18n="contextTitle">关系、语境与表达方式</div>
-    <div class="step-desc" data-i18n="contextDesc">请围绕当前意图回答下面三题：关系亲近度、可能出现的语境，以及机器人是否应参考人际触碰方式。</div>
+    <div class="step-desc" data-i18n="contextDesc">请围绕当前意图回答下面三题：</div>
     <div class="context-list" id="contextList"></div>
     <div class="error-text" id="contextError" data-i18n="contextError">请完成当前意图的三道题：选择关系亲近度、至少一种互动语境和人际表达参照程度。</div>
     <div class="nav">
@@ -209,7 +209,7 @@
       <button class="return-intents-inline" type="button" onclick="backToIntentSelectionFromWorkflow()" data-i18n="backToIntentSelection">← 返回意图选择</button>
     </div>
     <div class="step-title" data-i18n="mapTitle">身体地图标注</div>
-    <div class="step-desc" data-i18n="mapDesc">请针对当前意图，在身体地图上标出你明确愿意或不愿意被机器人触碰的部位。无需给每个部位都涂色；未标注区域将视为无明确意向。</div>
+    <div class="step-desc" data-i18n="mapDesc">请针对当前意图，选择不同颜色，在身体地图上标注出你明确愿意或不愿意被机器人触碰的部位，未点选填色区域将视为无明确意向。</div>
 
     <!-- PAINT BUCKETS -->
     <div class="color-legend">
