@@ -41,7 +41,7 @@ const I18N = {
     continueBtn:"继续 →",
     backBtn:"← 返回",
     infoTitle:"基本信息",
-    infoDesc:"以下信息用于理解不同参与者背景下的回答差异。",
+    infoDesc:"请根据您的真实情况填写：",
     ageLabel:"年龄",
     age100Plus:"100 岁及以上",
     genderLabel:"性别",
@@ -69,7 +69,7 @@ const I18N = {
     countryOther:"其他",
     infoError:"请完整填写有效年龄、性别和所属国家或地区后继续。",
     intentTitle:"社交意图选择",
-    intentDesc:"当机器人希望通过主动触摸你来传达某种意思或表达某种社交目的时，你认为下列哪些表达是可以接受的？请选择所有你能接受的选项；如果都不能接受，也可以选择下方的单独选项。",
+    intentDesc:"当社交机器人需要通过主动触摸你来表示某种社交意向、达成某种社交目的时，哪些意图是你可以接受的？请选择所有你能接受的选项。",
     selectAll:"全选",
     clearAll:"清空",
     noIntentTitle:"以上意图均不适合",
@@ -378,7 +378,13 @@ function renderCountryOptions() {
   const current = select.value;
   const options = COUNTRY_CODES
     .map(code => ({ code, label: countryName(code) }))
-    .sort((a, b) => a.label.localeCompare(b.label, lang === "zh" ? "zh-CN" : "en"))
+    .sort((a, b) => {
+      if (lang === "zh") {
+        if (a.code === "CN") return -1;
+        if (b.code === "CN") return 1;
+      }
+      return a.label.localeCompare(b.label, lang === "zh" ? "zh-CN" : "en");
+    })
     .map(({ code, label }) => `<option value="${code}">${label}</option>`)
     .join("");
   select.innerHTML = `<option value="">${t("selectOne")}</option>${options}`;
