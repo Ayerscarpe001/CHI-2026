@@ -438,6 +438,7 @@ function setIntroSlide(index) {
   const total = document.querySelectorAll("[data-intro-slide]").length;
   introSlideIndex = Math.max(0, Math.min(index, total - 1));
   renderIntroCarousel();
+  scheduleDraftSave();
 }
 
 function changeIntroSlide(delta) {
@@ -468,6 +469,7 @@ function setLang(nextLang) {
   if (document.getElementById("s3").classList.contains("active")) r3();
   if (document.getElementById("s4").classList.contains("active")) renderSubmissionResult();
   prog();
+  scheduleDraftSave();
 }
 
 // ============================================================
@@ -679,7 +681,11 @@ let paint = 1;
 let demographics = {};
 let noIntentSelected = false;
 let lastWorkflowStep = "sContext";
+let draftRestoreInProgress = false;
+let draftReady = false;
+let draftSaveTimer = null;
 const total = ALL_REGIONS.length;
+const SURVEY_DRAFT_KEY = "touch_with_robots_survey_draft_v1";
 const surveyStartedAt = new Date();
 let currentStepId = "sIntro";
 let currentStepEnteredAt = Date.now();
@@ -720,6 +726,144 @@ function ensureMeta(intentId) {
   return intentMeta[intentId];
 }
 
+function currentActiveStepId() {
+  return document.querySelector(".step.active")?.id || currentStepId || "sIntro";
+}
+
+function clearSurveyDraft() {
+  localStorage.removeItem(SURVEY_DRAFT_KEY);
+}
+
+function collectDraftPayload() {
+  const activeStep = currentActiveStepId();
+  return {
+    saved_at: new Date().toISOString(),
+    study_version: "3.19",
+    lang,
+    active_step: activeStep === "s4" ? "s3" : activeStep,
+    introSlideIndex,
+    consent_checked: !!document.getElementById("consentBox")?.checked,
+    demographics: {
+      age: document.getElementById("age")?.value || demographics.age || "",
+      gender: document.getElementById("gender")?.value || demographics.gender || "",
+      nationality: document.getElementById("nationality")?.value || demographics.nationality || "",
+    },
+    sel: Array.from(sel),
+    order,
+    idx,
+    contextIdx,
+    data,
+    intentMeta,
+    cur,
+    paint,
+    noIntentSelected,
+    lastWorkflowStep,
+  };
+}
+
+function saveSurveyDraftNow() {
+  if (!draftReady || draftRestoreInProgress) return;
+  try {
+    localStorage.setItem(SURVEY_DRAFT_KEY, JSON.stringify(collectDraftPayload()));
+  } catch (error) {
+    console.warn("Unable to save survey draft", error);
+  }
+}
+
+function scheduleDraftSave() {
+  if (!draftReady || draftRestoreInProgress) return;
+  clearTimeout(draftSaveTimer);
+  draftSaveTimer = setTimeout(saveSurveyDraftNow, 180);
+}
+
+function restoreSurveyDraft() {
+  const raw = localStorage.getItem(SURVEY_DRAFT_KEY);
+  if (!raw) {
+    resetConsentState();
+    return false;
+  }
+  let draft;
+  try {
+    draft = JSON.parse(raw);
+  } catch {
+    clearSurveyDraft();
+    resetConsentState();
+    return false;
+  }
+  if (draft.study_version && draft.study_version !== "3.19") {
+    clearSurveyDraft();
+    resetConsentState();
+    return false;
+  }
+
+  draftRestoreInProgress = true;
+  try {
+    if (draft.lang === "zh" || draft.lang === "en") {
+      setLang(draft.lang);
+    }
+    introSlideIndex = Number.isInteger(draft.introSlideIndex) ? draft.introSlideIndex : 0;
+
+    const age = document.getElementById("age");
+    const gender = document.getElementById("gender");
+    const nationality = document.getElementById("nationality");
+    if (age && draft.demographics?.age) age.value = draft.demographics.age;
+    if (gender && draft.demographics?.gender) gender.value = draft.demographics.gender;
+    if (nationality && draft.demographics?.nationality) nationality.value = draft.demographics.nationality;
+    demographics = {
+      age: age?.value || draft.demographics?.age || "",
+      gender: gender?.value || draft.demographics?.gender || "",
+      nationality: nationality?.value || draft.demographics?.nationality || "",
+    };
+
+    const validIntentIds = new Set(INTENTS.map(intent => intent.id));
+    sel = new Set((Array.isArray(draft.sel) ? draft.sel : []).filter(id => validIntentIds.has(id)));
+    order = (Array.isArray(draft.order) ? draft.order : Array.from(sel)).filter(id => validIntentIds.has(id) && sel.has(id));
+    if (!order.length && sel.size) order = Array.from(sel);
+    idx = Math.max(0, Math.min(Number.isInteger(draft.idx) ? draft.idx : 0, Math.max(order.length - 1, 0)));
+    contextIdx = Math.max(0, Math.min(Number.isInteger(draft.contextIdx) ? draft.contextIdx : idx, Math.max(order.length - 1, 0)));
+    data = draft.data && typeof draft.data === "object" ? draft.data : {};
+    intentMeta = draft.intentMeta && typeof draft.intentMeta === "object" ? draft.intentMeta : {};
+    cur = draft.cur && typeof draft.cur === "object" ? draft.cur : {};
+    paint = draft.paint === -1 ? -1 : 1;
+    noIntentSelected = !!draft.noIntentSelected && sel.size === 0;
+    lastWorkflowStep = draft.lastWorkflowStep === "s2" ? "s2" : "sContext";
+    initIntentMeta();
+
+    const consentBox = document.getElementById("consentBox");
+    if (consentBox) {
+      consentBox.checked = !!draft.consent_checked;
+      consentBox.defaultChecked = false;
+      updConsent();
+    }
+
+    renderIntroCarousel();
+    r1();
+    syncIntentSelectionUI();
+    setPaint(paint);
+
+    let step = ["sIntro", "s0", "sInfo", "s1", "sContext", "s2", "s3"].includes(draft.active_step)
+      ? draft.active_step
+      : "sIntro";
+    if ((step === "sContext" || step === "s2") && !order.length) {
+      step = noIntentSelected ? "s3" : "s1";
+    }
+    showStep(step);
+    if (step === "sContext" && order.length) renderContextQuestion();
+    if (step === "s2" && order.length) {
+      load();
+      ensureBodyMap()
+        .then(updCol)
+        .catch(() => {});
+    }
+    if (step === "s3") r3();
+    prog();
+    return true;
+  } finally {
+    draftRestoreInProgress = false;
+    scheduleDraftSave();
+  }
+}
+
 function recordMapInteraction(intentId) {
   qualityLog.mapInteractions[intentId] = (qualityLog.mapInteractions[intentId] || 0) + 1;
 }
@@ -740,10 +884,12 @@ function showStep(id) {
   prog();
   window.scrollTo({ top: 0, behavior: "auto" });
   requestAnimationFrame(updateStickyIntentState);
+  scheduleDraftSave();
 }
 
 function updConsent() {
   document.getElementById("btnConsent").disabled = !document.getElementById("consentBox").checked;
+  scheduleDraftSave();
 }
 function resetConsentState() {
   const consentBox = document.getElementById("consentBox");
@@ -784,6 +930,7 @@ function setPaint(v) {
   document.getElementById("currentTool").textContent =
     v === 1 ? t("currentAcceptable") : t("currentUnacceptable");
   if (bodyMap) bodyMap.setPaintPreview(paint);
+  scheduleDraftSave();
 }
 
 // ============================================================
@@ -849,6 +996,7 @@ function tog(id) {
   card.setAttribute("aria-checked", String(willSelect));
   if (willSelect) replayIntentAnimation(card);
   updBtn();
+  scheduleDraftSave();
 }
 function selAll(v) {
   noIntentSelected = false;
@@ -865,6 +1013,7 @@ function selAll(v) {
     }
   });
   updBtn();
+  scheduleDraftSave();
 }
 function toggleNoIntent(checked) {
   if (sel.size > 0) {
@@ -875,6 +1024,7 @@ function toggleNoIntent(checked) {
   noIntentSelected = checked;
   document.getElementById("noIntentOption")?.classList.toggle("selected", checked);
   updBtn();
+  scheduleDraftSave();
 }
 function updateNoIntentOptionUI() {
   const disabled = sel.size > 0;
@@ -1067,6 +1217,7 @@ function setRelationship(intentId, value) {
   ensureMeta(intentId).relationship_closeness = value;
   document.getElementById("contextError").classList.remove("show");
   renderContextQuestion();
+  scheduleDraftSave();
 }
 
 function setInteractionContext(intentId, contextId) {
@@ -1086,17 +1237,20 @@ function setInteractionContext(intentId, contextId) {
   if (contextId === "other" && contexts.includes("other")) {
     document.getElementById(`other-context-${intentId}`)?.focus();
   }
+  scheduleDraftSave();
 }
 
 function setOtherContextText(intentId, value) {
   ensureMeta(intentId).interaction_context_other = value.slice(0, 160);
   document.getElementById("contextError").classList.remove("show");
+  scheduleDraftSave();
 }
 
 function setInterpersonalReference(intentId, value) {
   ensureMeta(intentId).interpersonal_reference = value;
   document.getElementById("contextError").classList.remove("show");
   renderContextQuestion();
+  scheduleDraftSave();
 }
 
 function currentContextAnswered() {
@@ -1191,6 +1345,7 @@ async function ensureBodyMap() {
             updateEmptyMapConfirmUI();
             renderIntentProgress("mapIntentProgress", intentId);
             if (isTouchLikeInput(event)) showTT(regionLabel(REGION_BY_ID.get(regionId)), event, true);
+            scheduleDraftSave();
           },
           onRegionHover: (regionId, event) => {
             const region = REGION_BY_ID.get(regionId);
@@ -1234,6 +1389,7 @@ function setEmptyMapConfirmation(checked) {
   qualityLog.mapEmptyConfirmations[id] = checked;
   document.getElementById("mapError")?.classList.remove("show");
   renderIntentProgress("mapIntentProgress", id);
+  scheduleDraftSave();
 }
 
 function updateEmptyMapConfirmUI() {
@@ -1474,10 +1630,12 @@ function load() {
   document.getElementById("btnNext").style.display = "";
   prog();
   lastWorkflowStep = "s2";
+  scheduleDraftSave();
 }
 function save() {
   const id = order[idx];
   if (id) data[id] = { ...cur };
+  scheduleDraftSave();
 }
 function next() {
   if (!validateCurrentMap()) return;
@@ -1522,12 +1680,14 @@ function resetCur() {
   updCol();
   updateEmptyMapConfirmUI();
   renderIntentProgress("mapIntentProgress", id);
+  scheduleDraftSave();
 }
 function done() {
   if (!validateCurrentMap()) return;
   save();
   showStep("s3");
   r3();
+  scheduleDraftSave();
 }
 function back() {
   if (order.length === 0 && noIntentSelected) {
@@ -1875,6 +2035,8 @@ async function submitToSupabase() {
     return;
   }
 
+  draftReady = false;
+  clearSurveyDraft();
   localStorage.setItem("survey_submitted", "1");
   btn.textContent = t("submitDone");
   showSubmissionResult(
@@ -1887,5 +2049,28 @@ async function submitToSupabase() {
 // ============================================================
 // INIT
 // ============================================================
-r1(); updBtn(); resetConsentState(); setLang(lang); prog();
-window.addEventListener("pageshow", resetConsentState);
+function bindDraftPersistenceEvents() {
+  ["age", "gender", "nationality", "consentBox"].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener("input", scheduleDraftSave);
+    el.addEventListener("change", scheduleDraftSave);
+  });
+  window.addEventListener("beforeunload", saveSurveyDraftNow);
+  window.addEventListener("pagehide", saveSurveyDraftNow);
+}
+
+r1();
+updBtn();
+setLang(lang);
+const draftRestored = restoreSurveyDraft();
+if (!draftRestored) {
+  resetConsentState();
+  prog();
+}
+draftReady = true;
+scheduleDraftSave();
+bindDraftPersistenceEvents();
+window.addEventListener("pageshow", () => {
+  if (!localStorage.getItem(SURVEY_DRAFT_KEY)) resetConsentState();
+});
