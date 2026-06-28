@@ -134,7 +134,7 @@ const I18N = {
     prevContext:"← 上一个意图",
     nextContext:"下一个意图 →",
     contextToMaps:"进入身体地图 →",
-    resetCurrent:"↺ 重置当前地图",
+    resetCurrent:"重置",
     prevIntent:"← 上一个意图",
     nextIntent:"下一个意图 →",
     reviewSubmit:"检查与提交 →",
@@ -300,7 +300,7 @@ const I18N = {
     prevContext:"← Previous intent",
     nextContext:"Next intent →",
     contextToMaps:"Go to body map →",
-    resetCurrent:"↺ Reset current map",
+    resetCurrent:"Reset",
     prevIntent:"← Previous intent",
     nextIntent:"Next intent →",
     reviewSubmit:"Review & Submit →",
@@ -363,9 +363,12 @@ const COUNTRY_CODES = [
   "TO","TT","TN","TR","TM","TC","TV","UG","UA","AE","GB","US","UM","UY","UZ","VU",
   "VE","VN","VG","VI","WF","EH","YE","ZM","ZW"
 ];
+const CUSTOM_REGION_CODES = ["HK_MO_TW"];
 
 function t(key) { return I18N[lang][key] || I18N.zh[key] || key; }
 function countryName(code) {
+  if (code === "HK_MO_TW") return lang === "zh" ? "港澳台地区" : "Hong Kong, Macao, and Taiwan";
+  if (code === "CN" && lang === "zh") return "中国大陆";
   try {
     return new Intl.DisplayNames([lang === "zh" ? "zh-CN" : "en"], { type: "region" }).of(code) || code;
   } catch {
@@ -376,12 +379,20 @@ function renderCountryOptions() {
   const select = document.getElementById("nationality");
   if (!select) return;
   const current = select.value;
-  const options = COUNTRY_CODES
+  const allCodes = lang === "zh"
+    ? ["CN", ...CUSTOM_REGION_CODES, ...COUNTRY_CODES.filter(code => code !== "CN")]
+    : COUNTRY_CODES;
+  const options = allCodes
     .map(code => ({ code, label: countryName(code) }))
     .sort((a, b) => {
       if (lang === "zh") {
-        if (a.code === "CN") return -1;
-        if (b.code === "CN") return 1;
+        const aPinnedIndex = ["CN", ...CUSTOM_REGION_CODES].indexOf(a.code);
+        const bPinnedIndex = ["CN", ...CUSTOM_REGION_CODES].indexOf(b.code);
+        if (aPinnedIndex >= 0 || bPinnedIndex >= 0) {
+          if (aPinnedIndex < 0) return 1;
+          if (bPinnedIndex < 0) return -1;
+          return aPinnedIndex - bPinnedIndex;
+        }
       }
       return a.label.localeCompare(b.label, lang === "zh" ? "zh-CN" : "en");
     })
@@ -761,7 +772,7 @@ function collectDraftPayload() {
   const activeStep = currentActiveStepId();
   return {
     saved_at: new Date().toISOString(),
-    study_version: "3.21",
+    study_version: "3.22",
     lang,
     active_step: activeStep === "s4" ? "s3" : activeStep,
     introSlideIndex,
@@ -813,7 +824,7 @@ function restoreSurveyDraft() {
     resetConsentState();
     return false;
   }
-  if (draft.study_version && draft.study_version !== "3.21") {
+  if (draft.study_version && draft.study_version !== "3.22") {
     clearSurveyDraft();
     resetConsentState();
     return false;
@@ -1944,7 +1955,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.21",
+    study_version: "3.22",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1975,7 +1986,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v28_followup_contact_iteration"
+      source: "bodymap_questionnaire_v29_mobile_map_and_region_options"
     }
   };
 }
@@ -2027,7 +2038,7 @@ async function submitFollowupContact() {
     .from("followup_contacts")
     .insert({
       participant_id: getParticipantId(),
-      study_version: "3.21",
+      study_version: "3.22",
       language: lang,
       contact,
       metadata: {

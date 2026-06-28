@@ -411,13 +411,17 @@
   .body-map-status.show { opacity:1; }
   .empty-map-confirm {
     display:flex; align-items:flex-start; gap:9px;
-    width:min(100%, 860px); margin:12px auto 0;
+    flex:1 1 auto; min-width:0; margin:0;
     color:#d5d5d5; font-size:0.8rem; line-height:1.46;
     background:#101010; border:1px solid var(--border); border-radius:8px;
     padding:10px 12px;
   }
   .empty-map-confirm input { margin-top:3px; }
   .empty-map-confirm.disabled { opacity:0.55; }
+  .map-post-controls {
+    display:flex; align-items:stretch; gap:10px;
+    width:min(100%, 860px); margin:12px auto 0;
+  }
   #mapError {
     width:min(100%, 860px); margin:8px auto 0;
   }
@@ -436,7 +440,12 @@
   }
   .toolbar-action:hover { border-color:#555; }
   .toolbar-action strong { font-weight:800; color:#fff; }
-  .toolbar-action.reset-map { color:#ef4444; border-color:rgba(239,68,68,0.8); }
+  .toolbar-action.reset-map {
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+    flex:0 0 64px; color:#d07b7b; border-color:rgba(239,68,68,0.36);
+    background:rgba(16,16,16,0.72);
+  }
+  .toolbar-action.reset-map .reset-icon { font-size:0.9rem; line-height:1; }
   .toolbar-action.reset-map:hover { background:rgba(239,68,68,0.15); }
   .toolbar-action.back-intents { color:#ddd; }
   .toolbar-action.back-intents span { color:var(--dim); margin-right:2px; }
@@ -570,6 +579,15 @@
       justify-self:end;
       gap:6px;
       white-space:nowrap;
+    }
+    .map-post-controls {
+      align-items:stretch; gap:8px; width:100%;
+    }
+    .empty-map-confirm {
+      padding:9px 10px; font-size:0.76rem; line-height:1.42;
+    }
+    .toolbar-action.reset-map {
+      flex-basis:56px; padding:7px 6px; font-size:0.68rem; min-height:auto;
     }
     .convention-scale { grid-template-columns:1fr; }
     .convention-option {

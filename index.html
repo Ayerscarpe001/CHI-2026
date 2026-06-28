@@ -228,17 +228,22 @@
         <span class="status-dot">·</span>
         <span data-i18n="colorHint">同色再次点击可取消；切换另一种颜色可覆盖。</span>
       </div>
-      <button class="toolbar-action reset-map" onclick="resetCur()" data-i18n="resetCurrent">↺ 重置当前地图</button>
     </div>
 
     <div class="body-map-shell">
       <div class="body-map-svg" id="bodyMap" aria-label="Body map"></div>
       <div class="body-map-status" id="bodyMapStatus" role="status"></div>
     </div>
-    <label class="empty-map-confirm">
-      <input type="checkbox" id="emptyMapConfirm" onchange="setEmptyMapConfirmation(this.checked)">
-      <span data-i18n="emptyMapConfirm">我已查看当前意图的身体地图，但没有任何明确愿意或不愿意标注的身体区域。</span>
-    </label>
+    <div class="map-post-controls">
+      <label class="empty-map-confirm">
+        <input type="checkbox" id="emptyMapConfirm" onchange="setEmptyMapConfirmation(this.checked)">
+        <span data-i18n="emptyMapConfirm">我已查看当前意图的身体地图，但没有任何明确愿意或不愿意标注的身体区域。</span>
+      </label>
+      <button class="toolbar-action reset-map" onclick="resetCur()">
+        <span class="reset-icon" aria-hidden="true">↺</span>
+        <span data-i18n="resetCurrent">重置</span>
+      </button>
+    </div>
     <div class="error-text" id="mapError" data-i18n="mapError">当前身体地图尚未标注。如你确实没有明确意向，请先勾选上方确认项。</div>
 
     <div class="nav">
