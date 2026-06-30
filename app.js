@@ -13,12 +13,12 @@ const supabaseClient = window.supabase
 let lang = localStorage.getItem("survey_language") || "zh";
 const I18N = {
   zh: {
-    appTitle:"社交机器人主动触碰调查问卷",
-    appSub:"机器人主动触碰中的意图、关系语境与身体区域接受度标注",
+    appTitle:"社交机器人可以碰哪里？",
+    appSub:"请告诉我们：哪些意图适合用触碰表达，什么情境和关系下合适，以及哪些身体部位可以接受。",
     introTitle:"研究场景介绍",
     introDesc:"本问卷旨在了解人们对社交机器人主动触碰的接受程度。请依次阅读下面三页简短说明，明确本研究中的社交机器人、社交触碰等概念及答题流程。",
     introSlide1Kicker:"01 · 机器人形态",
-    introSlide1Title:"具有手臂与手的人形机器人",
+    introSlide1Title:"具有手臂与手的社交机器人",
     introSlide2Kicker:"02 · 社交触碰",
     introSlide2Title:"机器人主动发起的身体触碰",
     introSlide3Kicker:"03 · 答题流程",
@@ -179,12 +179,12 @@ const I18N = {
     followupError:"联系方式提交失败，请稍后重试。"
   },
   en: {
-    appTitle:"Social Robot-Initiated Touch Survey",
-    appSub:"Intent, relationship context, and body-region acceptability in robot-initiated touch",
+    appTitle:"Where May a Social Robot Touch?",
+    appSub:"Tell us which meanings, situations, relationships, and body areas feel acceptable when a robot initiates touch.",
     introTitle:"Study Scenario",
     introDesc:"This survey examines people's acceptance of touch initiated by social robots. Please read the following three short pages to understand how this study defines the social robot, social touch, and the survey process.",
     introSlide1Kicker:"01 · Robot form",
-    introSlide1Title:"Humanoid Robot with Arms and Hands",
+    introSlide1Title:"Social Robot with Arms and Hands",
     introSlide2Kicker:"02 · Social touch",
     introSlide2Title:"Physical contact initiated by the robot",
     introSlide3Kicker:"03 · Survey process",
@@ -772,7 +772,7 @@ function collectDraftPayload() {
   const activeStep = currentActiveStepId();
   return {
     saved_at: new Date().toISOString(),
-    study_version: "3.23",
+    study_version: "3.24",
     lang,
     active_step: activeStep === "s4" ? "s3" : activeStep,
     introSlideIndex,
@@ -824,7 +824,7 @@ function restoreSurveyDraft() {
     resetConsentState();
     return false;
   }
-  if (draft.study_version && draft.study_version !== "3.23") {
+  if (draft.study_version && draft.study_version !== "3.24") {
     clearSurveyDraft();
     resetConsentState();
     return false;
@@ -1958,7 +1958,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.23",
+    study_version: "3.24",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1989,7 +1989,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v30_touch_wording_alignment"
+      source: "bodymap_questionnaire_v31_plain_title_and_subtitle"
     }
   };
 }
@@ -2041,7 +2041,7 @@ async function submitFollowupContact() {
     .from("followup_contacts")
     .insert({
       participant_id: getParticipantId(),
-      study_version: "3.23",
+      study_version: "3.24",
       language: lang,
       contact,
       metadata: {
