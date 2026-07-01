@@ -24,7 +24,7 @@ const I18N = {
     introSlide3Kicker:"03 · 答题流程",
     introSlide3Title:"问卷填写流程",
     introP1:"请将问卷中的“社交机器人”想象为一个具有人形上半身结构的机器人，它具有类似人体结构的双臂和双手，整体身高略矮于成年人水平。它能够遵循恰当的行为规范，与人进行社交互动。",
-    introP2:"问卷中的“社交触碰”指机器人对人身体发起的直接、短暂、柔和、非疼痛、非强制性的身体触碰。这种触碰旨在传达具有社会意义的意图，例如表达关心。",
+    introP2:"问卷中的“社交触碰”指机器人在预先提示并征得许可后，对你身体发起的直接、短暂、柔和、非疼痛、非强制性的身体触碰。这种触碰旨在传达具有某种社交含义的意图，例如表达关心、引起注意等。",
     introP3:"填写过程中，问卷会先询问“你能接受社交机器人通过主动触碰表达哪些意图”，随后，将会围绕你选择的每种意图，循环询问一组相关问题。",
     introRobotAlt:"抽象简笔画社交机器人，具有头部、上身、机械手臂和手部。",
     introFlowAlt:"先选择可接受的表达内容，再围绕每个选择逐项作答的问卷流程示意图。",
@@ -69,7 +69,7 @@ const I18N = {
     countryOther:"其他",
     infoError:"请完整填写有效年龄、性别和所属国家或地区后继续。",
     intentTitle:"社交意图选择",
-    intentDesc:"当社交机器人需要通过主动触碰你来表示某种社交意向、达成某种社交目的时，哪些意图是你可以接受的？请选择所有你能接受的选项。",
+    intentDesc:"当机器人需要通过主动触碰你来表达某种社交含义时，你能接受它表达哪些意图？请选择你能接受的所有选项。",
     selectAll:"全选",
     clearAll:"清空",
     noIntentTitle:"以上意图均不适合",
@@ -94,15 +94,17 @@ const I18N = {
     closeness6:"亲近",
     closeness7:"非常亲近",
     ctxPublicService:"公共服务",
-    ctxPublicServiceDesc:"在公共或半公共环境中，为不特定或短期接触的用户提供接待、信息咨询或一般服务。",
+    ctxPublicServiceDesc:"在公共或半公共环境中，机器人为不特定或短期接触的人们提供接待、信息咨询或一般服务。",
     ctxCompanionship:"日常陪伴",
-    ctxCompanionshipDesc:"在家庭或日常生活中持续共处，并提供社交陪伴、休闲互动或日常情感支持。",
+    ctxCompanionshipDesc:"机器人在家庭或日常生活中与人们持续共处，并提供社交陪伴、休闲互动或日常情感支持。",
     ctxCare:"健康照护",
-    ctxCareDesc:"以健康、照护或恢复为主要目标的医疗、护理、康复、心理支持或老人照护互动。",
+    ctxCareDesc:"机器人以健康、照护或恢复为主要目标，与人们展开医疗、护理、康复、心理支持或老人照护等互动。",
     ctxLearning:"学习训练",
-    ctxLearningDesc:"以知识学习、教学辅导、技能练习、行为练习或表现反馈为主要目标的互动。",
+    ctxLearningDesc:"机器人以帮助人们进行知识学习、教学辅导、技能练习、行为练习或表现反馈等为主要目标的互动。",
     ctxTask:"任务协作",
-    ctxTaskDesc:"共同完成具有明确外部目标的工作、导航、操作、家务或其他任务。",
+    ctxTaskDesc:"机器人与人们共同完成具有明确外部目标的工作、导航、操作、家务或其他任务。",
+    ctxLeisure:"休闲娱乐",
+    ctxLeisureDesc:"机器人在游戏、运动、放松、玩笑等场景中与人们展开互动。",
     ctxOther:"其他（请补充）",
     ctxOtherDesc:"以上选项未能涵盖的其他互动语境。",
     ctxOtherPlaceholder:"请简要补充具体的互动语境",
@@ -191,7 +193,7 @@ const I18N = {
     introSlide3Kicker:"03 · Survey process",
     introSlide3Title:"Answer each selected item in sequence",
     introP1:"Please imagine the “social robot” in this survey as a robot with a humanoid upper-body structure. It has two arms and two hands with a human-like structure and is slightly shorter than an adult. It can follow appropriate behavioral norms and socially interact with people.",
-    introP2:"In this survey, “social touch” refers to direct, brief, gentle, non-painful, and non-coercive bodily contact initiated by a robot toward a person. The touch is intended to convey a socially meaningful intent, such as showing care.",
+    introP2:"In this survey, “social touch” refers to direct, brief, gentle, non-painful, and non-coercive bodily contact initiated by a robot after prior notice and permission. This touch is intended to convey a socially meaningful intent, such as showing care or getting attention.",
     introP3:"During the survey, you will first choose which intents you would accept a social robot expressing through active touch. Then, for each selected intent, you will answer a repeated set of related questions.",
     introRobotAlt:"A simple abstract social robot with a head, upper body, mechanical arms, and hands.",
     introFlowAlt:"A survey flow diagram showing selection first, followed by repeated questions for each selected item.",
@@ -236,7 +238,7 @@ const I18N = {
     countryOther:"Other",
     infoError:"Please complete a valid age, gender, and country or region before continuing.",
     intentTitle:"Social Intents",
-    intentDesc:"When a robot uses active touch to convey a signal or express an intent to you, which of the following would you find acceptable? Select all acceptable options; if none apply, choose the separate option below.",
+    intentDesc:"When the robot needs to actively touch you to express a socially meaningful intent, which intents would you accept it expressing? Select all acceptable options.",
     selectAll:"Select all",
     clearAll:"Clear all",
     noIntentTitle:"None of these intents are suitable",
@@ -261,15 +263,17 @@ const I18N = {
     closeness6:"Close",
     closeness7:"Very close",
     ctxPublicService:"Public service",
-    ctxPublicServiceDesc:"Reception, information, or general services for unspecified users or people in brief contact in public or semi-public settings.",
+    ctxPublicServiceDesc:"The robot provides reception, information, or general services to unspecified people or people in brief contact in public or semi-public settings.",
     ctxCompanionship:"Everyday companionship",
-    ctxCompanionshipDesc:"Ongoing co-presence in home or everyday life, including social companionship, leisure interaction, or everyday emotional support.",
+    ctxCompanionshipDesc:"The robot stays with people in home or everyday life and provides social companionship, leisure interaction, or everyday emotional support.",
     ctxCare:"Care / Health support",
-    ctxCareDesc:"Medical care, nursing, rehabilitation, psychological support, or eldercare primarily aimed at health, care, or recovery.",
+    ctxCareDesc:"The robot interacts with people in medical care, nursing, rehabilitation, psychological support, eldercare, or other activities primarily aimed at health, care, or recovery.",
     ctxLearning:"Learning / Training",
-    ctxLearningDesc:"Interaction primarily aimed at learning, tutoring, skill practice, behavior practice, or performance feedback.",
+    ctxLearningDesc:"The robot interacts with people to support learning, tutoring, skill practice, behavior practice, or performance feedback.",
     ctxTask:"Task collaboration",
-    ctxTaskDesc:"Joint work, navigation, operation, household activity, or another task with a clear external goal.",
+    ctxTaskDesc:"The robot and people work together on work, navigation, operation, household activity, or another task with a clear external goal.",
+    ctxLeisure:"Leisure / Entertainment",
+    ctxLeisureDesc:"The robot interacts with people in games, exercise, relaxation, joking, or other leisure and entertainment settings.",
     ctxOther:"Other (Please specify)",
     ctxOtherDesc:"Another interaction context not covered by the options above.",
     ctxOtherPlaceholder:"Briefly describe the interaction context",
@@ -515,7 +519,7 @@ const INTENTS = [
   { id:"comfort", zh:"安慰", en:"Comfort", desc:{ zh:"在人们悲伤、压力、焦虑或脆弱时，机器人通过触碰传达关心、抚慰和情感支持，使其感到被理解和支持。", en:"When people are sad, stressed, anxious, or vulnerable, the robot uses touch to convey care, soothing, and emotional support, helping them feel understood and supported." } },
   { id:"calming", zh:"冷静", en:"Calming", desc:{ zh:"在人们紧张、激动、害怕或高唤醒时，机器人通过触碰帮助其平复情绪、降低紧张并恢复稳定。", en:"When people are tense, agitated, afraid, or highly aroused, the robot uses touch to help them settle down, reduce tension, and regain emotional stability." } },
   { id:"affection", zh:"亲近", en:"Affection", desc:{ zh:"机器人通过触碰表达喜爱、亲近、温柔、依恋、信任或情感上的亲密感。", en:"The robot uses touch to express fondness, closeness, tenderness, attachment, trust, or emotional affection." } },
-  { id:"salutation", zh:"问候", en:"Salutation", desc:{ zh:"在互动开始或结束时，机器人通过触碰表达欢迎、问候、告别或礼貌性确认。", en:"At the beginning or end of an interaction, the robot uses touch to express a greeting, farewell, welcome, or polite acknowledgment." } },
+  { id:"salutation", zh:"问候", en:"Salutation", desc:{ zh:"在与人们的互动开始或结束时，机器人通过触碰表达欢迎、问候、告别或礼貌性确认。", en:"At the beginning or end of an interaction with people, the robot uses touch to express a greeting, farewell, welcome, or polite acknowledgment." } },
   { id:"appreciation", zh:"赞赏", en:"Appreciation", desc:{ zh:"在人们表现出值得肯定的行为、能力或成果后，机器人通过触碰表达认可、肯定或赞许。", en:"After people have demonstrated a valued action, ability, or achievement, the robot uses touch to express recognition, approval, or praise." } },
   { id:"gratitude", zh:"感谢", en:"Gratitude", desc:{ zh:"在人们帮助了机器人或做出有益行为后，机器人通过触碰表达谢意。", en:"After people have helped the robot or done something beneficial, the robot uses touch to express thanks." } },
   { id:"encouragement", zh:"鼓励", en:"Encouragement", desc:{ zh:"在人们面临压力、挑战、不确定或缺乏信心时，机器人通过触碰传达支持和信心，鼓励其继续行动。", en:"When people face pressure, challenge, uncertainty, or self-doubt, the robot uses touch to convey support and confidence, encouraging them to continue." } },
@@ -523,67 +527,67 @@ const INTENTS = [
   { id:"playful", zh:"嬉戏", en:"Playfulness", desc:{ zh:"在人们处于轻松或可玩笑的状态时，机器人通过触碰表达玩笑、调皮、逗趣或轻松互动。", en:"When people are in a relaxed or playful state, the robot uses touch to express joking, teasing, playfulness, or lighthearted interaction." } },
   { id:"attention_getting", zh:"引起注意", en:"Attention-getting", desc:{ zh:"在人们分心、忽略、忙于他事而未注意，或需要更加关注某事时，机器人通过触碰改变其注意焦点或强调信息的重要性。", en:"When people are distracted, have overlooked something, are occupied with something else, or need to pay closer attention, the robot uses touch to redirect or heighten their attention." } },
   { id:"guidance", zh:"引导", en:"Guidance", desc:{ zh:"在人们需要协助或调整动作、方向或行为时，机器人通过触碰提供帮助与指引。", en:"When people need help or adjustment, the robot uses touch to guide their action, direction, or movement." } },
-  { id:"request", zh:"请求", en:"Request", desc:{ zh:"在机器人需要人们的回应、确认、允许、帮助或某种行动时，其通过触碰表达询问、请示或请求。", en:"When the robot needs a response, confirmation, permission, help, or action from people, it uses touch to express an inquiry, ask for permission, seek help, or make a request." } },
+  { id:"request", zh:"请求", en:"Request", desc:{ zh:"在机器人需要人们的回应、确认、允许、帮助时，其通过触碰表达询问、祈使或请求。", en:"When the robot needs a response, confirmation, permission, or help from people, it uses touch to express an inquiry, directive, or request." } },
   { id:"apology", zh:"致歉", en:"Apology", desc:{ zh:"在机器人造成误解、冒犯、失误或让人们不适后，其通过触碰表达歉意、尝试修复互动并请求谅解。", en:"After the robot has caused a misunderstanding, offense, or error, or made people uncomfortable, it uses touch to express an apology, attempt to repair the interaction, and seek forgiveness." } },
-  { id:"refusal", zh:"拒绝", en:"Refusal", desc:{ zh:"在人们靠近、提出请求或试图继续互动时，机器人通过触碰表达不同意、保持边界或不愿继续当前互动。", en:"When people approach, make a request, or attempt to continue an interaction, the robot uses touch to express disagreement, maintain a boundary, or signal unwillingness to continue." } },
+  { id:"refusal", zh:"拒绝", en:"Refusal", desc:{ zh:"在人们靠近、提出请求或试图继续互动时，机器人通过触碰表达不同意、保持边界或无法继续当前互动。", en:"When people approach, make a request, or attempt to continue an interaction, the robot uses touch to express disagreement, maintain a boundary, or indicate that it cannot continue the current interaction." } },
 ];
 
 const TOUCH_REFERENCES = {
   comfort: {
-    zh:"研究表明，在人际社交中，与安慰有关的意图通常通过握住或扶住对方、轻拍肩背、缓慢抚摸或拥抱等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to comfort are commonly expressed through holding or supporting the other person, patting the shoulder or back, slow stroking, or hugging."
+    zh:"在人际社交中，与安慰有关的意图可能通过握住或扶住对方、轻拍肩背、缓慢抚摸或拥抱等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to comfort may be expressed through holding or supporting the other person, patting the shoulder or back, slow stroking, or hugging."
   },
   calming: {
-    zh:"研究表明，在人际社交中，与帮助他人冷静有关的意图通常通过稳定扶持、拥抱、缓慢抚摸或轻拍等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to calming another person are commonly expressed through steady support, hugging, slow stroking, or gentle patting."
+    zh:"在人际社交中，与帮助他人冷静有关的意图可能通过稳定扶持、拥抱、缓慢抚摸或轻拍等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to calming another person may be expressed through steady support, hugging, slow stroking, or gentle patting."
   },
   affection: {
-    zh:"研究表明，在人际社交中，与亲近有关的意图通常通过牵手、挽臂、拥抱、抚摸手臂或触碰脸颊等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to affection are commonly expressed through holding hands, linking arms, hugging, stroking the arm, or touching the cheek."
+    zh:"在人际社交中，与亲近有关的意图可能通过牵手、挽臂、拥抱、抚摸手臂或触碰脸颊等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to affection may be expressed through holding hands, linking arms, hugging, stroking the arm, or touching the cheek."
   },
   salutation: {
-    zh:"研究表明，在人际社交中，与问候或告别有关的意图通常通过握手、握掌、短暂拥抱或轻拍肩臂等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to greetings or farewells are commonly expressed through handshakes, handclasps, brief hugs, or light pats on the shoulder or arm."
+    zh:"在人际社交中，与问候或告别有关的意图可能通过握手、握掌、短暂拥抱或轻拍肩臂等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to greetings or farewells may be expressed through handshakes, handclasps, brief hugs, or light pats on the shoulder or arm."
   },
   appreciation: {
-    zh:"研究表明，在人际社交中，与赞赏他人表现或成果有关的意图通常通过握手、击掌、拍肩背或庆祝性拥抱等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to appreciating another person's performance or achievement are commonly expressed through handshakes, high-fives, pats on the shoulder or back, or celebratory hugs."
+    zh:"在人际社交中，与赞赏他人表现或成果有关的意图可能通过握手、击掌、拍肩背或庆祝性拥抱等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to appreciating another person's performance or achievement may be expressed through handshakes, high-fives, pats on the shoulder or back, or celebratory hugs."
   },
   gratitude: {
-    zh:"研究表明，在人际社交中，与感谢有关的意图通常通过握手、短暂握住对方的手或手臂、轻拍肩背等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to gratitude are commonly expressed through handshakes, briefly holding the other person's hand or arm, or lightly patting the shoulder or back."
+    zh:"在人际社交中，与感谢有关的意图可能通过握手、短暂握住对方的手或手臂、轻拍肩背等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to gratitude may be expressed through handshakes, briefly holding the other person's hand or arm, or lightly patting the shoulder or back."
   },
   encouragement: {
-    zh:"研究表明，在人际社交中，与鼓励有关的意图通常通过拍肩或拍背、坚定握掌、节奏性轻拍手臂或轻推向前等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to encouragement are commonly expressed through pats on the shoulder or back, firm handclasps, rhythmic arm pats, or a light forward push."
+    zh:"在人际社交中，与鼓励有关的意图可能通过拍肩或拍背、坚定握掌、节奏性轻拍手臂或轻推向前等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to encouragement may be expressed through pats on the shoulder or back, firm handclasps, rhythmic arm pats, or a light forward push."
   },
   presence: {
-    zh:"研究表明，在人际社交中，与传达“我在这里”或共同存在感有关的意图通常通过牵手、挽臂、搭肩、侧抱或身体靠触等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to shared presence or “I am here with you” are commonly expressed through holding hands, linking arms, placing an arm around the shoulder, side hugs, or bodily leaning."
+    zh:"在人际社交中，与传达“我在这里”或共同存在感有关的意图可能通过牵手、挽臂、搭肩、侧抱或身体靠触等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to shared presence or “I am here with you” may be expressed through holding hands, linking arms, placing an arm around the shoulder, side hugs, or bodily leaning."
   },
   playful: {
-    zh:"研究表明，在人际社交中，与嬉戏有关的意图通常通过轻戳、捏、挠痒、轻推、抓握、拉脸颊或假装打闹等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to playfulness are commonly expressed through light pokes, pinches, tickling, gentle pushes, grabbing, cheek pulling, or mock rough-and-tumble actions."
+    zh:"在人际社交中，与嬉戏有关的意图可能通过轻戳、捏、挠痒、轻推、抓握、拉脸颊或假装打闹等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to playfulness may be expressed through light pokes, pinches, tickling, gentle pushes, grabbing, cheek pulling, or mock rough-and-tumble actions."
   },
   attention_getting: {
-    zh:"研究表明，在人际社交中，与引起注意有关的意图通常通过短暂点触或轻拍对方的肩、手臂或上背等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to getting another person's attention are commonly expressed through a brief touch or light pat on the shoulder, arm, or upper back."
+    zh:"在人际社交中，与引起注意有关的意图可能通过短暂点触或轻拍对方的肩、手臂或上背等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to getting another person's attention may be expressed through a brief touch or light pat on the shoulder, arm, or upper back."
   },
   guidance: {
-    zh:"研究表明，在人际社交中，与引导有关的意图通常通过扶住肩部或手臂、牵引手部、轻推背部或调整身体方向等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to guidance are commonly expressed through holding the shoulder or arm, leading by the hand, lightly pushing the back, or adjusting bodily direction."
+    zh:"在人际社交中，与引导有关的意图可能通过扶住肩部或手臂、牵引手部、轻推背部或调整身体方向等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to guidance may be expressed through holding the shoulder or arm, leading by the hand, lightly pushing the back, or adjusting bodily direction."
   },
   request: {
-    zh:"研究表明，在人际社交中，与请求回应、允许或帮助有关的意图通常通过短暂触碰、轻拍或握住对方的手、手臂或肩部等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to requesting a response, permission, or help are commonly expressed through briefly touching, patting, or holding the other person's hand, arm, or shoulder."
+    zh:"在人际社交中，与请求回应、允许或帮助有关的意图可能通过短暂触碰、轻拍或握住对方的手、手臂或肩部等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to requesting a response, permission, or help may be expressed through briefly touching, patting, or holding the other person's hand, arm, or shoulder."
   },
   apology: {
-    zh:"研究表明，在人际社交中，与致歉或和解有关的意图通常通过握持、轻拍、抚背或拥抱等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to apology or reconciliation are commonly expressed through holding, patting, back stroking, or hugging."
+    zh:"在人际社交中，与致歉或和解有关的意图可能通过握持、轻拍、抚背或拥抱等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to apology or reconciliation may be expressed through holding, patting, back stroking, or hugging."
   },
   refusal: {
-    zh:"研究表明，在人际社交中，与拒绝有关的意图通常通过推开、移开对方肢体或解除正在发生的接触等触碰方式表达。",
-    en:"Research shows that, in interpersonal interaction, intentions related to refusal are commonly expressed through pushing away, moving the other person's limb, or ending ongoing contact."
+    zh:"在人际社交中，与拒绝有关的意图可能通过推开、移开对方肢体或解除正在发生的接触等触碰方式表达。",
+    en:"In interpersonal interaction, intentions related to refusal may be expressed through pushing away, moving the other person's limb, or ending ongoing contact."
   }
 };
 
@@ -611,6 +615,7 @@ const INTERACTION_CONTEXTS = [
   { id: "care_health", labelKey: "ctxCare", descKey: "ctxCareDesc" },
   { id: "learning_training", labelKey: "ctxLearning", descKey: "ctxLearningDesc" },
   { id: "task_collaboration", labelKey: "ctxTask", descKey: "ctxTaskDesc" },
+  { id: "leisure_entertainment", labelKey: "ctxLeisure", descKey: "ctxLeisureDesc" },
   { id: "other", labelKey: "ctxOther", descKey: "ctxOtherDesc" },
 ];
 
@@ -774,7 +779,7 @@ function collectDraftPayload() {
   const activeStep = currentActiveStepId();
   return {
     saved_at: new Date().toISOString(),
-    study_version: "3.26",
+    study_version: "3.27",
     lang,
     active_step: activeStep === "s4" ? "s3" : activeStep,
     introSlideIndex,
@@ -826,7 +831,7 @@ function restoreSurveyDraft() {
     resetConsentState();
     return false;
   }
-  if (draft.study_version && draft.study_version !== "3.26") {
+  if (draft.study_version && draft.study_version !== "3.27") {
     clearSurveyDraft();
     resetConsentState();
     return false;
@@ -1961,7 +1966,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.26",
+    study_version: "3.27",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1992,7 +1997,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v33_map_default_paint_and_followup_check"
+      source: "bodymap_questionnaire_v34_definition_context_revision"
     }
   };
 }
@@ -2044,7 +2049,7 @@ async function submitFollowupContact() {
     .from("followup_contacts")
     .insert({
       participant_id: getParticipantId(),
-      study_version: "3.26",
+      study_version: "3.27",
       language: lang,
       contact,
       metadata: {
