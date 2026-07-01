@@ -94,17 +94,17 @@ const I18N = {
     closeness6:"亲近",
     closeness7:"非常亲近",
     ctxPublicService:"公共服务",
-    ctxPublicServiceDesc:"机器人在公共或半公共场所与不特定或短期接触的人们互动，主要提供接待、信息支持、流程协助或一般服务。",
+    ctxPublicServiceDesc:"在公共或半公共场所中，机器人向人们提供接待、问询、导览、提醒或基础服务。",
     ctxCompanionship:"日常陪伴",
-    ctxCompanionshipDesc:"机器人在家庭或日常生活环境中与人们较持续地共处，主要提供陪伴、日常互动或情感支持。",
+    ctxCompanionshipDesc:"在家庭或日常生活环境中，机器人与人们持续共处，参与陪伴、闲聊、日常协助或生活互动。",
     ctxCare:"健康照护",
-    ctxCareDesc:"机器人在医疗、护理、康复、心理支持或老人照护等环境中与人们互动，主要服务于健康、照护或恢复。",
+    ctxCareDesc:"在医疗、护理、康复、心理支持或老人照护等情境中，机器人围绕人们的健康、照护或恢复需求进行互动。",
     ctxLearning:"学习训练",
-    ctxLearningDesc:"机器人在学习、教学、训练或练习环境中与人们互动，主要支持知识学习、技能练习、行为练习或表现反馈。",
+    ctxLearningDesc:"在教学、辅导、技能练习、行为训练或表现反馈等情境中，机器人围绕人们的学习或训练目标进行互动。",
     ctxTask:"任务协作",
-    ctxTaskDesc:"机器人在工作、导航、操作、家务或其他任务环境中与人们协同活动，主要共同完成明确的外部目标。",
+    ctxTaskDesc:"在工作、导航、操作、家务或其他具体任务中，机器人与人们共同完成明确的外部目标。",
     ctxLeisure:"休闲娱乐",
-    ctxLeisureDesc:"机器人在游戏、运动、休闲、放松或玩笑互动中与人们互动，主要服务于娱乐体验、轻松互动或愉悦感。",
+    ctxLeisureDesc:"在游戏、运动、娱乐、玩笑或轻松社交活动中，机器人与人们一起参与放松、趣味或互动体验。",
     ctxOther:"其他（请补充）",
     ctxOtherDesc:"以上选项未能涵盖的其他互动语境。",
     ctxOtherPlaceholder:"请简要补充具体的互动语境",
@@ -263,17 +263,17 @@ const I18N = {
     closeness6:"Close",
     closeness7:"Very close",
     ctxPublicService:"Public service",
-    ctxPublicServiceDesc:"The robot interacts with unspecified people or people in brief contact in public or semi-public places, mainly providing reception, information support, procedural assistance, or general services.",
+    ctxPublicServiceDesc:"In public or semi-public places, the robot provides reception, inquiry, guidance, reminders, or basic services to people.",
     ctxCompanionship:"Everyday companionship",
-    ctxCompanionshipDesc:"The robot stays with people over time in home or everyday-life settings, mainly providing companionship, everyday interaction, or emotional support.",
+    ctxCompanionshipDesc:"In home or everyday-life settings, the robot stays with people over time and participates in companionship, casual conversation, daily assistance, or everyday interaction.",
     ctxCare:"Care / Health support",
-    ctxCareDesc:"The robot interacts with people in medical, nursing, rehabilitation, psychological support, or eldercare settings, mainly serving health, care, or recovery goals.",
+    ctxCareDesc:"In medical, nursing, rehabilitation, psychological support, or eldercare contexts, the robot interacts around people's needs for health, care, or recovery.",
     ctxLearning:"Learning / Training",
-    ctxLearningDesc:"The robot interacts with people in learning, teaching, training, or practice settings, mainly supporting knowledge learning, skill practice, behavioral practice, or performance feedback.",
+    ctxLearningDesc:"In teaching, tutoring, skill practice, behavioral training, or performance feedback contexts, the robot interacts around people's learning or training goals.",
     ctxTask:"Task collaboration",
-    ctxTaskDesc:"The robot collaborates with people in work, navigation, operation, household, or other task settings, mainly to complete a clear external goal together.",
+    ctxTaskDesc:"In work, navigation, operation, household, or other concrete tasks, the robot and people work together to complete a clear external goal.",
     ctxLeisure:"Leisure / Entertainment",
-    ctxLeisureDesc:"The robot interacts with people in games, exercise, leisure, relaxation, or joking interactions, mainly serving entertainment, lighthearted interaction, or enjoyment.",
+    ctxLeisureDesc:"In games, exercise, entertainment, joking, or light social activities, the robot and people participate together in relaxing, playful, or interactive experiences.",
     ctxOther:"Other (Please specify)",
     ctxOtherDesc:"Another interaction context not covered by the options above.",
     ctxOtherPlaceholder:"Briefly describe the interaction context",
@@ -779,7 +779,7 @@ function collectDraftPayload() {
   const activeStep = currentActiveStepId();
   return {
     saved_at: new Date().toISOString(),
-    study_version: "3.28",
+    study_version: "3.29",
     lang,
     active_step: activeStep === "s4" ? "s3" : activeStep,
     introSlideIndex,
@@ -831,7 +831,7 @@ function restoreSurveyDraft() {
     resetConsentState();
     return false;
   }
-  if (draft.study_version && draft.study_version !== "3.28") {
+  if (draft.study_version && draft.study_version !== "3.29") {
     clearSurveyDraft();
     resetConsentState();
     return false;
@@ -1979,7 +1979,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.28",
+    study_version: "3.29",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -2010,7 +2010,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v35_context_definition_and_other_input_layout"
+      source: "bodymap_questionnaire_v36_context_definition_text_revision"
     }
   };
 }
@@ -2062,7 +2062,7 @@ async function submitFollowupContact() {
     .from("followup_contacts")
     .insert({
       participant_id: getParticipantId(),
-      study_version: "3.28",
+      study_version: "3.29",
       language: lang,
       contact,
       metadata: {
