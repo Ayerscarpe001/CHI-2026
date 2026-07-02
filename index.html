@@ -160,7 +160,7 @@
       <input type="checkbox" id="noIntentBox" onchange="toggleNoIntent(this.checked)">
       <span>
         <strong data-i18n="noIntentTitle">以上意图均不适合</strong>
-        <small data-i18n="noIntentDesc">如果你认为这些社交意图都不适合由机器人通过主动触碰表达，可以选择此项并直接进入检查页。</small>
+        <small data-i18n="noIntentDesc">如果你认为这些社交意图都不适合由机器人通过主动触碰表达，可以选择此项并继续说明原因。</small>
       </span>
     </label>
     <div class="nav">
@@ -184,10 +184,10 @@
       <div class="intent-progress-list" id="contextIntentProgress" aria-label="Selected intent progress"></div>
       <button class="return-intents-inline" type="button" onclick="backToIntentSelectionFromWorkflow()" data-i18n="backToIntentSelection">← 返回意图选择</button>
     </div>
-    <div class="step-title" data-i18n="contextTitle">关系、语境与表达方式</div>
+    <div class="step-title" data-i18n="contextTitle">关系距离、场景与人际参考程度</div>
     <div class="step-desc" data-i18n="contextDesc">请围绕当前意图回答下面三题：</div>
     <div class="context-list" id="contextList"></div>
-    <div class="error-text" id="contextError" data-i18n="contextError">请完成当前意图的三道题：选择关系亲近度、至少一种互动语境和人际表达参照程度。</div>
+    <div class="error-text" id="contextError" data-i18n="contextError">请完成当前意图的三道题：选择关系亲近度、至少一种互动场景和人际表达参照程度。</div>
     <div class="nav">
       <button class="btn btn-s" id="btnPrevContext" onclick="prevPageFromContext()"></button>
       <span class="counter" id="contextCounter"></span>
@@ -254,14 +254,32 @@
   </div>
 
   <!-- ================================================================ -->
-  <!-- STEP 4                                                            -->
+  <!-- STEP 5: UNSELECTED INTENT REASONS                                -->
+  <!-- ================================================================ -->
+  <div class="step" id="sUnselected">
+    <div class="step-title" data-i18n="unselectedTitle">未选原因记录</div>
+    <div class="step-desc" data-i18n="unselectedDesc">所有已选意图均填写完毕，感谢你的作答。最后，我们想了解：对于你未选择的社交意图，主要有哪些顾虑让你觉得它们不适合由机器人主动发起社交触碰来表达？请选择最主要的 1-2 个原因。</div>
+    <div class="unselected-panel">
+      <div class="unselected-summary" id="unselectedSummary"></div>
+      <div class="unselected-reason-list" id="unselectedReasonList"></div>
+      <div class="unselected-limit" data-i18n="unselectedReasonLimit">最多选择 2 个原因。</div>
+    </div>
+    <div class="error-text" id="unselectedReasonError" data-i18n="unselectedReasonError">请选择 1-2 个主要原因；如选择“其他”，请填写具体顾虑。</div>
+    <div class="nav">
+      <button class="btn btn-s" onclick="prevPageFromUnselectedReasons()" data-i18n="prevPage">← 上一页</button>
+      <button class="btn btn-p" onclick="continueFromUnselectedReasons()" data-i18n="reviewSubmit">检查与提交 →</button>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!-- STEP 6                                                            -->
   <!-- ================================================================ -->
   <div class="step" id="s3">
     <div class="step-title" data-i18n="reviewTitle">检查与提交</div>
     <div class="step-desc" data-i18n="reviewDesc">请检查你的回答，然后提交至研究数据库。</div>
     <div class="rev-grid" id="revGrid"></div>
     <div class="nav">
-      <button class="btn btn-s" onclick="back()" data-i18n="backToMaps">← 返回地图</button>
+      <button class="btn btn-s" onclick="back()" data-i18n="prevPage">← 上一页</button>
       <button class="btn btn-e" id="btnSubmit" onclick="submitToSupabase()" data-i18n="submitResponse">提交问卷</button>
     </div>
   </div>

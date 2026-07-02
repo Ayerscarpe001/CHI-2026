@@ -73,11 +73,24 @@ const I18N = {
     selectAll:"全选",
     clearAll:"清空",
     noIntentTitle:"以上意图均不适合",
-    noIntentDesc:"如果你认为这些社交意图都不适合由机器人通过主动触碰表达，可以选择此项并直接进入检查页。",
-    contextTitle:"关系、语境与表达方式",
+    noIntentDesc:"如果你认为这些社交意图都不适合由机器人通过主动触碰表达，可以选择此项并继续说明原因。",
+    unselectedTitle:"未选原因记录",
+    unselectedDesc:"所有已选意图均填写完毕，感谢你的作答。最后，我们想了解：对于你未选择的社交意图，主要有哪些顾虑让你觉得它们不适合由机器人主动发起社交触碰来表达？请选择最主要的 1-2 个原因。",
+    unselectedDescNoSelection:"你选择了“以上意图均不适合”。我们想了解：主要有哪些顾虑让你觉得这些意图不适合由机器人主动发起社交触碰来表达？请选择最主要的 1-2 个原因。",
+    unselectedSummary:"你未选择 {count} 类社交意图。",
+    unselectedReasonTouchUnneeded:"我认为这些意图无需通过身体触碰的方式表达",
+    unselectedReasonRobotUnsuitable:"我认为这些意图本身不适合由机器人表达",
+    unselectedReasonBoundary:"我觉得机器人进行这类触碰会显得过于亲密或越过关系边界",
+    unselectedReasonUnnatural:"我难以想象机器人进行这类触碰在现实中自然出现",
+    unselectedReasonMisunderstanding:"我担心机器人通过触碰表达这些意图会引起误解",
+    unselectedReasonOther:"其他（请补充）",
+    unselectedReasonOtherPlaceholder:"请简要补充其他顾虑",
+    unselectedReasonLimit:"最多选择 2 个原因。",
+    unselectedReasonError:"请选择 1-2 个主要原因；如选择“其他”，请填写具体顾虑。",
+    contextTitle:"关系距离、场景与人际参考程度",
     contextDesc:"请围绕当前意图回答下面三题：",
     relationshipQuestion:"1、机器人通过触碰表达这一意图时，通常至少需要与你有多熟悉？",
-    contextQuestion:"2、这种触碰表达可能出现在哪些互动语境中？（可多选）",
+    contextQuestion:"2、这种触碰表达可能出现在哪些互动场景中？（可多选）",
     conventionReferenceTitle:"人际触碰示例",
     conventionQuestion:"3、机器人表达这一意图时，应在多大程度上参考人际互动中常见的触碰方式？",
     convention1:"完全不参考",
@@ -85,7 +98,7 @@ const I18N = {
     convention3:"部分参考",
     convention4:"较多参考",
     convention5:"完全参考",
-    contextError:"请完成当前意图的三道题：选择关系亲近度、至少一种互动语境和人际表达参照程度；如选择“其他”，请填写具体语境。",
+    contextError:"请完成当前意图的三道题：选择关系亲近度、至少一种互动场景和人际表达参照程度；如选择“其他”，请填写具体场景。",
     closeness1:"完全陌生",
     closeness2:"初步接触",
     closeness3:"轻度熟悉",
@@ -106,8 +119,8 @@ const I18N = {
     ctxLeisure:"休闲娱乐",
     ctxLeisureDesc:"在游戏、运动、娱乐、玩笑或轻松社交活动中，机器人与人们一起参与放松、趣味或互动体验。",
     ctxOther:"其他（请补充）",
-    ctxOtherDesc:"以上选项未能涵盖的其他互动语境。",
-    ctxOtherPlaceholder:"请简要补充具体的互动语境",
+    ctxOtherDesc:"以上选项未能涵盖的其他互动场景。",
+    ctxOtherPlaceholder:"请简要补充具体的互动场景",
     currentIntentLabel:"当前意图",
     mapTitle:"身体地图标注",
     mapDesc:"4、请针对当前意图，选择不同颜色，在身体地图上标注出你明确愿意或不愿意被机器人触碰的部位，未点选填色区域将视为无明确意向。",
@@ -126,7 +139,7 @@ const I18N = {
     intentSelectionNoun:"意图选择",
     backToIntentSelection:"← 返回意图选择",
     backToContextPrefix:"返回",
-    contextQuestionsNoun:"关系/场景/表达",
+    contextQuestionsNoun:"关系/场景/参考",
     backToContextFull:"← 返回关系/场景",
     prevPage:"← 上一页",
     nextPage:"下一页 →",
@@ -150,7 +163,8 @@ const I18N = {
     progressConsent:"知情同意",
     progressInfo:"基本信息",
     progressIntents:"选择社交意图",
-    progressContext:"关系、语境与表达方式",
+    progressUnselected:"未选原因记录",
+    progressContext:"关系距离、场景与人际参考程度",
     progressMap:"身体地图",
     progressIntentSummary:"第 {current} 个意图 / 共选 {total} 个",
     progressReview:"检查与提交",
@@ -242,11 +256,24 @@ const I18N = {
     selectAll:"Select all",
     clearAll:"Clear all",
     noIntentTitle:"None of these intents are suitable",
-    noIntentDesc:"If you think none of these social intents are suitable for a robot to express through active touch, select this option and continue directly to review.",
-    contextTitle:"Relationship, Context, and Expression",
+    noIntentDesc:"If you think none of these social intents are suitable for a robot to express through active touch, select this option and briefly explain why.",
+    unselectedTitle:"Reasons for Unselected Intents",
+    unselectedDesc:"Thank you for completing the questions about your selected intents. Finally, for the social intents you did not select, what are your main concerns about why they are not suitable for a robot to express through robot-initiated social touch? Select the 1-2 most important reasons.",
+    unselectedDescNoSelection:"You selected “None of these intents are suitable.” What are your main concerns about why these intents are not suitable for a robot to express through robot-initiated social touch? Select the 1-2 most important reasons.",
+    unselectedSummary:"You did not select {count} social intents.",
+    unselectedReasonTouchUnneeded:"I think these intents do not need to be expressed through bodily touch",
+    unselectedReasonRobotUnsuitable:"I think these intents are not suitable for a robot to express",
+    unselectedReasonBoundary:"I feel this kind of robot touch would be too intimate or cross relationship boundaries",
+    unselectedReasonUnnatural:"I find it hard to imagine this kind of robot touch occurring naturally in real life",
+    unselectedReasonMisunderstanding:"I worry that expressing these intents through touch could cause misunderstanding",
+    unselectedReasonOther:"Other (Please specify)",
+    unselectedReasonOtherPlaceholder:"Briefly describe another concern",
+    unselectedReasonLimit:"Select up to 2 reasons.",
+    unselectedReasonError:"Please select 1-2 main reasons. If you select “Other,” please describe the concern.",
+    contextTitle:"Relationship, Scenario, and Interpersonal Reference",
     contextDesc:"For the current intent, answer the three questions below:",
     relationshipQuestion:"1. How familiar would the robot usually need to be with you to express this intent through touch?",
-    contextQuestion:"2. In which interaction contexts might this touch expression appear? (Select all that apply.)",
+    contextQuestion:"2. In which interaction scenarios might this touch expression appear? (Select all that apply.)",
     conventionReferenceTitle:"Interpersonal touch examples",
     conventionQuestion:"3. To what extent should the robot refer to touch expressions commonly used between people for this intent?",
     convention1:"Not at all",
@@ -254,7 +281,7 @@ const I18N = {
     convention3:"Partly",
     convention4:"Mostly",
     convention5:"Fully",
-    contextError:"Please answer all three questions for the current intent. If you select “Other,” describe the interaction context.",
+    contextError:"Please answer all three questions for the current intent. If you select “Other,” describe the interaction scenario.",
     closeness1:"Complete stranger",
     closeness2:"Initial contact",
     closeness3:"Slightly familiar",
@@ -275,8 +302,8 @@ const I18N = {
     ctxLeisure:"Leisure / Entertainment",
     ctxLeisureDesc:"In games, exercise, entertainment, joking, or light social activities, the robot and people participate together in relaxing, playful, or interactive experiences.",
     ctxOther:"Other (Please specify)",
-    ctxOtherDesc:"Another interaction context not covered by the options above.",
-    ctxOtherPlaceholder:"Briefly describe the interaction context",
+    ctxOtherDesc:"Another interaction scenario not covered by the options above.",
+    ctxOtherPlaceholder:"Briefly describe the interaction scenario",
     currentIntentLabel:"Current intent",
     mapTitle:"Body Map",
     mapDesc:"4. For the current intent, choose different colors on the body map to mark the regions where you clearly would or would not want to be touched by the robot. Regions left uncolored will be treated as no clear preference.",
@@ -295,8 +322,8 @@ const I18N = {
     intentSelectionNoun:"intent selection",
     backToIntentSelection:"← Back to intent selection",
     backToContextPrefix:"Back to",
-    contextQuestionsNoun:"relationship/context/expression",
-    backToContextFull:"← Back to relationship/context",
+    contextQuestionsNoun:"relationship/scenario/reference",
+    backToContextFull:"← Back to relationship/scenario",
     prevPage:"← Previous page",
     nextPage:"Next page →",
     intentProgressDone:"Completed",
@@ -319,7 +346,8 @@ const I18N = {
     progressConsent:"Consent",
     progressInfo:"Basic information",
     progressIntents:"Select social intents",
-    progressContext:"Relationship, context, and expression",
+    progressUnselected:"Unselected intent reasons",
+    progressContext:"Relationship, scenario, and interpersonal reference",
     progressMap:"Body map",
     progressIntentSummary:"Intent {current} / {total} selected",
     progressReview:"Review & Submit",
@@ -503,6 +531,7 @@ function setLang(nextLang) {
   renderIntroCarousel();
   r1();
   syncIntentSelectionUI();
+  if (document.getElementById("sUnselected").classList.contains("active")) renderUnselectedReasons();
   if (document.getElementById("sContext").classList.contains("active")) renderContextQuestion();
   setPaint(paint);
   if (document.getElementById("s2").classList.contains("active")) load();
@@ -619,6 +648,15 @@ const INTERACTION_CONTEXTS = [
   { id: "other", labelKey: "ctxOther", descKey: "ctxOtherDesc" },
 ];
 
+const UNSELECTED_REASON_OPTIONS = [
+  { id: "touch_unneeded", labelKey: "unselectedReasonTouchUnneeded" },
+  { id: "robot_unsuitable", labelKey: "unselectedReasonRobotUnsuitable" },
+  { id: "boundary", labelKey: "unselectedReasonBoundary" },
+  { id: "unnatural", labelKey: "unselectedReasonUnnatural" },
+  { id: "misunderstanding", labelKey: "unselectedReasonMisunderstanding" },
+  { id: "other", labelKey: "unselectedReasonOther" },
+];
+
 // ============================================================
 // SVG BODY MAP REGIONS
 // ============================================================
@@ -721,6 +759,8 @@ let cur = {};
 let paint = 1;
 let demographics = {};
 let noIntentSelected = false;
+let unselectedReasonIds = [];
+let unselectedReasonOther = "";
 let lastWorkflowStep = "sContext";
 let draftRestoreInProgress = false;
 let draftReady = false;
@@ -779,7 +819,7 @@ function collectDraftPayload() {
   const activeStep = currentActiveStepId();
   return {
     saved_at: new Date().toISOString(),
-    study_version: "3.29",
+    study_version: "3.31",
     lang,
     active_step: activeStep === "s4" ? "s3" : activeStep,
     introSlideIndex,
@@ -798,6 +838,8 @@ function collectDraftPayload() {
     cur,
     paint,
     noIntentSelected,
+    unselectedReasonIds,
+    unselectedReasonOther,
     lastWorkflowStep,
   };
 }
@@ -831,7 +873,7 @@ function restoreSurveyDraft() {
     resetConsentState();
     return false;
   }
-  if (draft.study_version && draft.study_version !== "3.29") {
+  if (draft.study_version && draft.study_version !== "3.31") {
     clearSurveyDraft();
     resetConsentState();
     return false;
@@ -867,6 +909,10 @@ function restoreSurveyDraft() {
     cur = draft.cur && typeof draft.cur === "object" ? draft.cur : {};
     paint = draft.paint === -1 ? -1 : 1;
     noIntentSelected = !!draft.noIntentSelected && sel.size === 0;
+    unselectedReasonIds = (Array.isArray(draft.unselectedReasonIds) ? draft.unselectedReasonIds : [])
+      .filter(id => UNSELECTED_REASON_OPTIONS.some(option => option.id === id))
+      .slice(0, 2);
+    unselectedReasonOther = typeof draft.unselectedReasonOther === "string" ? draft.unselectedReasonOther : "";
     lastWorkflowStep = draft.lastWorkflowStep === "s2" ? "s2" : "sContext";
     initIntentMeta();
 
@@ -882,13 +928,17 @@ function restoreSurveyDraft() {
     syncIntentSelectionUI();
     setPaint(paint);
 
-    let step = ["sIntro", "s0", "sInfo", "s1", "sContext", "s2", "s3"].includes(draft.active_step)
+    let step = ["sIntro", "s0", "sInfo", "s1", "sUnselected", "sContext", "s2", "s3"].includes(draft.active_step)
       ? draft.active_step
       : "sIntro";
+    if (step === "sUnselected" && !hasUnselectedIntents()) {
+      step = order.length ? "sContext" : "s1";
+    }
     if ((step === "sContext" || step === "s2") && !order.length) {
       step = noIntentSelected ? "s3" : "s1";
     }
     showStep(step);
+    if (step === "sUnselected") renderUnselectedReasons();
     if (step === "sContext" && order.length) renderContextQuestion();
     if (step === "s2" && order.length) {
       load();
@@ -1088,6 +1138,131 @@ function updBtn() {
   document.getElementById("selCount").textContent = sel.size;
   document.getElementById("btnToMapsText").textContent = t("continueBtn");
   updateNoIntentOptionUI();
+}
+
+// ============================================================
+// STEP 1B: REASONS FOR UNSELECTED INTENTS
+// ============================================================
+function unselectedIntentIds() {
+  if (noIntentSelected) return INTENTS.map(intent => intent.id);
+  return INTENTS.filter(intent => !sel.has(intent.id)).map(intent => intent.id);
+}
+
+function hasUnselectedIntents() {
+  return unselectedIntentIds().length > 0;
+}
+
+function unselectedReasonLabel(reasonId, targetLang = lang) {
+  const option = UNSELECTED_REASON_OPTIONS.find(item => item.id === reasonId);
+  return option ? I18N[targetLang][option.labelKey] : "";
+}
+
+function renderUnselectedReasons() {
+  const desc = document.querySelector("#sUnselected .step-desc");
+  const summary = document.getElementById("unselectedSummary");
+  const list = document.getElementById("unselectedReasonList");
+  if (!summary || !list) return;
+  if (desc) desc.textContent = noIntentSelected ? t("unselectedDescNoSelection") : t("unselectedDesc");
+  const unselectedIds = unselectedIntentIds();
+  const chips = unselectedIds.map(intentId => {
+    const intent = INTENTS.find(item => item.id === intentId);
+    const label = lang === "zh" ? intent?.zh : intent?.en;
+    return `<span class="unselected-intent-chip">${escapeHtml(label || intentId)}</span>`;
+  }).join("");
+  summary.innerHTML = `
+    <span>${escapeHtml(t("unselectedSummary").replace("{count}", unselectedIds.length))}</span>
+    <span class="unselected-intent-chips">${chips}</span>`;
+  const selected = new Set(unselectedReasonIds);
+  list.innerHTML = UNSELECTED_REASON_OPTIONS.map(option => {
+    const isSelected = selected.has(option.id);
+    const otherInput = option.id === "other" && isSelected ? `
+      <input class="unselected-other-input" id="unselectedReasonOther" type="text" maxlength="180"
+        value="${escapeHtml(unselectedReasonOther)}"
+        placeholder="${escapeHtml(t("unselectedReasonOtherPlaceholder"))}"
+        oninput="setUnselectedReasonOther(this.value)">
+    ` : "";
+    return `
+      <div class="unselected-reason-option ${isSelected ? "selected" : ""}">
+        <button type="button" onclick="toggleUnselectedReason('${option.id}')">
+          <span class="reason-check">${isSelected ? "✓" : ""}</span>
+          <span>${t(option.labelKey)}</span>
+        </button>
+        ${otherInput}
+      </div>`;
+  }).join("");
+}
+
+function toggleUnselectedReason(reasonId) {
+  const selected = new Set(unselectedReasonIds);
+  if (selected.has(reasonId)) {
+    selected.delete(reasonId);
+    if (reasonId === "other") unselectedReasonOther = "";
+  } else {
+    if (selected.size >= 2) {
+      document.getElementById("unselectedReasonError")?.classList.add("show");
+      return;
+    }
+    selected.add(reasonId);
+  }
+  unselectedReasonIds = Array.from(selected);
+  document.getElementById("unselectedReasonError")?.classList.remove("show");
+  renderUnselectedReasons();
+  scheduleDraftSave();
+}
+
+function setUnselectedReasonOther(value) {
+  unselectedReasonOther = value;
+  document.getElementById("unselectedReasonError")?.classList.remove("show");
+  scheduleDraftSave();
+}
+
+function validateUnselectedReasons() {
+  if (!hasUnselectedIntents()) return true;
+  const hasValidCount = unselectedReasonIds.length >= 1 && unselectedReasonIds.length <= 2;
+  const hasValidOther = !unselectedReasonIds.includes("other") || !!unselectedReasonOther.trim();
+  const ok = hasValidCount && hasValidOther;
+  document.getElementById("unselectedReasonError")?.classList.toggle("show", !ok);
+  return ok;
+}
+
+function continueFromUnselectedReasons() {
+  if (!validateUnselectedReasons()) return;
+  showStep("s3");
+  r3();
+  scheduleDraftSave();
+}
+
+function continueAfterUnselectedReasons() {
+  if (order.length === 0) {
+    showStep("s3");
+    r3();
+    return;
+  }
+  if (lastWorkflowStep === "s2") {
+    showStep("s2");
+    load();
+    ensureBodyMap()
+      .then(updCol)
+      .catch(() => {});
+  } else {
+    showStep("sContext");
+    renderContextQuestion();
+    prog();
+  }
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function prevPageFromUnselectedReasons() {
+  if (order.length === 0) {
+    showStep("s1");
+    return;
+  }
+  idx = Math.max(0, order.length - 1);
+  showStep("s2");
+  load();
+  ensureBodyMap()
+    .then(updCol)
+    .catch(() => {});
 }
 
 // ============================================================
@@ -1556,6 +1731,11 @@ function goContext() {
     idx = 0;
     contextIdx = 0;
     lastWorkflowStep = "sContext";
+    if (hasUnselectedIntents()) {
+      renderUnselectedReasons();
+      showStep("sUnselected");
+      return;
+    }
     showStep("s3");
     r3();
     return;
@@ -1572,18 +1752,8 @@ function goContext() {
     contextIdx = Math.min(contextIdx, order.length - 1);
     idx = Math.min(idx, order.length - 1);
   }
-  if (previousWorkflowStep === "s2") {
-    showStep("s2");
-    load();
-    ensureBodyMap()
-      .then(updCol)
-      .catch(() => {});
-  } else {
-    showStep("sContext");
-    renderContextQuestion();
-    prog();
-  }
-  window.scrollTo({ top: 0, behavior: "auto" });
+  lastWorkflowStep = previousWorkflowStep === "s2" ? "s2" : "sContext";
+  continueAfterUnselectedReasons();
 }
 
 function backToIntentSelectionFromContext() {
@@ -1684,7 +1854,7 @@ function load() {
   renderIntentProgress("mapIntentProgress", id);
   document.getElementById("btnPrevMap").textContent = t("prevPage");
   document.getElementById("btnPrevMap").disabled = false;
-  document.getElementById("btnNext").textContent = idx < order.length-1 ? t("nextPage") : t("reviewSubmit");
+  document.getElementById("btnNext").textContent = t("nextPage");
   document.getElementById("btnNext").style.display = "";
   prog();
   lastWorkflowStep = "s2";
@@ -1743,13 +1913,20 @@ function resetCur() {
 function done() {
   if (!validateCurrentMap()) return;
   save();
+  if (hasUnselectedIntents()) {
+    renderUnselectedReasons();
+    showStep("sUnselected");
+    scheduleDraftSave();
+    return;
+  }
   showStep("s3");
   r3();
   scheduleDraftSave();
 }
 function back() {
-  if (order.length === 0 && noIntentSelected) {
-    showStep("s1");
+  if (hasUnselectedIntents()) {
+    renderUnselectedReasons();
+    showStep("sUnselected");
     return;
   }
   showStep("s2");
@@ -1770,12 +1947,13 @@ function prog() {
   else if (document.getElementById("s0").classList.contains("active")) { f.style.width="12%"; setProgressText(t("progressConsent")); }
   else if (document.getElementById("sInfo").classList.contains("active")) { f.style.width="22%"; setProgressText(t("progressInfo")); }
   else if (document.getElementById("s1").classList.contains("active")) { f.style.width="35%"; setProgressText(t("progressIntents")); }
+  else if (document.getElementById("sUnselected").classList.contains("active")) { f.style.width="92%"; setProgressText(t("progressUnselected")); }
   else if (document.getElementById("sContext").classList.contains("active")) {
-    const pct = 35 + Math.round((contextIdx * 2 + 1)/Math.max(order.length * 2, 1) * 55);
+    const pct = 42 + Math.round((contextIdx * 2 + 1)/Math.max(order.length * 2, 1) * 48);
     f.style.width=pct+"%"; setProgressText(t("progressContext"), contextIdx + 1);
   }
   else if (document.getElementById("s2").classList.contains("active")) {
-    const pct = 35 + Math.round((idx * 2 + 2)/Math.max(order.length * 2, 1) * 55);
+    const pct = 42 + Math.round((idx * 2 + 2)/Math.max(order.length * 2, 1) * 48);
     f.style.width=pct+"%"; setProgressText(t("progressMap"), idx + 1);
   }
   else if (document.getElementById("s3").classList.contains("active")) { f.style.width="95%"; setProgressText(t("progressReview")); }
@@ -1788,7 +1966,7 @@ function prog() {
 function r3() {
   const reviewBackButton = document.querySelector("#s3 .nav .btn-s");
   if (order.length === 0 && noIntentSelected) {
-    if (reviewBackButton) reviewBackButton.textContent = t("backToIntentSelection");
+    if (reviewBackButton) reviewBackButton.textContent = t("prevPage");
     document.getElementById("revGrid").innerHTML = `
       <div class="rev-card no-intent-review">
         <div class="r-name">${t("noIntentTitle")}</div>
@@ -1796,7 +1974,7 @@ function r3() {
       </div>`;
     return;
   }
-  if (reviewBackButton) reviewBackButton.textContent = t("backToMaps");
+  if (reviewBackButton) reviewBackButton.textContent = t("prevPage");
   document.getElementById("revGrid").innerHTML = order.map(id => {
     const it = INTENTS.find(i => i.id === id);
     const meta = intentMeta[id] || {};
@@ -1936,6 +2114,8 @@ function qualityMetadataPayload() {
     map_completion: mapCompletionPayload(),
     no_intent_selected: noIntentSelected,
     selected_intent_count: order.length,
+    unselected_intent_count: unselectedIntentIds().length,
+    unselected_reason_ids: hasUnselectedIntents() ? [...unselectedReasonIds] : [],
     user_agent: navigator.userAgent,
     pointer: {
       coarse: !!window.matchMedia?.("(pointer: coarse)").matches,
@@ -1962,6 +2142,37 @@ function interactionContextsPayload() {
   }));
 }
 
+function unselectedIntentReasonsPayload() {
+  const ids = unselectedIntentIds();
+  if (!ids.length) {
+    return {
+      required: false,
+      unselected_intent_count: 0,
+      unselected_intents: [],
+      reason_ids: [],
+      reason_labels_zh: [],
+      reason_labels_en: [],
+      other: null
+    };
+  }
+  return {
+    required: true,
+    unselected_intent_count: ids.length,
+    unselected_intents: ids.map(intentId => {
+      const intent = INTENTS.find(item => item.id === intentId);
+      return {
+        id: intentId,
+        zh: intent?.zh || intentId,
+        en: intent?.en || intentId
+      };
+    }),
+    reason_ids: [...unselectedReasonIds],
+    reason_labels_zh: unselectedReasonIds.map(id => unselectedReasonLabel(id, "zh")).filter(Boolean),
+    reason_labels_en: unselectedReasonIds.map(id => unselectedReasonLabel(id, "en")).filter(Boolean),
+    other: unselectedReasonIds.includes("other") ? (unselectedReasonOther.trim() || null) : null
+  };
+}
+
 function regionsPayload() {
   return ALL_REGIONS.map(r => ({
     id: r.id,
@@ -1979,7 +2190,7 @@ function buildSurveyPayload() {
   return {
     participant_id: getParticipantId(),
     timestamp: new Date().toISOString(),
-    study_version: "3.29",
+    study_version: "3.31",
     consent_version: "2026-06-01",
     consent_given: document.getElementById("consentBox")?.checked || false,
     language: lang,
@@ -1999,6 +2210,7 @@ function buildSurveyPayload() {
       intentIdVersion: "presence replaces legacy inclusion id",
       intentCount: INTENTS.length,
       selectedIntentCount: order.length,
+      unselectedIntentReasons: unselectedIntentReasonsPayload(),
       intentMeta: intentMetaPayload(),
       relationshipScale: relationshipScalePayload(),
       interactionContexts: interactionContextsPayload(),
@@ -2010,7 +2222,7 @@ function buildSurveyPayload() {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
       viewport: { width: window.innerWidth, height: window.innerHeight },
       quality: qualityMetadata,
-      source: "bodymap_questionnaire_v36_context_definition_text_revision"
+      source: "bodymap_questionnaire_v38_unselected_reasons_after_maps"
     }
   };
 }
@@ -2062,7 +2274,7 @@ async function submitFollowupContact() {
     .from("followup_contacts")
     .insert({
       participant_id: getParticipantId(),
-      study_version: "3.29",
+      study_version: "3.31",
       language: lang,
       contact,
       metadata: {
